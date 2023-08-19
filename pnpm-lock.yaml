@@ -23,8 +23,8 @@ devDependencies:
     specifier: ^0.118.0
     version: 0.118.0(eslint@8.40.0)(prettier@3.0.0)(typescript@5.0.4)(vite@4.3.5)(vitest@0.34.0)
   '@so1ve/prettier-config':
-    specifier: ^0.118.0
-    version: 0.118.0(prettier@3.0.0)
+    specifier: ^0.119.0
+    version: 0.119.0(prettier@3.0.0)
   '@types/node':
     specifier: ^18.16.6
     version: 18.16.6
@@ -1133,8 +1133,28 @@ packages:
       prettier-plugin-pkgsort: 0.2.1(prettier@3.0.0)
     dev: true
 
+  /@so1ve/prettier-config@0.119.0(prettier@3.0.0):
+    resolution: {integrity: sha512-a7KELikgeropA1XFUQicYxC/czLDUCRtbgrTmXtlfAZM16w2QS524Mr7fuI6rQzROyG/+JJZ4b/m+OXQpWCn4Q==}
+    peerDependencies:
+      prettier: ^3.0.0
+    dependencies:
+      '@so1ve/prettier-plugin-toml': 0.119.0(prettier@3.0.0)
+      prettier: 3.0.0
+      prettier-plugin-astro: 0.11.0
+      prettier-plugin-curly-and-jsdoc: 0.119.0(prettier@3.0.0)
+      prettier-plugin-pkgsort: 0.2.1(prettier@3.0.0)
+    dev: true
+
   /@so1ve/prettier-plugin-toml@0.118.0(prettier@3.0.0):
     resolution: {integrity: sha512-FCwVVPW7j9krDyXlYKU64BgZBInrzlkPKZuvw58/eWXE1Rx13nXY5aLHfn4Ny3eg8khKtUGhMDdzOvpA7jFIMg==}
+    peerDependencies:
+      prettier: ^3.0.0
+    dependencies:
+      prettier: 3.0.0
+    dev: true
+
+  /@so1ve/prettier-plugin-toml@0.119.0(prettier@3.0.0):
+    resolution: {integrity: sha512-kXr8fhDTEDeRvrE2mrPWQKVDGstrb9sIY4FSkOwy47hCIuvlfprMFgcsG7NyvzVsTWLan0kczYzABFyWxs3LHw==}
     peerDependencies:
       prettier: ^3.0.0
     dependencies:
@@ -4370,6 +4390,14 @@ packages:
 
   /prettier-plugin-curly-and-jsdoc@0.118.0(prettier@3.0.0):
     resolution: {integrity: sha512-t3U6VA68M9mmP3QSmz1dlYy2O+vTbeRH53I+WJuYe1ktgjdT6njNlCt8xn/wAZSHP33nSlvEuvQA09Zwvx/VHg==}
+    peerDependencies:
+      prettier: ^3.0.0
+    dependencies:
+      prettier: 3.0.0
+    dev: true
+
+  /prettier-plugin-curly-and-jsdoc@0.119.0(prettier@3.0.0):
+    resolution: {integrity: sha512-3m6TNjq+qfXQQeg4fuI/H+nu0EGNWanYjqg7ktsUYB0xs/qePmpwYlUInhRTXXxgTZ5jKUYsGEONhJBkLLnj3g==}
     peerDependencies:
       prettier: ^3.0.0
     dependencies:
