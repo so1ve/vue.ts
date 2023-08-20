@@ -1,13 +1,13 @@
-# pkg-name
+# unplugin-vue-complex-types
 
-[![NPM version](https://img.shields.io/npm/v/pkg-name?color=a1b858&label=)](https://www.npmjs.com/package/pkg-name)
+[![NPM version](https://img.shields.io/npm/v/unplugin-vue-complex-types?color=a1b858&label=)](https://www.npmjs.com/package/unplugin-vue-complex-types)
 
 ## 📦 Installation
 
 ```bash
-$ npm install -D pkg-name
-$ yarn add -D pkg-name
-$ pnpm add -D pkg-name
+$ npm install -D unplugin-vue-complex-types
+$ yarn add -D unplugin-vue-complex-types
+$ pnpm add -D unplugin-vue-complex-types
 ```
 
 ## 🚀 Usage
@@ -17,11 +17,11 @@ $ pnpm add -D pkg-name
 
 ```ts
 // vite.config.ts
-import PkgName from "pkg-name/vite";
+import VueComplexTypes from "unplugin-vue-complex-types/vite";
 
 export default defineConfig({
 	plugins: [
-		PkgName({
+		VueComplexTypes({
 			/* options */
 		}),
 	],
@@ -35,11 +35,11 @@ export default defineConfig({
 
 ```ts
 // rollup.config.js
-import PkgName from "pkg-name/rollup";
+import VueComplexTypes from "unplugin-vue-complex-types/rollup";
 
 export default {
 	plugins: [
-		PkgName({
+		VueComplexTypes({
 			/* options */
 		}),
 		// other plugins
@@ -57,7 +57,7 @@ export default {
 module.exports = {
 	/* ... */
 	plugins: [
-		require("pkg-name/webpack")({
+		require("unplugin-vue-complex-types/webpack")({
 			/* options */
 		}),
 	],
@@ -72,7 +72,7 @@ module.exports = {
 ```ts
 // nuxt.config.ts
 export default defineNuxtConfig({
-	modules: ["pkg-name/nuxt"],
+	modules: ["unplugin-vue-complex-types/nuxt"],
 });
 ```
 
@@ -86,7 +86,7 @@ export default defineNuxtConfig({
 module.exports = {
 	configureWebpack: {
 		plugins: [
-			require("pkg-name/webpack")({
+			require("unplugin-vue-complex-types/webpack")({
 				/* options */
 			}),
 		],
@@ -104,7 +104,7 @@ module.exports = {
 module.exports = {
 	vitePlugins: [
 		[
-			"pkg-name/vite",
+			"unplugin-vue-complex-types/vite",
 			{
 				/* options */
 			},
@@ -115,13 +115,13 @@ module.exports = {
 
 ```ts
 // quasar.conf.js [Webpack]
-const PkgNamePlugin = require("pkg-name/webpack");
+const VueComplexTypesPlugin = require("unplugin-vue-complex-types/webpack");
 
 module.exports = {
 	build: {
 		chainWebpack(chain) {
-			chain.plugin("pkg-name").use(
-				PkgNamePlugin({
+			chain.plugin("unplugin-vue-complex-types").use(
+				VueComplexTypesPlugin({
 					/* options */
 				}),
 			);
@@ -142,7 +142,7 @@ import { build } from "esbuild";
 build({
 	/* ... */
 	plugins: [
-		require("pkg-name/esbuild")({
+		require("unplugin-vue-complex-types/esbuild")({
 			/* options */
 		}),
 	],
@@ -156,11 +156,11 @@ build({
 
 ```ts
 // astro.config.mjs
-import PkgName from "pkg-name/astro";
+import VueComplexTypes from "unplugin-vue-complex-types/astro";
 
 export default defineConfig({
 	integrations: [
-		PkgName({
+		VueComplexTypes({
 			/* options */
 		}),
 	],

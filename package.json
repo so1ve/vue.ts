@@ -1,5 +1,5 @@
 {
-	"name": "pkg-name",
+	"name": "unplugin-vue-complex-types",
 	"version": "0.0.0",
 	"packageManager": "pnpm@8.6.12",
 	"author": "Ray <i@mk1.io> (@so1ve)",
@@ -13,13 +13,13 @@
 		"vite",
 		"webpack"
 	],
-	"homepage": "https://github.com/so1ve/pkg-name#readme",
+	"homepage": "https://github.com/so1ve/unplugin-vue-complex-types#readme",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/so1ve/pkg-name.git"
+		"url": "git+https://github.com/so1ve/unplugin-vue-complex-types.git"
 	},
 	"bugs": {
-		"url": "https://github.com/so1ve/pkg-name/issues"
+		"url": "https://github.com/so1ve/unplugin-vue-complex-types/issues"
 	},
 	"license": "MIT",
 	"sideEffects": false,
