@@ -66,7 +66,7 @@ export function findDefinePropsCall(node: ts.Node) {
 		if (
 			ts.isCallExpression(node) &&
 			node.expression.getText() === "defineProps" &&
-			node.typeArguments
+			node.typeArguments?.length
 		) {
 			definePropsCall = node;
 		}
