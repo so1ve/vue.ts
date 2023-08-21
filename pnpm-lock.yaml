@@ -1568,7 +1568,7 @@ packages:
       '@vue/shared': 3.3.4
       estree-walker: 2.0.2
       magic-string: 0.30.2
-      postcss: 8.4.27
+      postcss: 8.4.28
       source-map-js: 1.0.2
     dev: false
 
