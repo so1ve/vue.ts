@@ -1,6 +1,6 @@
 import MagicString from "magic-string";
 import type { TransformResult } from "unplugin";
-import { parse as parseSfc } from "vue/compiler-sfc";
+import { parse } from "vue/compiler-sfc";
 
 import {
 	findDefinePropsCall,
@@ -40,7 +40,7 @@ function transformSetupCode(
 
 export function transform(code: string, id: string): TransformResult {
 	const s = new MagicString(code);
-	const parsed = parseSfc(code);
+	const parsed = parse(code);
 	if (
 		!parsed.descriptor.scriptSetup ||
 		parsed.descriptor.scriptSetup.lang !== "ts"
