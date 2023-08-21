@@ -10,6 +10,12 @@ $ yarn add -D unplugin-vue-complex-types
 $ pnpm add -D unplugin-vue-complex-types
 ```
 
+## TODOs
+
+- [ ] Improve performance (use cache and reuse typescript programs) - Very poor performance right now!
+- [ ] Add more tests
+- [ ] Allow receive a tsconfig
+
 ## 🚀 Usage
 
 <details>
