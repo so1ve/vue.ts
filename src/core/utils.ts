@@ -50,8 +50,18 @@ export function printVueAcceptableTypeLiteralFromSymbols(
 		for (const decl of symbol.getDeclarations() ?? []) {
 			if (ts.isPropertySignature(decl)) {
 				const type = typeChecker.getTypeAtLocation(decl);
-				const typeString = typeChecker.typeToString(type);
-				push(`${decl.name.getText()}: ${toVueAcceptableType(typeString)};`);
+				const typeString = typeChecker.typeToString(
+					typeChecker.getBaseTypeOfLiteralType(type),
+				);
+				let questionMark = "";
+				if (decl.questionToken) {
+					questionMark = "?";
+				}
+				push(
+					`${decl.name.getText()}${questionMark}: ${toVueAcceptableType(
+						typeString,
+					)};`,
+				);
 			}
 		}
 	}
