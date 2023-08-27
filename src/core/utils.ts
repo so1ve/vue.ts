@@ -53,11 +53,8 @@ export function printVueAcceptableTypeLiteralFromSymbols(
 				const typeString = typeChecker.typeToString(
 					typeChecker.getBaseTypeOfLiteralType(type),
 				);
-				let questionMark = "";
-				if (decl.questionToken) {
-					questionMark = "?";
-				}
-				push(
+				let questionMark =decl.questionToken?'?': "";
+					push(
 					`${decl.name.getText()}${questionMark}: ${toVueAcceptableType(
 						typeString,
 					)};`,
