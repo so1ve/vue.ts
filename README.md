@@ -2,6 +2,9 @@
 
 [![NPM version](https://img.shields.io/npm/v/unplugin-vue-complex-types?color=a1b858&label=)](https://www.npmjs.com/package/unplugin-vue-complex-types)
 
+> [!WARNING] 
+> This unplugin has a huge performance issue, and may not work in most scenarios. I'm working on a new version which uses [`vuejs/language-tools`](https://github.com/vuejs/language-tools) to resolve the types.
+
 ## 📦 Installation
 
 ```bash
