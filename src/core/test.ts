@@ -1,7 +1,9 @@
-import type * as ts from "typescript/lib/tsserverlibrary";
-import * as vue from "@vue/language-core";
 import * as volarTs from "@volar/typescript";
+import * as vue from "@vue/language-core";
+import type * as ts from "typescript/lib/tsserverlibrary";
+
 import { state } from "./shared";
+
 export type Hook = (program: _Program) => void;
 
 export type _Program = ts.Program & { __vue: ProgramContext };
@@ -44,7 +46,11 @@ export function createProgram(options: ts.CreateProgramOptions) {
 	if (state.hook) {
 		program = state.hook.program;
 		program.__vue.options = options;
-	} else if (!program) {
+	} else if (program) {
+		const ctx: ProgramContext = program.__vue;
+		ctx.options = options;
+		ctx.projectVersion++;
+	} else {
 		const ctx: ProgramContext = {
 			projectVersion: 0,
 			options,
@@ -78,13 +84,9 @@ export function createProgram(options: ts.CreateProgramOptions) {
 				.host!.getCurrentDirectory()
 				.replace(windowsPathReg, "/"),
 			getCompilationSettings: () => ctx.options.options,
-			getScriptFileNames: () => {
-				return ctx.options.rootNames as string[];
-			},
+			getScriptFileNames: () => (ctx.options.rootNames as string[]),
 			getScriptSnapshot,
-			getProjectVersion: () => {
-				return ctx.projectVersion.toString();
-			},
+			getProjectVersion: () => (ctx.projectVersion.toString()),
 			getProjectReferences: () => ctx.options.projectReferences,
 			getCancellationToken: ctx.options.host!.getCancellationToken
 				? () => ctx.options.host!.getCancellationToken!()
@@ -133,11 +135,10 @@ export function createProgram(options: ts.CreateProgramOptions) {
 				return vue.createParsedCommandLine(ts as any, ts.sys, tsConfig)
 					.vueOptions;
 			}
+
 			return {};
 		}
-		function getScriptSnapshot(fileName: string) {
-			return getScript(fileName)?.scriptSnapshot;
-		}
+		const getScriptSnapshot = (fileName: string) => (getScript(fileName)?.scriptSnapshot);
 		function getScript(fileName: string) {
 			const script = scripts.get(fileName);
 			if (script?.projectVersion === ctx.projectVersion) {
@@ -159,14 +160,11 @@ export function createProgram(options: ts.CreateProgramOptions) {
 						version: ctx.options.host!.createHash?.(fileContent) ?? fileContent,
 					};
 					scripts.set(fileName, script);
+
 					return script;
 				}
 			}
 		}
-	} else {
-		const ctx: ProgramContext = program.__vue;
-		ctx.options = options;
-		ctx.projectVersion++;
 	}
 
 	const vueCompilerOptions = program.__vue.vueCompilerOptions;
@@ -194,5 +192,6 @@ export function createProgram(options: ts.CreateProgramOptions) {
 
 function toThrow(msg: string) {
 	console.error(msg);
+
 	return msg;
 }

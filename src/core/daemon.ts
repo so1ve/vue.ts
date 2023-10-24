@@ -1,13 +1,14 @@
-export type TransformDaemon = {};
+export interface TransformDaemon {}
 
 export function ensureDaemon() {
 	if (!(globalThis as any).__UNPLUGIN_VUE_COMPLEX_DAEMON__) {
-		//TODO
+		// TODO
 		(globalThis as any).__UNPLUGIN_VUE_COMPLEX_DAEMON__ = {};
 	}
 }
 
 export function getDaemon() {
 	ensureDaemon();
+
 	return (globalThis as any).__UNPLUGIN_VUE_COMPLEX_DAEMON__;
 }
