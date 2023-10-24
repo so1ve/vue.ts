@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"target": "ES2018",
+		"lib": ["ESNext"],
+		"module": "ESNext",
+		"moduleResolution": "Node",
+		"resolveJsonModule": true,
+		"types": ["vite/client"],
+		"strict": true,
+		"strictNullChecks": true,
+		"esModuleInterop": true,
+		"skipDefaultLibCheck": true,
+		"skipLibCheck": true
+	}
+}
