@@ -5,6 +5,7 @@ import type { Options } from "./types";
 
 export default createUnplugin<Options | undefined>((_options) => ({
 	name: "unplugin-vue-complex-types",
+	buildStart() {},
 	transform(code, id) {
 		if (!id.endsWith(".vue")) {
 			return;
