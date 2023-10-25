@@ -117,8 +117,9 @@ function baseCreateLanguageWorker(
 
 	function findDefinePropsTypeArg(
 		id: string,
-	): undefined | { type: ts.Type; offset: number } {
-		const sourceFile = core.virtualFiles.getSource(normalizePath(id))?.root;
+	): { type: ts.Type; offset: number } | undefined {
+		id = normalizePath(id);
+		const sourceFile = core.virtualFiles.getSource(id)?.root;
 		if (!(sourceFile instanceof vue.VueFile)) {
 			return;
 		}
