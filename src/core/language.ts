@@ -183,17 +183,17 @@ function baseCreateLanguageWorker(
 	};
 }
 
+const LANGUAGE_GLOBAL_KEY = "__UNPLUGIN_VUE_COMPLEX_LANGUAGE__";
 export function ensureLanguage(tsconfigPath: string) {
-	if (!(globalThis as any).__UNPLUGIN_VUE_COMPLEX_LANGUAGE__) {
-		(globalThis as any).__UNPLUGIN_VUE_COMPLEX_LANGUAGE__ =
-			createLanguage(tsconfigPath);
+	if (!(globalThis as any)[LANGUAGE_GLOBAL_KEY]) {
+		(globalThis as any)[LANGUAGE_GLOBAL_KEY] = createLanguage(tsconfigPath);
 	}
 }
 
 export function getLanguage(): Language {
-	if (!(globalThis as any).__UNPLUGIN_VUE_COMPLEX_LANGUAGE__) {
+	if (!(globalThis as any)[LANGUAGE_GLOBAL_KEY]) {
 		throw new Error("[unplugin-vue-complex-types] Language not created!");
 	}
 
-	return (globalThis as any).__UNPLUGIN_VUE_COMPLEX_LANGUAGE__;
+	return (globalThis as any)[LANGUAGE_GLOBAL_KEY];
 }
