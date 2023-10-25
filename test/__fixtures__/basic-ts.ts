@@ -1,7 +1,7 @@
-export interface A {
-	foo: B;
-	bar: C;
-	baz: D;
+export interface SomeInterface {
+	emptyInterface: B;
+	conditionalNumber: C;
+	interface: D;
 }
 
 interface B {}
