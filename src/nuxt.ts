@@ -15,7 +15,9 @@ export default defineNuxtModule<Options>({
 			bridge: true,
 		},
 	},
-	defaults: {},
+	defaults: {
+		tsconfigPath: "tsconfig.json",
+	},
 	setup(options) {
 		addVitePlugin(VitePlugin(options));
 		addWebpackPlugin(WebpackPlugin(options));
