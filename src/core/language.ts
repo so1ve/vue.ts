@@ -116,18 +116,26 @@ function baseCreateLanguageWorker(
 	const typeChecker = program.getTypeChecker();
 
 	function findDefinePropsTypeArg(
-		id: string,
-	): { type: ts.Type; offset: number } | undefined {
-		id = normalizePath(id);
-		const sourceFile = core.virtualFiles.getSource(id)?.root;
+		path: string,
+	): { type: ts.Type; range: [number, number] } | undefined {
+		path = normalizePath(path);
+		const sourceFile = core.virtualFiles.getSource(path)?.root;
 		if (!(sourceFile instanceof vue.VueFile)) {
 			return;
 		}
 		if (!sourceFile.sfc.scriptSetup) {
 			return;
 		}
-		const { ast: scriptSetupAst, startTagEnd } = sourceFile.sfc.scriptSetup;
-		if (!scriptSetupAst) {
+		const {
+			ast: scriptSetupAst,
+			startTagEnd,
+			lang,
+		} = sourceFile.sfc.scriptSetup;
+		if (lang !== "ts" && lang !== "tsx") {
+			return;
+		}
+		const virtualFile = program.getSourceFile(`${path}.${lang}`);
+		if (!virtualFile) {
 			return;
 		}
 		const scriptSetupRanges = vue.parseScriptSetupRanges(
@@ -135,24 +143,34 @@ function baseCreateLanguageWorker(
 			scriptSetupAst,
 			vueCompilerOptions,
 		);
-		const definePropsTypeRange = scriptSetupRanges.props.define?.typeArg;
+		const virtualFileScriptSetupRanges = vue.parseScriptSetupRanges(
+			ts,
+			virtualFile,
+			vueCompilerOptions,
+		);
+		const definePropsTypeRange =
+			virtualFileScriptSetupRanges.props.define?.typeArg;
 		if (!definePropsTypeRange) {
 			return;
 		}
 		let definePropsType!: ts.Type;
-		function traverse(node: ts.Node) {
+		virtualFile.forEachChild(function traverse(node: ts.Node) {
 			if (
-				node.getStart(scriptSetupAst) === definePropsTypeRange!.start &&
-				node.getEnd() === definePropsTypeRange!.end
+				node.getStart(virtualFile) === definePropsTypeRange.start &&
+				node.getEnd() === definePropsTypeRange.end
 			) {
-				// definePropsType = typeChecker.getTypeAtLocation(node);
+				definePropsType = typeChecker.getTypeAtLocation(node);
 			} else {
 				node.forEachChild(traverse);
 			}
-		}
-		scriptSetupAst.forEachChild(traverse);
+		});
 
-		return { type: definePropsType, offset: startTagEnd };
+		const range = [
+			startTagEnd + scriptSetupRanges.props.define!.typeArg!.start,
+			startTagEnd + scriptSetupRanges.props.define!.typeArg!.end,
+		] as [number, number];
+
+		return { type: definePropsType, range };
 	}
 
 	return {
