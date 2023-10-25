@@ -1,0 +1,28 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`fixtures > __fixtures__/a.vue 1`] = `
+"import { defineComponent } from 'vue';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+\\"use strict\\";
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"a\\",
+  props: {
+    msg: { type: String, required: true },
+    aaa: { type: String, required: false },
+    bbb: { type: String, required: true },
+    foo: { type: Object, required: true },
+    bar: { required: true },
+    baz: { type: Object, required: true }
+  },
+  setup(__props) {
+    return () => {
+    };
+  }
+});
+
+var a = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { a as default };
+"
+`;

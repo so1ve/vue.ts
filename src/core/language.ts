@@ -123,42 +123,36 @@ function baseCreateLanguageWorker(
 		if (!(sourceFile instanceof vue.VueFile)) {
 			return;
 		}
-		const scriptSetupAst = sourceFile.sfc.scriptSetup?.ast;
+		if (!sourceFile.sfc.scriptSetup) {
+			return;
+		}
+		const { ast: scriptSetupAst, startTagEnd } = sourceFile.sfc.scriptSetup;
 		if (!scriptSetupAst) {
 			return;
 		}
-		const snapshot = sourceFile.snapshot;
 		const scriptSetupRanges = vue.parseScriptSetupRanges(
 			ts,
 			scriptSetupAst,
 			vueCompilerOptions,
 		);
-		const definePropsRange = scriptSetupRanges.props.define;
-		if (!definePropsRange || !definePropsRange.typeArg) {
-			return;
-		}
-		const parsed = vue.parse(snapshot.getText(0, snapshot.getLength()));
-		if (!parsed.descriptor.scriptSetup) {
+		const definePropsTypeRange = scriptSetupRanges.props.define?.typeArg;
+		if (!definePropsTypeRange) {
 			return;
 		}
 		let definePropsType!: ts.Type;
-		ts.forEachChild(scriptSetupAst, (node) => {
+		function traverse(node: ts.Node) {
 			if (
-				node.getFullStart() + 2 === definePropsRange.start &&
-				node.getEnd() - 1 === definePropsRange.end &&
-				ts.isExpressionStatement(node) &&
-				ts.isCallExpression(node.expression)
+				node.getStart(scriptSetupAst) === definePropsTypeRange!.start &&
+				node.getEnd() === definePropsTypeRange!.end
 			) {
-				console.log(node.expression.typeArguments![0]);
-				definePropsType = typeChecker.getTypeAtLocation(
-					node.expression.typeArguments![0],
-				);
+				// definePropsType = typeChecker.getTypeAtLocation(node);
+			} else {
+				node.forEachChild(traverse);
 			}
-		});
-		const scriptSetupOffset: number =
-			parsed.descriptor.scriptSetup.loc.start.offset;
+		}
+		scriptSetupAst.forEachChild(traverse);
 
-		return { type: definePropsType, offset: scriptSetupOffset };
+		return { type: definePropsType, offset: startTagEnd };
 	}
 
 	return {

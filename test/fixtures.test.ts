@@ -6,7 +6,6 @@ import {
 	RollupJson,
 	RollupNodeResolve,
 	RollupVue,
-	RollupVueJsx,
 	rollupBuild,
 	testFixtures,
 } from "@vue-macros/test-utils";
@@ -24,7 +23,6 @@ describe("fixtures", async () => {
 				}),
 				VueBetterDefine(),
 				RollupVue(),
-				RollupVueJsx(),
 				RollupJson(),
 				RollupNodeResolve(),
 				RollupEsbuildPlugin({
