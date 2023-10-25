@@ -59,3 +59,25 @@ var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 export { basic as default };
 "
 `;
+
+exports[`fixtures > __fixtures__/import-from-vue.vue 1`] = `
+"import { defineComponent } from 'vue';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+\\"use strict\\";
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"import-from-vue\\",
+  props: {
+    foo: { type: String, required: true }
+  },
+  setup(__props) {
+    return () => {
+    };
+  }
+});
+
+var importFromVue = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { importFromVue as default };
+"
+`;
