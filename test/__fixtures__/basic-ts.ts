@@ -1,11 +1,12 @@
 export interface SomeInterface {
-	emptyInterface: B;
-	conditionalNumber: C;
-	interface: D;
+	emptyInterface: EmptyInterface;
+	conditionalNumber: ConditionalNumber;
+	interface: Interface;
 }
 
-interface B {}
-type C = number extends boolean ? string : number;
-interface D {
+interface EmptyInterface {}
+type ConditionalNumber = number extends boolean ? string : number;
+interface Interface {
 	aaa: 1;
 }
+interface InterfaceExtends extends Interface {}

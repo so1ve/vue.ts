@@ -117,7 +117,7 @@ function baseCreateLanguageWorker(
 
 	function findDefinePropsTypeArg(
 		path: string,
-	): { type: ts.Type; range: [number, number] } | undefined {
+	): { node: ts.Node; type: ts.Type; range: [number, number] } | undefined {
 		path = normalizePath(path);
 		const sourceFile = core.virtualFiles.getSource(path)?.root;
 		if (!(sourceFile instanceof vue.VueFile)) {
@@ -134,8 +134,11 @@ function baseCreateLanguageWorker(
 		if (lang !== "ts" && lang !== "tsx") {
 			return;
 		}
-		const virtualFile = program.getSourceFile(`${path}.${lang}`);
-		if (!virtualFile) {
+		// We get volar's generated virtual ts file because `scriptSetupAst`
+		// is the ast of `<script setup>` block, which is not in the program
+		// and cannot be used by type checker.
+		const virtualTsFile = program.getSourceFile(`${path}.${lang}`);
+		if (!virtualTsFile) {
 			return;
 		}
 		const scriptSetupRanges = vue.parseScriptSetupRanges(
@@ -143,22 +146,26 @@ function baseCreateLanguageWorker(
 			scriptSetupAst,
 			vueCompilerOptions,
 		);
-		const virtualFileScriptSetupRanges = vue.parseScriptSetupRanges(
+		const virtualTsFileScriptSetupRanges = vue.parseScriptSetupRanges(
 			ts,
-			virtualFile,
+			virtualTsFile,
 			vueCompilerOptions,
 		);
-		const definePropsTypeRange =
-			virtualFileScriptSetupRanges.props.define?.typeArg;
-		if (!definePropsTypeRange) {
+		const definePropsTypeRange = scriptSetupRanges.props.define!.typeArg!;
+		const virtualTsFileDefinePropsTypeRange =
+			virtualTsFileScriptSetupRanges.props.define?.typeArg;
+		if (!virtualTsFileDefinePropsTypeRange) {
 			return;
 		}
+		let definePropsNode!: ts.Node;
 		let definePropsType!: ts.Type;
-		virtualFile.forEachChild(function traverse(node: ts.Node) {
+		virtualTsFile.forEachChild(function traverse(node: ts.Node) {
 			if (
-				node.getStart(virtualFile) === definePropsTypeRange.start &&
-				node.getEnd() === definePropsTypeRange.end
+				node.getStart(virtualTsFile) ===
+					virtualTsFileDefinePropsTypeRange.start &&
+				node.getEnd() === virtualTsFileDefinePropsTypeRange.end
 			) {
+				definePropsNode = node;
 				definePropsType = typeChecker.getTypeAtLocation(node);
 			} else {
 				node.forEachChild(traverse);
@@ -166,11 +173,11 @@ function baseCreateLanguageWorker(
 		});
 
 		const range = [
-			startTagEnd + scriptSetupRanges.props.define!.typeArg!.start,
-			startTagEnd + scriptSetupRanges.props.define!.typeArg!.end,
+			startTagEnd + definePropsTypeRange.start,
+			startTagEnd + definePropsTypeRange.end,
 		] as [number, number];
 
-		return { type: definePropsType, range };
+		return { node: definePropsNode, type: definePropsType, range };
 	}
 
 	return {

@@ -1,34 +1,24 @@
+import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
-import VueBetterDefine from "@vue-macros/better-define/rollup";
-import {
-	RollupEsbuildPlugin,
-	RollupJson,
-	RollupNodeResolve,
-	RollupVue,
-	rollupBuild,
-	testFixtures,
-} from "@vue-macros/test-utils";
-import { describe } from "vitest";
+import { testFixtures } from "@vue-macros/test-utils";
+import { beforeAll, describe } from "vitest";
 
-import VueComplexTypes from "../src/rollup";
+import { ensureLanguage } from "../src";
+import { transform } from "../src/core/transform";
+
+beforeAll(() => {
+	ensureLanguage(join(__dirname, "__fixtures__", "tsconfig.json"));
+});
 
 describe("fixtures", async () => {
 	await testFixtures(
 		["__fixtures__/*.vue", "!__fixtures__/*.exclude.vue"],
-		(_args, id) =>
-			rollupBuild(id, [
-				VueComplexTypes({
-					tsconfigPath: join(__dirname, "__fixtures__", "tsconfig.json"),
-				}),
-				VueBetterDefine(),
-				RollupVue(),
-				RollupJson(),
-				RollupNodeResolve(),
-				RollupEsbuildPlugin({
-					target: "esnext",
-				}),
-			]),
+		async (_args, id) => {
+			const text = await readFile(id, { encoding: "utf-8" });
+
+			return (transform(text, id) as any).code;
+		},
 		{
 			cwd: __dirname,
 			promise: true,

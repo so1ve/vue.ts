@@ -1,83 +1,21 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`fixtures > __fixtures__/a.vue 1`] = `
-"import { defineComponent } from 'vue';
-import _export_sfc from '[NULL]/plugin-vue/export-helper';
-
-\\"use strict\\";
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"a\\",
-  props: {
-    1: { required: true },
-    2: { required: true },
-    msg: { type: String, required: true },
-    aaa: { type: String, required: false },
-    bbb: { type: String, required: true },
-    aa: { required: true },
-    foo: { type: Object, required: true },
-    bar: { required: true },
-    baz: { type: Object, required: true }
-  },
-  setup(__props) {
-    return () => {
-    };
-  }
-});
-
-var a = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
-
-export { a as default };
-"
-`;
-
 exports[`fixtures > __fixtures__/basic.vue 1`] = `
-"import { defineComponent } from 'vue';
-import _export_sfc from '[NULL]/plugin-vue/export-helper';
+"<script setup lang=\\"ts\\" generic=\\"T extends string\\">
+import type { SomeInterface } from \\"./basic-ts\\";
 
-\\"use strict\\";
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"basic\\",
-  props: {
-    1: { required: true },
-    2: { required: true },
-    string: { type: String, required: true },
-    optionalString: { type: String, required: false },
-    stringUnion: { type: String, required: true },
-    genericExtendsString: { required: true },
-    emptyInterface: { type: Object, required: true },
-    conditionalNumber: { required: true },
-    interface: { type: Object, required: true }
-  },
-  setup(__props) {
-    return () => {
-    };
-  }
-});
-
-var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
-
-export { basic as default };
+defineProps<
+	 &  & 
+>();
+</script>
 "
 `;
 
 exports[`fixtures > __fixtures__/import-from-vue.vue 1`] = `
-"import { defineComponent } from 'vue';
-import _export_sfc from '[NULL]/plugin-vue/export-helper';
+"<script setup lang=\\"ts\\" generic=\\"T extends string\\">
+import type { Foo } from \\"./import-from-vue-vue.exclude.vue\\";
 
-\\"use strict\\";
-var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"import-from-vue\\",
-  props: {
-    foo: { type: String, required: true }
-  },
-  setup(__props) {
-    return () => {
-    };
-  }
-});
-
-var importFromVue = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
-
-export { importFromVue as default };
+defineProps<>();
+</script>
 "
 `;

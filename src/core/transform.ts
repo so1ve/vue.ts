@@ -2,18 +2,28 @@ import MagicString from "magic-string";
 import type { TransformResult } from "unplugin";
 
 import { getLanguage } from "./language";
+import { Printer } from "./printer";
 
 export function transform(code: string, id: string): TransformResult {
 	const language = getLanguage();
 	const s = new MagicString(code);
 	const typeChecker = language.__internal__.typeChecker;
-	const propsTypeArg = language.findDefinePropsTypeArg(id);
+	const printer = new Printer(typeChecker);
+	const definePropsTypeArg = language.findDefinePropsTypeArg(id);
 
-	if (!propsTypeArg) {
+	if (!definePropsTypeArg) {
 		return;
 	}
 
-	const { type: propType, range: propTypeRange } = propsTypeArg;
+	const {
+		node: typeArgNode,
+		type: typeArgType,
+		range: typeRange,
+	} = definePropsTypeArg;
+
+	const printedType = printer.print(typeArgNode);
+
+	s.overwrite(...typeRange, printedType);
 
 	return {
 		code: s.toString(),

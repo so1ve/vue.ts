@@ -4,6 +4,8 @@ import { ensureLanguage } from "./language";
 import { transform } from "./transform";
 import type { Options } from "./types";
 
+export { ensureLanguage, getLanguage } from "./language";
+
 export default createUnplugin<Options>((options) => ({
 	name: "unplugin-vue-complex-types",
 	buildStart() {
