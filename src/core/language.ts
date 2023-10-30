@@ -115,11 +115,12 @@ function baseCreateLanguageWorker(
 	const program = tsLs.getProgram()!;
 	const typeChecker = program.getTypeChecker();
 
-	function findDefinePropsTypeArg(
-		path: string,
-	): { node: ts.Node; type: ts.Type; range: [number, number] } | undefined {
-		path = normalizePath(path);
-		const sourceFile = core.virtualFiles.getSource(path)?.root;
+	function findScriptRangesNode(
+		filepath: string,
+		filter: (ranges: vue.ScriptSetupRanges) => vue.TextRange | undefined,
+	): { node: ts.Node; type: ts.Type; range: vue.TextRange } | undefined {
+		filepath = normalizePath(filepath);
+		const sourceFile = core.virtualFiles.getSource(filepath)?.root;
 		if (!(sourceFile instanceof vue.VueFile)) {
 			return;
 		}
@@ -137,7 +138,7 @@ function baseCreateLanguageWorker(
 		// We get volar's generated virtual ts file because `scriptSetupAst`
 		// is the ast of `<script setup>` block, which is not in the program
 		// and cannot be used by type checker.
-		const virtualTsFile = program.getSourceFile(`${path}.${lang}`);
+		const virtualTsFile = program.getSourceFile(`${filepath}.${lang}`);
 		if (!virtualTsFile) {
 			return;
 		}
@@ -151,37 +152,35 @@ function baseCreateLanguageWorker(
 			virtualTsFile,
 			vueCompilerOptions,
 		);
-		const definePropsTypeRange = scriptSetupRanges.props.define!.typeArg!;
-		const virtualTsFileDefinePropsTypeRange =
-			virtualTsFileScriptSetupRanges.props.define?.typeArg;
-		if (!virtualTsFileDefinePropsTypeRange) {
+		const sourceRange = filter(scriptSetupRanges);
+		const virtualTsRange = filter(virtualTsFileScriptSetupRanges);
+		if (!sourceRange || !virtualTsRange) {
 			return;
 		}
-		let definePropsNode!: ts.Node;
-		let definePropsType!: ts.Type;
+		let foundNode!: ts.Node;
+		let foundType!: ts.Type;
 		virtualTsFile.forEachChild(function traverse(node: ts.Node) {
 			if (
-				node.getStart(virtualTsFile) ===
-					virtualTsFileDefinePropsTypeRange.start &&
-				node.getEnd() === virtualTsFileDefinePropsTypeRange.end
+				node.getStart(virtualTsFile) === virtualTsRange.start &&
+				node.getEnd() === virtualTsRange.end
 			) {
-				definePropsNode = node;
-				definePropsType = typeChecker.getTypeAtLocation(node);
+				foundNode = node;
+				foundType = typeChecker.getTypeAtLocation(node);
 			} else {
 				node.forEachChild(traverse);
 			}
 		});
 
-		const range = [
-			startTagEnd + definePropsTypeRange.start,
-			startTagEnd + definePropsTypeRange.end,
-		] as [number, number];
+		const range: vue.TextRange = {
+			start: startTagEnd + sourceRange.start,
+			end: startTagEnd + sourceRange.end,
+		};
 
-		return { node: definePropsNode, type: definePropsType, range };
+		return { node: foundNode, type: foundType, range };
 	}
 
 	return {
-		findDefinePropsTypeArg,
+		findScriptRangesNode,
 		__internal__: {
 			tsLs,
 			program,

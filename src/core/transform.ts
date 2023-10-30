@@ -9,7 +9,10 @@ export function transform(code: string, id: string): TransformResult {
 	const s = new MagicString(code);
 	const typeChecker = language.__internal__.typeChecker;
 	const printer = new Printer(typeChecker);
-	const definePropsTypeArg = language.findDefinePropsTypeArg(id);
+	const definePropsTypeArg = language.findScriptRangesNode(
+		id,
+		(scriptSetupRanges) => scriptSetupRanges.props.define?.typeArg,
+	);
 
 	if (!definePropsTypeArg) {
 		return;
@@ -23,7 +26,7 @@ export function transform(code: string, id: string): TransformResult {
 
 	const printedType = printer.print(typeArgNode);
 
-	s.overwrite(...typeRange, printedType);
+	s.overwrite(typeRange.start, typeRange.end, printedType);
 
 	return {
 		code: s.toString(),
