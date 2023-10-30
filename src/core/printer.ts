@@ -3,6 +3,8 @@ import * as ts from "typescript";
 export class Printer {
 	constructor(private typeChecker: ts.TypeChecker) {}
 
+	private depth = 0;
+
 	private printIntersectionTypeNode(node: ts.IntersectionTypeNode) {
 		return node.types.map(this.print.bind(this)).join(" & ");
 	}
@@ -15,7 +17,14 @@ export class Printer {
 		return "";
 	}
 
-	print(node: ts.Node): string {
+	public print(node: ts.Node): string {
+		this.depth++;
+
+		if (this.depth > 3) {
+			// TODO
+			return "";
+		}
+
 		if (ts.isIntersectionTypeNode(node)) {
 			return this.printIntersectionTypeNode(node);
 		} else if (ts.isUnionTypeNode(node)) {
