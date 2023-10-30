@@ -5,7 +5,14 @@ exports[`fixtures > __fixtures__/basic.vue 1`] = `
 import type { SomeInterface } from \\"./basic-ts\\";
 
 defineProps<
-	 &  & 
+	{
+string: /* <NotHandled> */ string /* </NotHandled> */;
+optionalString?: /* <NotHandled> */ string /* </NotHandled> */;
+stringUnion: /* <NotHandled> */ \\"a\\" /* </NotHandled> */ | /* <NotHandled> */ \\"b\\" /* </NotHandled> */;
+genericExtendsString: /* <NotHandled> */ T /* </NotHandled> */
+} & /* <NotHandled> */ SomeInterface /* </NotHandled> */ & /* <NotHandled> */ {
+			[MappedString in \\"1\\" | \\"2\\"]: MappedString;
+		} /* </NotHandled> */
 >();
 </script>
 "
@@ -15,7 +22,7 @@ exports[`fixtures > __fixtures__/import-from-vue.vue 1`] = `
 "<script setup lang=\\"ts\\" generic=\\"T extends string\\">
 import type { Foo } from \\"./import-from-vue-vue.exclude.vue\\";
 
-defineProps<>();
+defineProps</* <NotHandled> */ Foo /* </NotHandled> */>();
 </script>
 "
 `;
