@@ -8,7 +8,7 @@ defineProps<
 		stringUnion: "a" | "b";
 		genericExtendsString: T;
 	} & SomeInterface & {
-			[MappedString in "1" | "2"]: MappedString;
+			[MappedString in "1-1" | "2-1"]: `${MappedString}MappedType`;
 		}
 >();
 </script>

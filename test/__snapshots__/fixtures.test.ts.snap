@@ -10,9 +10,10 @@ string: /* <NotHandled> */ string /* </NotHandled> */;
 optionalString?: /* <NotHandled> */ string /* </NotHandled> */;
 stringUnion: /* <NotHandled> */ \\"a\\" /* </NotHandled> */ | /* <NotHandled> */ \\"b\\" /* </NotHandled> */;
 genericExtendsString: /* <NotHandled> */ T /* </NotHandled> */
-} & /* <NotHandled> */ SomeInterface /* </NotHandled> */ & /* <NotHandled> */ {
-			[MappedString in \\"1\\" | \\"2\\"]: MappedString;
-		} /* </NotHandled> */
+} & /* <NotHandled> */ SomeInterface /* </NotHandled> */ & {
+\\"1-1\\": 
+\\"2-1\\": 
+}
 >();
 </script>
 "

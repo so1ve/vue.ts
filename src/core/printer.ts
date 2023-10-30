@@ -1,7 +1,7 @@
 import * as ts from "typescript";
 
 export class Printer {
-	constructor(private typeChecker: ts.TypeChecker) {}
+	constructor(private checker: ts.TypeChecker) {}
 
 	private depth = 0;
 
@@ -33,11 +33,34 @@ export class Printer {
 	}
 
 	private printMappedTypeNode(node: ts.MappedTypeNode): string {
-		const type = this.typeChecker.getTypeAtLocation(node);
-		console.log(type.getProperties());
+		const type = this.checker.getTypeAtLocation(node);
+		const properties = type.getProperties();
+		const parts = ["{"];
 
-		return "";
+		for (const property of properties) {
+			const valueType = this.checker.getTypeOfSymbol(property);
+			// this.findNodeOfType(node, valueType);
+			// TODO
+			parts.push(`${this.checker.symbolToString(property)}: `);
+		}
+
+		parts.push("}");
+
+		return parts.join("\n");
 	}
+
+	// private findNodeOfType(parent: ts.Node, type: ts.Type): ts.Node {
+	// 	let found!: ts.Node;
+	// 	const typeChecker = this.checker;
+	// 	ts.forEachChild(parent, function visit(node) {
+	// 		if (typeChecker.getTypeAtLocation(node) === type) {
+	// 			found = node;
+	// 		}
+	// 		ts.forEachChild(node, visit);
+	// 	});
+
+	// 	return found;
+	// }
 
 	public print(node: ts.Node): string {
 		if (ts.isIntersectionTypeNode(node)) {
