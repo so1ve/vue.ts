@@ -91,13 +91,8 @@ function baseCreateLanguageWorker(
 	ts: typeof import("typescript/lib/tsserverlibrary"),
 ) {
 	const vueLanguages = ts
-		? [
-				vue.createVueLanguage(
-					ts,
-					host.getCompilationSettings(),
-					vueCompilerOptions,
-				),
-		  ]
+		? // eslint-disable-next-line etc/no-deprecated
+		  vue.createLanguages(host.getCompilationSettings(), vueCompilerOptions, ts)
 		: [];
 	const core = vue.createLanguageContext(host, vueLanguages);
 	const tsLsHost = createLanguageServiceHost(core, ts, ts.sys, undefined);
