@@ -111,6 +111,7 @@
 		"@so1ve/eslint-config": "1.0.0-alpha.16",
 		"@so1ve/prettier-config": "1.0.0-alpha.16",
 		"@types/node": "^18.16.6",
+		"@vue-macros/better-define": "^1.6.12",
 		"@vue-macros/test-utils": "^1.2.0",
 		"bumpp": "^9.1.0",
 		"eslint": "^8.40.0",
