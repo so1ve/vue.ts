@@ -67,7 +67,6 @@ function createLanguageWorker(
 		},
 		deleteFile(fileName: string) {
 			fileName = normalizePath(fileName);
-
 			fileNames = fileNames.filter((f) => f !== fileName);
 			projectVersion++;
 		},
