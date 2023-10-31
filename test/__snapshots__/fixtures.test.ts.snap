@@ -1,0 +1,43 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`fixtures > __fixtures__/basic.vue 1`] = `
+"<script
+	setup
+	lang=\\"ts\\"
+	generic=\\"T extends string, U extends (string | number)[], I\\"
+>
+import type { SomeInterface } from \\"./basic-ts\\";
+
+defineProps<
+	{
+string: string
+optionalString?: string
+stringUnion: \\"a\\" | \\"b\\"
+genericExtendsString: string
+array: string[]
+genericArray: (string | number)[]
+genericCondition: \\"a\\" | 1
+} & {
+emptyInterface: EmptyInterface
+conditionalNumber: number
+interface: Interface
+typeLiteral: TypeLiteral
+} & {
+\\"1-1\\": string
+\\"2-1\\": string
+}
+>();
+</script>
+"
+`;
+
+exports[`fixtures > __fixtures__/import-from-vue.vue 1`] = `
+"<script setup lang=\\"ts\\" generic=\\"T extends string\\">
+import type { Foo } from \\"./import-from-vue-vue.exclude.vue\\";
+
+defineProps<{
+foo: string
+}>();
+</script>
+"
+`;

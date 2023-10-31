@@ -1,1 +1,3 @@
-export interface Options {}
+export interface Options {
+	tsconfigPath: string;
+}

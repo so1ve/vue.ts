@@ -1,1 +1,1 @@
-export { default } from "./core";
+export { default, ensureLanguage, getLanguage } from "./core";
