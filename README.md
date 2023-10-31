@@ -28,7 +28,11 @@ $ pnpm add -D unplugin-vue-complex-types
 import VueComplexTypes from "unplugin-vue-complex-types/vite";
 
 export default defineConfig({
-	plugins: [VueComplexTypes({})],
+	plugins: [
+		VueComplexTypes({
+			/* Options */
+		}),
+	],
 });
 ```
 
@@ -44,7 +48,7 @@ import VueComplexTypes from "unplugin-vue-complex-types/rollup";
 export default {
 	plugins: [
 		VueComplexTypes({
-			tsconfigPath: "tsconfig.json", // Path to your tsconfig.json
+			/* Options */
 		}),
 		// other plugins
 	],
@@ -62,7 +66,7 @@ module.exports = {
 	/* ... */
 	plugins: [
 		require("unplugin-vue-complex-types/webpack")({
-			tsconfigPath: "tsconfig.json", // Path to your tsconfig.json
+			/* Options */
 		}),
 	],
 };
@@ -78,7 +82,7 @@ module.exports = {
 export default defineNuxtConfig({
 	modules: ["unplugin-vue-complex-types/nuxt"],
 	complexTypes: {
-		tsconfigPath: "tsconfig.json", // Path to your tsconfig.json
+		/* Options */
 	},
 });
 ```
@@ -94,7 +98,7 @@ module.exports = {
 	configureWebpack: {
 		plugins: [
 			require("unplugin-vue-complex-types/webpack")({
-				tsconfigPath: "tsconfig.json", // Path to your tsconfig.json
+				/* Options */
 			}),
 		],
 	},
@@ -113,7 +117,7 @@ module.exports = {
 		[
 			"unplugin-vue-complex-types/vite",
 			{
-				tsconfigPath: "tsconfig.json", // Path to your tsconfig.json
+				/* Options */
 			},
 		],
 	],
@@ -129,7 +133,7 @@ module.exports = {
 		chainWebpack(chain) {
 			chain.plugin("unplugin-vue-complex-types").use(
 				VueComplexTypesPlugin({
-					tsconfigPath: "tsconfig.json", // Path to your tsconfig.json
+					/* Options */
 				}),
 			);
 		},
@@ -150,7 +154,7 @@ build({
 	/* ... */
 	plugins: [
 		require("unplugin-vue-complex-types/esbuild")({
-			tsconfigPath: "tsconfig.json", // Path to your tsconfig.json
+			/* Options */
 		}),
 	],
 });
@@ -168,13 +172,20 @@ import VueComplexTypes from "unplugin-vue-complex-types/astro";
 export default defineConfig({
 	integrations: [
 		VueComplexTypes({
-			tsconfigPath: "tsconfig.json", // Path to your tsconfig.json
+			/* Options */
 		}),
 	],
 });
 ```
 
 <br></details>
+
+## 📚 Options
+
+### `tsconfigPath`
+
+- Type: `string`
+- Default: `path.join(process.cwd(), "tsconfig.json")`
 
 ## 📝 License
 

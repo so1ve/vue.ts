@@ -1,3 +1,3 @@
 export interface Options {
-	tsconfigPath: string;
+	tsconfigPath?: string;
 }
