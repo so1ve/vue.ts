@@ -18,6 +18,7 @@ array: string[]
 genericArray: (string | number)[]
 genericCondition: \\"a\\" | 1
 function: () => void
+error: Error
 } & {
 emptyInterface: EmptyInterface
 conditionalNumber: number

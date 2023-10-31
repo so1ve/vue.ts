@@ -15,6 +15,7 @@ defineProps<
 		genericArray: U;
 		genericCondition: I extends "a" ? "a" : 1;
 		function: () => void;
+		error: Error;
 	} & SomeInterface & {
 			[MappedString in "1-1" | "2-1"]: `${MappedString}MappedType`;
 		} & {
