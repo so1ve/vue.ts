@@ -10,7 +10,7 @@ export default defineNuxtModule<Options>({
 	meta: {
 		name,
 		version,
-		configKey: "unplugin-vue-complex-types",
+		configKey: "complexTypes",
 		compatibility: {
 			bridge: true,
 		},
