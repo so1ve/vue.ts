@@ -13,13 +13,13 @@
 		"vite",
 		"webpack"
 	],
-	"homepage": "https://github.com/so1ve/unplugin-vue-complex-types#readme",
+	"homepage": "https://github.com/unplugin/unplugin-vue-complex-types#readme",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/so1ve/unplugin-vue-complex-types.git"
+		"url": "git+https://github.com/unplugin/unplugin-vue-complex-types.git"
 	},
 	"bugs": {
-		"url": "https://github.com/so1ve/unplugin-vue-complex-types/issues"
+		"url": "https://github.com/unplugin/unplugin-vue-complex-types/issues"
 	},
 	"license": "MIT",
 	"sideEffects": false,
