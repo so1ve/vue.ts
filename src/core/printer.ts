@@ -35,10 +35,12 @@ export class Printer {
 				parts.push(
 					[
 						member.name.getText(),
-						member.questionToken ? "?" : "",
+						member.questionToken?.getText(),
 						": ",
 						stringBaseType,
-					].join(""),
+					]
+						.filter(Boolean)
+						.join(""),
 				);
 			}
 		}
@@ -52,14 +54,19 @@ export class Printer {
 		const type = this.checker.getTypeAtLocation(node);
 		const properties = type.getProperties();
 		const parts = ["{"];
-
+		let questionToken = "";
+		if (ts.isMappedTypeNode(node)) {
+			questionToken = node.questionToken?.getText() ?? "";
+		}
 		for (const property of properties) {
 			const valueType = this.checker.getTypeOfSymbol(property);
 			const stringValueType = this.checker.typeToString(
 				this.getBaseType(valueType),
 			);
 			parts.push(
-				`${this.checker.symbolToString(property)}: ${stringValueType}`,
+				`${this.checker.symbolToString(
+					property,
+				)}${questionToken}: ${stringValueType}`,
 			);
 		}
 

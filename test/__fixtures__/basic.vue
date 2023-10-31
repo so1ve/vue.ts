@@ -16,6 +16,8 @@ defineProps<
 		genericCondition: I extends "a" ? "a" : 1;
 	} & SomeInterface & {
 			[MappedString in "1-1" | "2-1"]: `${MappedString}MappedType`;
+		} & {
+			[MappedString in "1-1" | "2-1"]?: `${MappedString}OptionalMappedType`;
 		}
 >();
 </script>

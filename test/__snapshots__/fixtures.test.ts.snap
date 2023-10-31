@@ -25,6 +25,9 @@ typeLiteral: TypeLiteral
 } & {
 \\"1-1\\": string
 \\"2-1\\": string
+} & {
+\\"1-1\\"?: \\"1-1OptionalMappedType\\" | undefined
+\\"2-1\\"?: \\"2-1OptionalMappedType\\" | undefined
 }
 >();
 </script>
