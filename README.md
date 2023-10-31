@@ -187,6 +187,10 @@ export default defineConfig({
 - Type: `string`
 - Default: `path.join(process.cwd(), "tsconfig.json")`
 
+## 🖥️ How it works?
+
+This plugin parses each SFC and traverse `<script setup lang="ts">`'s AST to find `defineProps`'s type argument and use TypeScript's type checker API to print the resolved type, then we overwrite the original type with the resolved type. Thus Vue's compiler can generate correct runtime code without parsing the complex types.
+
 ## 📝 License
 
 [MIT](./LICENSE). Made with ❤️ by [Ray](https://github.com/so1ve)
