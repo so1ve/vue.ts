@@ -18,15 +18,11 @@ export function transform(code: string, id: string): TransformResult {
 		return;
 	}
 
-	const {
-		node: typeArgNode,
-		type: typeArgType,
-		range: typeRange,
-	} = definePropsTypeArg;
+	const { node: typeArgNode, range: typeArgRange } = definePropsTypeArg;
 
 	const printedType = printer.print(typeArgNode);
 
-	s.overwrite(typeRange.start, typeRange.end, printedType);
+	s.overwrite(typeArgRange.start, typeArgRange.end, printedType);
 
 	return {
 		code: s.toString(),

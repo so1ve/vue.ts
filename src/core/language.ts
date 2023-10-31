@@ -118,7 +118,7 @@ function baseCreateLanguageWorker(
 	function findScriptRangesNode(
 		filepath: string,
 		filter: (ranges: vue.ScriptSetupRanges) => vue.TextRange | undefined,
-	): { node: ts.Node; type: ts.Type; range: vue.TextRange } | undefined {
+	): { node: ts.Node; range: vue.TextRange } | undefined {
 		filepath = normalizePath(filepath);
 		const sourceFile = core.virtualFiles.getSource(filepath)?.root;
 		if (!(sourceFile instanceof vue.VueFile)) {
@@ -158,14 +158,12 @@ function baseCreateLanguageWorker(
 			return;
 		}
 		let foundNode!: ts.Node;
-		let foundType!: ts.Type;
 		virtualTsFile.forEachChild(function traverse(node: ts.Node) {
 			if (
 				node.getStart(virtualTsFile) === virtualTsRange.start &&
 				node.getEnd() === virtualTsRange.end
 			) {
 				foundNode = node;
-				foundType = typeChecker.getTypeAtLocation(node);
 			} else {
 				node.forEachChild(traverse);
 			}
@@ -176,7 +174,7 @@ function baseCreateLanguageWorker(
 			end: startTagEnd + sourceRange.end,
 		};
 
-		return { node: foundNode, type: foundType, range };
+		return { node: foundNode, range };
 	}
 
 	return {
