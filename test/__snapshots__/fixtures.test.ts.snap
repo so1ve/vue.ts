@@ -17,6 +17,7 @@ genericExtendsString: string
 array: string[]
 genericArray: (string | number)[]
 genericCondition: \\"a\\" | 1
+function: () => void
 } & {
 emptyInterface: EmptyInterface
 conditionalNumber: number
