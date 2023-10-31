@@ -2,8 +2,9 @@
 
 [![NPM version](https://img.shields.io/npm/v/unplugin-vue-complex-types?color=a1b858&label=)](https://www.npmjs.com/package/unplugin-vue-complex-types)
 
-> [!WARNING]
-> This unplugin has a huge performance issue, and may not work in most scenarios. I'm working on a new version which uses [`vuejs/language-tools`](https://github.com/vuejs/language-tools) to resolve the types.
+Use [`@vue/language-core`](https://github.com/vuejs/language-tools/tree/master/packages/language-core) to support complex types for Vue Macros.
+
+For example: fixes https://github.com/vuejs/core/issues/8286.
 
 ## 📦 Installation
 
@@ -15,9 +16,7 @@ $ pnpm add -D unplugin-vue-complex-types
 
 ## TODOs
 
-- [ ] Improve performance (use cache and reuse typescript programs) - Very poor performance right now!
 - [ ] Add more tests
-- [ ] Allow receive a tsconfig
 
 ## 🚀 Usage
 
@@ -29,11 +28,7 @@ $ pnpm add -D unplugin-vue-complex-types
 import VueComplexTypes from "unplugin-vue-complex-types/vite";
 
 export default defineConfig({
-	plugins: [
-		VueComplexTypes({
-			/* options */
-		}),
-	],
+	plugins: [VueComplexTypes({})],
 });
 ```
 
@@ -49,7 +44,7 @@ import VueComplexTypes from "unplugin-vue-complex-types/rollup";
 export default {
 	plugins: [
 		VueComplexTypes({
-			/* options */
+			tsconfigPath: "tsconfig.json", // Path to your tsconfig.json
 		}),
 		// other plugins
 	],
@@ -67,7 +62,7 @@ module.exports = {
 	/* ... */
 	plugins: [
 		require("unplugin-vue-complex-types/webpack")({
-			/* options */
+			tsconfigPath: "tsconfig.json", // Path to your tsconfig.json
 		}),
 	],
 };
@@ -82,6 +77,9 @@ module.exports = {
 // nuxt.config.ts
 export default defineNuxtConfig({
 	modules: ["unplugin-vue-complex-types/nuxt"],
+	complexTypes: {
+		tsconfigPath: "tsconfig.json", // Path to your tsconfig.json
+	},
 });
 ```
 
@@ -96,7 +94,7 @@ module.exports = {
 	configureWebpack: {
 		plugins: [
 			require("unplugin-vue-complex-types/webpack")({
-				/* options */
+				tsconfigPath: "tsconfig.json", // Path to your tsconfig.json
 			}),
 		],
 	},
@@ -115,7 +113,7 @@ module.exports = {
 		[
 			"unplugin-vue-complex-types/vite",
 			{
-				/* options */
+				tsconfigPath: "tsconfig.json", // Path to your tsconfig.json
 			},
 		],
 	],
@@ -131,7 +129,7 @@ module.exports = {
 		chainWebpack(chain) {
 			chain.plugin("unplugin-vue-complex-types").use(
 				VueComplexTypesPlugin({
-					/* options */
+					tsconfigPath: "tsconfig.json", // Path to your tsconfig.json
 				}),
 			);
 		},
@@ -152,7 +150,7 @@ build({
 	/* ... */
 	plugins: [
 		require("unplugin-vue-complex-types/esbuild")({
-			/* options */
+			tsconfigPath: "tsconfig.json", // Path to your tsconfig.json
 		}),
 	],
 });
@@ -170,7 +168,7 @@ import VueComplexTypes from "unplugin-vue-complex-types/astro";
 export default defineConfig({
 	integrations: [
 		VueComplexTypes({
-			/* options */
+			tsconfigPath: "tsconfig.json", // Path to your tsconfig.json
 		}),
 	],
 });
