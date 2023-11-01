@@ -25,8 +25,8 @@ describe("fixtures compiled", async () => {
 				VueBetterDefine({ isProduction: false }),
 				RollupVue(),
 				RollupVueJsx(),
-				RollupJson(),
-				RollupNodeResolve(),
+				RollupJson() as any,
+				RollupNodeResolve() as any,
 				RollupEsbuildPlugin({
 					target: "esnext",
 				}),
