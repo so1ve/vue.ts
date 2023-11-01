@@ -30,7 +30,7 @@ import VueComplexTypes from "unplugin-vue-complex-types/vite";
 export default defineConfig({
 	plugins: [
 		VueComplexTypes({
-			/* Options */
+			/* options */
 		}),
 	],
 });
@@ -48,7 +48,7 @@ import VueComplexTypes from "unplugin-vue-complex-types/rollup";
 export default {
 	plugins: [
 		VueComplexTypes({
-			/* Options */
+			/* options */
 		}),
 		// other plugins
 	],
@@ -66,7 +66,24 @@ module.exports = {
 	/* ... */
 	plugins: [
 		require("unplugin-vue-complex-types/webpack")({
-			/* Options */
+			/* options */
+		}),
+	],
+};
+```
+
+<br></details>
+
+<details>
+<summary>Rspack</summary><br>
+
+```ts
+// rspack.config.js
+module.exports = {
+	/* ... */
+	plugins: [
+		require("unplugin-vue-complex-types/rspack")({
+			/* options */
 		}),
 	],
 };
@@ -82,7 +99,7 @@ module.exports = {
 export default defineNuxtConfig({
 	modules: ["unplugin-vue-complex-types/nuxt"],
 	complexTypes: {
-		/* Options */
+		/* options */
 	},
 });
 ```
@@ -98,7 +115,7 @@ module.exports = {
 	configureWebpack: {
 		plugins: [
 			require("unplugin-vue-complex-types/webpack")({
-				/* Options */
+				/* options */
 			}),
 		],
 	},
@@ -117,7 +134,7 @@ module.exports = {
 		[
 			"unplugin-vue-complex-types/vite",
 			{
-				/* Options */
+				/* options */
 			},
 		],
 	],
@@ -133,7 +150,7 @@ module.exports = {
 		chainWebpack(chain) {
 			chain.plugin("unplugin-vue-complex-types").use(
 				VueComplexTypesPlugin({
-					/* Options */
+					/* options */
 				}),
 			);
 		},
@@ -154,7 +171,7 @@ build({
 	/* ... */
 	plugins: [
 		require("unplugin-vue-complex-types/esbuild")({
-			/* Options */
+			/* options */
 		}),
 	],
 });
@@ -172,7 +189,7 @@ import VueComplexTypes from "unplugin-vue-complex-types/astro";
 export default defineConfig({
 	integrations: [
 		VueComplexTypes({
-			/* Options */
+			/* options */
 		}),
 	],
 });
