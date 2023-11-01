@@ -65,6 +65,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     draggable: { required: true },
     hidden: { required: true },
     id: { required: true },
+    inert: { required: true },
     lang: { required: true },
     placeholder: { required: true },
     spellcheck: { required: true },

@@ -58,12 +58,13 @@ innerHTML: string | undefined
 class: any
 style: StyleValue | undefined
 accesskey: string | undefined
-contenteditable: Booleanish | \\"inherit\\" | undefined
+contenteditable: Booleanish | \\"inherit\\" | \\"plaintext-only\\" | undefined
 contextmenu: string | undefined
 dir: string | undefined
 draggable: Booleanish | undefined
-hidden: Booleanish | undefined
+hidden: \\"\\" | Booleanish | \\"hidden\\" | \\"until-found\\" | undefined
 id: string | undefined
+inert: Booleanish | undefined
 lang: string | undefined
 placeholder: string | undefined
 spellcheck: Booleanish | undefined
