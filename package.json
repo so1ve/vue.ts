@@ -3,14 +3,17 @@
 	"version": "0.1.0",
 	"packageManager": "pnpm@8.10.0",
 	"author": "Ray <i@mk1.io> (@so1ve)",
-	"description": "",
+	"description": "Resolve complex types in Vue SFCs.",
 	"keywords": [
 		"astro",
 		"nuxt",
 		"rollup",
+		"rspack",
 		"transform",
+		"typescript",
 		"unplugin",
 		"vite",
+		"vue",
 		"webpack"
 	],
 	"homepage": "https://github.com/unplugin/unplugin-vue-complex-types#readme",
@@ -25,55 +28,45 @@
 	"sideEffects": false,
 	"exports": {
 		".": {
-			"types": "./dist/index.d.ts",
 			"require": "./dist/index.cjs",
 			"import": "./dist/index.mjs"
 		},
 		"./*": "./*",
 		"./astro": {
-			"types": "./dist/astro.d.ts",
 			"require": "./dist/astro.cjs",
 			"import": "./dist/astro.mjs"
 		},
 		"./esbuild": {
-			"types": "./dist/esbuild.d.ts",
 			"require": "./dist/esbuild.cjs",
 			"import": "./dist/esbuild.mjs"
 		},
 		"./nuxt": {
-			"types": "./dist/nuxt.d.ts",
 			"require": "./dist/nuxt.cjs",
 			"import": "./dist/nuxt.mjs"
 		},
 		"./rollup": {
-			"types": "./dist/rollup.d.ts",
 			"require": "./dist/rollup.cjs",
 			"import": "./dist/rollup.mjs"
 		},
 		"./rspack": {
-			"types": "./dist/rspack.d.ts",
 			"require": "./dist/rspack.cjs",
 			"import": "./dist/rspack.mjs"
 		},
 		"./types": {
-			"types": "./dist/types.d.ts",
 			"require": "./dist/types.cjs",
 			"import": "./dist/types.mjs"
 		},
 		"./vite": {
-			"types": "./dist/vite.d.ts",
 			"require": "./dist/vite.cjs",
 			"import": "./dist/vite.mjs"
 		},
 		"./webpack": {
-			"types": "./dist/webpack.d.ts",
 			"require": "./dist/webpack.cjs",
 			"import": "./dist/webpack.mjs"
 		}
 	},
 	"main": "./dist/index.cjs",
 	"module": "./dist/index.mjs",
-	"types": "./dist/index.d.ts",
 	"typesVersions": {
 		"*": {
 			"*": [
@@ -112,7 +105,7 @@
 		"@so1ve/prettier-config": "1.0.0-alpha.16",
 		"@types/node": "^20.8.10",
 		"@vue-macros/better-define": "^1.6.12",
-		"@vue-macros/test-utils": "^1.2.0",
+		"@vue-macros/test-utils": "^1.2.1",
 		"bumpp": "^9.2.0",
 		"eslint": "^8.52.0",
 		"prettier": "^3.0.3",
