@@ -6,7 +6,7 @@ import {
 	decorateLanguageService,
 } from "@volar/typescript";
 import * as vue from "@vue/language-core";
-import type * as ts from "typescript/lib/tsserverlibrary";
+import type ts from "typescript/lib/tsserverlibrary";
 
 import { normalizePath } from "./utils";
 
