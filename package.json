@@ -1,6 +1,6 @@
 {
 	"name": "unplugin-vue-complex-types",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"packageManager": "pnpm@8.10.2",
 	"author": "Ray <i@mk1.io> (@so1ve)",
 	"description": "Resolve complex types in Vue SFCs.",
