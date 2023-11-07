@@ -49,7 +49,7 @@ stringUnion: \\"a\\" | \\"b\\"
 genericExtendsString: string
 array: string[]
 genericArray: (string | number)[]
-genericCondition: \\"a\\" | 1
+genericCondition: 1 | \\"a\\"
 function: () => void
 error: Error
 } & {
