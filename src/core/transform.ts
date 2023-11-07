@@ -8,7 +8,7 @@ import type { TransformOptions } from "./types";
 
 function transformDefineProps(printer: Printer, s: MagicString, id: string) {
 	const language = getLanguage();
-	const definePropsTypeArg = language.findScriptRangesNode(
+	const definePropsTypeArg = language.findNode(
 		id,
 		(scriptSetupRanges) => scriptSetupRanges.props.define?.typeArg,
 	);
@@ -27,7 +27,7 @@ function transformDefineProps(printer: Printer, s: MagicString, id: string) {
 
 function transformDefineEmits(printer: Printer, s: MagicString, id: string) {
 	const language = getLanguage();
-	const defineEmits = language.findScriptRangesNode(
+	const defineEmits = language.findNode(
 		id,
 		(scriptSetupRanges) => scriptSetupRanges.emits.define,
 	);

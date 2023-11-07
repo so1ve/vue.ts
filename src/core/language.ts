@@ -114,7 +114,7 @@ function baseCreateLanguageWorker(
 	const program = tsLs.getProgram()!;
 	const typeChecker = program.getTypeChecker();
 
-	function findScriptRangesAndNode(
+	function findNode(
 		filepath: string,
 		filter: (ranges: vue.ScriptSetupRanges) => vue.TextRange | undefined,
 	):
@@ -204,7 +204,7 @@ function baseCreateLanguageWorker(
 	}
 
 	return {
-		findScriptRangesNode: findScriptRangesAndNode,
+		findNode,
 		__internal__: {
 			tsLs,
 			program,
