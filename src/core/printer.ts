@@ -1,5 +1,7 @@
 import ts from "typescript";
 
+import { escapeQuotes } from "./utils";
+
 export class Printer {
 	constructor(private checker: ts.TypeChecker) {}
 
@@ -100,5 +102,43 @@ export class Printer {
 
 			return node.getText();
 		}
+	}
+
+	private printEventsByCallSignatures(
+		callSignatures: readonly ts.Signature[],
+	): string[] {
+		return callSignatures.map((c) => {
+			const parameters = c.getParameters();
+			const event = parameters[0];
+
+			return this.checker.typeToString(this.checker.getTypeOfSymbol(event));
+		});
+	}
+
+	private printEventsByMembers(members: ts.Symbol[]): string[] {
+		return members.map((m) => `"${escapeQuotes(m.getName())}"`);
+	}
+
+	public printEventsRuntimeArg(node: ts.Node): string {
+		const parts: string[] = [];
+
+		const type = this.checker.getTypeAtLocation(node);
+		const callSignatures = type.getCallSignatures();
+		const members = type.getProperties();
+
+		if (callSignatures.length > 0 && members.length > 0) {
+			// We cannot fallback here.
+			throw new Error(
+				"[unplugin-vue-complex-types] You may not use old style `defineEmits` and `defineEmits` shorthand together.",
+			);
+		}
+
+		if (members.length > 0) {
+			parts.push(...this.printEventsByMembers(members));
+		} else {
+			parts.push(...this.printEventsByCallSignatures(callSignatures));
+		}
+
+		return `[${parts.join(", ")}]`;
 	}
 }

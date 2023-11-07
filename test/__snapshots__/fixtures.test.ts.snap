@@ -4,7 +4,16 @@ exports[`fixtures > __fixtures__/defineEmits/basic.vue 1`] = `
 "<script setup lang=\\"ts\\">
 import type { Events } from \\"./basic-ts\\";
 
-defineEmits();
+defineEmits([\\"foo\\", \\"baz\\", \\"qux\\", \\"quote\\\\\\"\\"]);
+</script>
+"
+`;
+
+exports[`fixtures > __fixtures__/defineEmits/shorthand.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import type { Events } from \\"./shorthand-ts\\";
+
+defineEmits([\\"foo\\", \\"bar\\", \\"quotes\\\\\\"\\"]);
 </script>
 "
 `;
@@ -25,7 +34,7 @@ stringUnion: \\"a\\" | \\"b\\"
 genericExtendsString: string
 array: string[]
 genericArray: (string | number)[]
-genericCondition: \\"a\\" | 1
+genericCondition: 1 | \\"a\\"
 function: () => void
 error: Error
 } & {

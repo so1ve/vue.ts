@@ -75,9 +75,14 @@ function transformDefineEmits(printer: Printer, s: MagicString, id: string) {
 		offset + lessThanToken.pos,
 		offset + greaterThanToken.end,
 	] as const;
+	const runtimeArgPos = offset + openParenToken.end;
+
+	const printedRuntimeArg = printer.printEventsRuntimeArg(defineEmitsTypeArg);
 
 	// Remove the type argument
 	s.remove(...defineEmitsTypeArgRange);
+	// Append the runtime argument
+	s.appendRight(runtimeArgPos, printedRuntimeArg);
 }
 
 export function transform(code: string, id: string): TransformResult {

@@ -7,6 +7,7 @@ import _export_sfc from '[NULL]/plugin-vue/export-helper';
 \\"use strict\\";
 var _sfc_main = /* @__PURE__ */ defineComponent({
   __name: \\"basic\\",
+  emits: [\\"foo\\", \\"baz\\", \\"qux\\", 'quote\\"'],
   setup(__props) {
     return () => {
     };
@@ -16,6 +17,26 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
 
 export { basic as default };
+"
+`;
+
+exports[`fixtures compiled > __fixtures__/defineEmits/shorthand.vue 1`] = `
+"import { defineComponent } from 'vue';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+\\"use strict\\";
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"shorthand\\",
+  emits: [\\"foo\\", \\"bar\\", 'quotes\\"'],
+  setup(__props) {
+    return () => {
+    };
+  }
+});
+
+var shorthand = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { shorthand as default };
 "
 `;
 
@@ -33,7 +54,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     genericExtendsString: { type: String, required: true },
     array: { type: Array, required: true },
     genericArray: { type: Array, required: true },
-    genericCondition: { type: [String, Number], required: true },
+    genericCondition: { type: [Number, String], required: true },
     function: { type: Function, required: true },
     error: { required: true },
     emptyInterface: { required: true },
