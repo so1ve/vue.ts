@@ -201,12 +201,24 @@ export default defineConfig({
 
 ### `tsconfigPath`
 
+Path to your `tsconfig.json`.
+
 - Type: `string`
 - Default: `path.join(process.cwd(), "tsconfig.json")`
 
-## 🖥️ How it works?
+### `defineEmits`
 
-This plugin parses each SFC and traverse `<script setup lang="ts">`'s AST to find `defineProps`'s type argument and use TypeScript's type checker API to print the resolved type, then we overwrite the original type with the resolved type. Thus Vue's compiler can generate correct runtime code without parsing the complex types.
+Transform `defineEmits` or not.
+
+- Type: `boolean`
+- Default: `true`
+
+### `defineProps`
+
+Transform `defineProps` or not.
+
+- Type: `boolean`
+- Default: `true`
 
 ## 📝 License
 
