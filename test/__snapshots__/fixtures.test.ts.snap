@@ -9,6 +9,21 @@ defineEmits([\\"foo\\", \\"baz\\", \\"qux\\", \\"quote\\\\\\"\\"]);
 "
 `;
 
+exports[`fixtures > __fixtures__/defineEmits/core#9541.vue 1`] = `
+"<script setup lang=\\"ts\\">
+interface Base {
+	(e: \\"change\\", id: number): void;
+}
+interface Emits extends Base {
+	(e: \\"unChange\\", id: number): void;
+}
+const emit = defineEmits([\\"unChange\\", \\"change\\"]);
+
+emit(\\"change\\", 1);
+</script>
+"
+`;
+
 exports[`fixtures > __fixtures__/defineEmits/shorthand.vue 1`] = `
 "<script setup lang=\\"ts\\">
 import type { Events } from \\"./shorthand-ts\\";
@@ -34,7 +49,7 @@ stringUnion: \\"a\\" | \\"b\\"
 genericExtendsString: string
 array: string[]
 genericArray: (string | number)[]
-genericCondition: 1 | \\"a\\"
+genericCondition: \\"a\\" | 1
 function: () => void
 error: Error
 } & {

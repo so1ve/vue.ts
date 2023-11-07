@@ -20,6 +20,28 @@ export { basic as default };
 "
 `;
 
+exports[`fixtures compiled > __fixtures__/defineEmits/core#9541.vue 1`] = `
+"import { defineComponent } from 'vue';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+\\"use strict\\";
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"core#9541\\",
+  emits: [\\"unChange\\", \\"change\\"],
+  setup(__props, { emit: __emit }) {
+    const emit = __emit;
+    emit(\\"change\\", 1);
+    return () => {
+    };
+  }
+});
+
+var core_9541 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { core_9541 as default };
+"
+`;
+
 exports[`fixtures compiled > __fixtures__/defineEmits/shorthand.vue 1`] = `
 "import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
