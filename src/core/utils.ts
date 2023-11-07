@@ -1,12 +1,14 @@
 import { join } from "node:path";
 
-import type { Options } from "./types";
+import type { Options, ResolvedOptions } from "./types";
 
 const windowsPathReg = /\\/g;
 export const normalizePath = (id: string) => id.replace(windowsPathReg, "/");
 
-export const resolveOptions = (rawOptions: Options): Required<Options> => ({
+export const resolveOptions = (rawOptions: Options): ResolvedOptions => ({
 	tsconfigPath: rawOptions.tsconfigPath ?? join(process.cwd(), "tsconfig.json"),
+	defineEmits: rawOptions.defineEmits ?? true,
+	defineProps: rawOptions.defineProps ?? true,
 });
 
 const quotesReg = /"/g;

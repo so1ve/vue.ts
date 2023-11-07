@@ -4,6 +4,7 @@ import type { TransformResult } from "unplugin";
 
 import { getLanguage } from "./language";
 import { Printer } from "./printer";
+import type { ResolvedOptions } from "./types";
 
 function transformDefineProps(printer: Printer, s: MagicString, id: string) {
 	const language = getLanguage();
@@ -85,13 +86,21 @@ function transformDefineEmits(printer: Printer, s: MagicString, id: string) {
 	s.appendRight(runtimeArgPos, printedRuntimeArg);
 }
 
-export function transform(code: string, id: string): TransformResult {
+export function transform(
+	code: string,
+	id: string,
+	options: ResolvedOptions,
+): TransformResult {
 	const s = new MagicString(code);
 	const language = getLanguage();
 	const typeChecker = language.__internal__.typeChecker;
 	const printer = new Printer(typeChecker);
-	transformDefineProps(printer, s, id);
-	transformDefineEmits(printer, s, id);
+	if (options.defineProps) {
+		transformDefineProps(printer, s, id);
+	}
+	if (options.defineEmits) {
+		transformDefineEmits(printer, s, id);
+	}
 
 	return {
 		code: s.toString(),

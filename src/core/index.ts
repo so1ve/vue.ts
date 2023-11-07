@@ -14,10 +14,12 @@ export default createUnplugin<Options | undefined>((options = {}) => ({
 		ensureLanguage(resolvedOptions.tsconfigPath);
 	},
 	transform(code, id) {
+		const resolvedOptions = resolveOptions(options);
+
 		if (!id.endsWith(".vue")) {
 			return;
 		}
 
-		return transform(code, id);
+		return transform(code, id, resolvedOptions);
 	},
 }));
