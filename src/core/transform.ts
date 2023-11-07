@@ -4,7 +4,7 @@ import type { TransformResult } from "unplugin";
 
 import { getLanguage } from "./language";
 import { Printer } from "./printer";
-import type { ResolvedOptions } from "./types";
+import type { TransformOptions } from "./types";
 
 function transformDefineProps(printer: Printer, s: MagicString, id: string) {
 	const language = getLanguage();
@@ -89,7 +89,7 @@ function transformDefineEmits(printer: Printer, s: MagicString, id: string) {
 export function transform(
 	code: string,
 	id: string,
-	options: ResolvedOptions,
+	options: TransformOptions,
 ): TransformResult {
 	const s = new MagicString(code);
 	const language = getLanguage();

@@ -1,0 +1,272 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`fixtures > __fixtures__/defineEmits/basic.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import type { Events } from \\"./basic-ts\\";
+
+defineEmits([\\"foo\\", \\"baz\\", \\"qux\\", \\"quote\\\\\\"\\"]);
+</script>
+"
+`;
+
+exports[`fixtures > __fixtures__/defineEmits/shorthand.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import type { Events } from \\"./shorthand-ts\\";
+
+defineEmits([\\"foo\\", \\"bar\\", \\"quotes\\\\\\"\\"]);
+</script>
+"
+`;
+
+exports[`fixtures > __fixtures__/defineProps/basic.vue 1`] = `
+"<script
+	setup
+	lang=\\"ts\\"
+	generic=\\"T extends string, U extends (string | number)[], I\\"
+>
+import type { SomeInterface } from \\"./basic-ts\\";
+
+defineProps<
+	{
+string: string
+optionalString?: string
+stringUnion: \\"a\\" | \\"b\\"
+genericExtendsString: string
+array: string[]
+genericArray: (string | number)[]
+genericCondition: 1 | \\"a\\"
+function: () => void
+error: Error
+} & {
+emptyInterface: EmptyInterface
+conditionalNumber: number
+interface: Interface
+typeLiteral: TypeLiteral
+} & {
+\\"1-1\\": string
+\\"2-1\\": string
+} & {
+\\"1-1\\"?: \\"1-1OptionalMappedType\\" | undefined
+\\"2-1\\"?: \\"2-1OptionalMappedType\\" | undefined
+}
+>();
+</script>
+"
+`;
+
+exports[`fixtures > __fixtures__/defineProps/core#8286.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import { ButtonHTMLAttributes } from \\"vue\\";
+
+interface MyButtonProps extends ButtonHTMLAttributes {}
+
+defineProps<{
+autofocus: Booleanish | undefined
+disabled: Booleanish | undefined
+form: string | undefined
+formaction: string | undefined
+formenctype: string | undefined
+formmethod: string | undefined
+formnovalidate: Booleanish | undefined
+formtarget: string | undefined
+name: string | undefined
+type: \\"submit\\" | \\"reset\\" | \\"button\\" | undefined
+value: string | number | string[] | undefined
+innerHTML: string | undefined
+class: any
+style: StyleValue | undefined
+accesskey: string | undefined
+contenteditable: Booleanish | \\"inherit\\" | \\"plaintext-only\\" | undefined
+contextmenu: string | undefined
+dir: string | undefined
+draggable: Booleanish | undefined
+hidden: \\"\\" | Booleanish | \\"hidden\\" | \\"until-found\\" | undefined
+id: string | undefined
+inert: Booleanish | undefined
+lang: string | undefined
+placeholder: string | undefined
+spellcheck: Booleanish | undefined
+tabindex: Numberish | undefined
+title: string | undefined
+translate: \\"yes\\" | \\"no\\" | undefined
+radiogroup: string | undefined
+role: string | undefined
+about: string | undefined
+datatype: string | undefined
+inlist: any
+prefix: string | undefined
+property: string | undefined
+resource: string | undefined
+typeof: string | undefined
+vocab: string | undefined
+autocapitalize: string | undefined
+autocorrect: string | undefined
+autosave: string | undefined
+color: string | undefined
+itemprop: string | undefined
+itemscope: Booleanish | undefined
+itemtype: string | undefined
+itemid: string | undefined
+itemref: string | undefined
+results: Numberish | undefined
+security: string | undefined
+unselectable: \\"on\\" | \\"off\\" | undefined
+inputmode: \\"none\\" | \\"text\\" | \\"tel\\" | \\"url\\" | \\"email\\" | \\"numeric\\" | \\"decimal\\" | \\"search\\" | undefined
+is: string | undefined
+'aria-activedescendant': string | undefined
+'aria-atomic': Booleanish | undefined
+'aria-autocomplete': \\"none\\" | \\"inline\\" | \\"list\\" | \\"both\\" | undefined
+'aria-busy': Booleanish | undefined
+'aria-checked': Booleanish | \\"mixed\\" | undefined
+'aria-colcount': Numberish | undefined
+'aria-colindex': Numberish | undefined
+'aria-colspan': Numberish | undefined
+'aria-controls': string | undefined
+'aria-current': Booleanish | \\"page\\" | \\"step\\" | \\"location\\" | \\"date\\" | \\"time\\" | undefined
+'aria-describedby': string | undefined
+'aria-details': string | undefined
+'aria-disabled': Booleanish | undefined
+'aria-dropeffect': \\"none\\" | \\"copy\\" | \\"execute\\" | \\"link\\" | \\"move\\" | \\"popup\\" | undefined
+'aria-errormessage': string | undefined
+'aria-expanded': Booleanish | undefined
+'aria-flowto': string | undefined
+'aria-grabbed': Booleanish | undefined
+'aria-haspopup': Booleanish | \\"menu\\" | \\"listbox\\" | \\"tree\\" | \\"grid\\" | \\"dialog\\" | undefined
+'aria-hidden': Booleanish | undefined
+'aria-invalid': Booleanish | \\"grammar\\" | \\"spelling\\" | undefined
+'aria-keyshortcuts': string | undefined
+'aria-label': string | undefined
+'aria-labelledby': string | undefined
+'aria-level': Numberish | undefined
+'aria-live': \\"off\\" | \\"assertive\\" | \\"polite\\" | undefined
+'aria-modal': Booleanish | undefined
+'aria-multiline': Booleanish | undefined
+'aria-multiselectable': Booleanish | undefined
+'aria-orientation': \\"horizontal\\" | \\"vertical\\" | undefined
+'aria-owns': string | undefined
+'aria-placeholder': string | undefined
+'aria-posinset': Numberish | undefined
+'aria-pressed': Booleanish | \\"mixed\\" | undefined
+'aria-readonly': Booleanish | undefined
+'aria-relevant': \\"text\\" | \\"additions\\" | \\"additions text\\" | \\"all\\" | \\"removals\\" | undefined
+'aria-required': Booleanish | undefined
+'aria-roledescription': string | undefined
+'aria-rowcount': Numberish | undefined
+'aria-rowindex': Numberish | undefined
+'aria-rowspan': Numberish | undefined
+'aria-selected': Booleanish | undefined
+'aria-setsize': Numberish | undefined
+'aria-sort': \\"none\\" | \\"ascending\\" | \\"descending\\" | \\"other\\" | undefined
+'aria-valuemax': Numberish | undefined
+'aria-valuemin': Numberish | undefined
+'aria-valuenow': Numberish | undefined
+'aria-valuetext': string | undefined
+onCopy: any
+onCut: any
+onPaste: any
+onCompositionend: any
+onCompositionstart: any
+onCompositionupdate: any
+onDrag: any
+onDragend: any
+onDragenter: any
+onDragexit: any
+onDragleave: any
+onDragover: any
+onDragstart: any
+onDrop: any
+onFocus: any
+onFocusin: any
+onFocusout: any
+onBlur: any
+onChange: any
+onBeforeinput: any
+onInput: any
+onReset: any
+onSubmit: any
+onInvalid: any
+onLoad: any
+onError: any
+onKeydown: any
+onKeypress: any
+onKeyup: any
+onAuxclick: any
+onClick: any
+onContextmenu: any
+onDblclick: any
+onMousedown: any
+onMouseenter: any
+onMouseleave: any
+onMousemove: any
+onMouseout: any
+onMouseover: any
+onMouseup: any
+onAbort: any
+onCanplay: any
+onCanplaythrough: any
+onDurationchange: any
+onEmptied: any
+onEncrypted: any
+onEnded: any
+onLoadeddata: any
+onLoadedmetadata: any
+onLoadstart: any
+onPause: any
+onPlay: any
+onPlaying: any
+onProgress: any
+onRatechange: any
+onSeeked: any
+onSeeking: any
+onStalled: any
+onSuspend: any
+onTimeupdate: any
+onVolumechange: any
+onWaiting: any
+onSelect: any
+onScroll: any
+onTouchcancel: any
+onTouchend: any
+onTouchmove: any
+onTouchstart: any
+onPointerdown: any
+onPointermove: any
+onPointerup: any
+onPointercancel: any
+onPointerenter: any
+onPointerleave: any
+onPointerover: any
+onPointerout: any
+onWheel: any
+onAnimationstart: any
+onAnimationend: any
+onAnimationiteration: any
+onTransitionend: any
+onTransitionstart: any
+}>();
+</script>
+"
+`;
+
+exports[`fixtures > __fixtures__/defineProps/core#8468.vue 1`] = `
+"<script setup lang=\\"ts\\" generic=\\"P extends Inputs\\">
+import type { Inputs } from \\"./core#8468-props.ts\\";
+
+defineProps<{
+type: \\"number\\" | \\"text\\"
+value: string | number
+}>();
+</script>
+"
+`;
+
+exports[`fixtures > __fixtures__/defineProps/import-from-vue.vue 1`] = `
+"<script setup lang=\\"ts\\" generic=\\"T extends string\\">
+import type { Foo } from \\"./import-from-vue-vue.exclude.vue\\";
+
+defineProps<{
+foo: string
+}>();
+</script>
+"
+`;

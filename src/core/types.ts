@@ -5,3 +5,7 @@ export interface Options {
 }
 
 export type ResolvedOptions = Required<Options>;
+export type TransformOptions = Pick<
+	ResolvedOptions,
+	"defineEmits" | "defineProps"
+>;
