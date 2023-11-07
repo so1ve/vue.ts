@@ -114,10 +114,19 @@ function baseCreateLanguageWorker(
 	const program = tsLs.getProgram()!;
 	const typeChecker = program.getTypeChecker();
 
-	function findScriptRangesNode(
+	function findNode(
 		filepath: string,
 		filter: (ranges: vue.ScriptSetupRanges) => vue.TextRange | undefined,
-	): { node: ts.Node; range: vue.TextRange } | undefined {
+	):
+		| {
+				virtualFileNode: ts.Node;
+				scriptNode: ts.Node;
+				setupRange: vue.TextRange;
+				scriptSetupAst: ts.SourceFile;
+				virtualFileAst: ts.SourceFile;
+				offset: number;
+		  }
+		| undefined {
 		filepath = normalizePath(filepath);
 		const sourceFile = core.virtualFiles.getSource(filepath)?.root;
 		if (!(sourceFile instanceof vue.VueFile)) {
@@ -128,7 +137,7 @@ function baseCreateLanguageWorker(
 		}
 		const {
 			ast: scriptSetupAst,
-			startTagEnd,
+			startTagEnd: offset,
 			lang,
 		} = sourceFile.sfc.scriptSetup;
 		if (lang !== "ts" && lang !== "tsx") {
@@ -137,8 +146,8 @@ function baseCreateLanguageWorker(
 		// We get volar's generated virtual ts file because `scriptSetupAst`
 		// is the ast of `<script setup>` block, which is not in the program
 		// and cannot be used by type checker.
-		const virtualTsFile = program.getSourceFile(`${filepath}.${lang}`);
-		if (!virtualTsFile) {
+		const virtualFileAst = program.getSourceFile(`${filepath}.${lang}`);
+		if (!virtualFileAst) {
 			return;
 		}
 		const scriptSetupRanges = vue.parseScriptSetupRanges(
@@ -148,7 +157,7 @@ function baseCreateLanguageWorker(
 		);
 		const virtualTsFileScriptSetupRanges = vue.parseScriptSetupRanges(
 			ts,
-			virtualTsFile,
+			virtualFileAst,
 			vueCompilerOptions,
 		);
 		const sourceRange = filter(scriptSetupRanges);
@@ -156,28 +165,46 @@ function baseCreateLanguageWorker(
 		if (!sourceRange || !virtualTsRange) {
 			return;
 		}
-		let foundNode!: ts.Node;
-		virtualTsFile.forEachChild(function traverse(node: ts.Node) {
+		let foundVirtualFileNode!: ts.Node;
+		virtualFileAst.forEachChild(function traverse(node: ts.Node) {
 			if (
-				node.getStart(virtualTsFile) === virtualTsRange.start &&
+				node.getStart(virtualFileAst) === virtualTsRange.start &&
 				node.getEnd() === virtualTsRange.end
 			) {
-				foundNode = node;
+				foundVirtualFileNode = node;
+			} else {
+				node.forEachChild(traverse);
+			}
+		});
+		let foundSetupNode!: ts.Node;
+		scriptSetupAst.forEachChild(function traverse(node: ts.Node) {
+			if (
+				node.getStart(scriptSetupAst) === sourceRange.start &&
+				node.getEnd() === sourceRange.end
+			) {
+				foundSetupNode = node;
 			} else {
 				node.forEachChild(traverse);
 			}
 		});
 
-		const range: vue.TextRange = {
-			start: startTagEnd + sourceRange.start,
-			end: startTagEnd + sourceRange.end,
+		const setupRange: vue.TextRange = {
+			start: offset + sourceRange.start,
+			end: offset + sourceRange.end,
 		};
 
-		return { node: foundNode, range };
+		return {
+			virtualFileNode: foundVirtualFileNode,
+			scriptNode: foundSetupNode,
+			setupRange,
+			scriptSetupAst,
+			virtualFileAst,
+			offset,
+		};
 	}
 
 	return {
-		findScriptRangesNode,
+		findNode,
 		__internal__: {
 			tsLs,
 			program,

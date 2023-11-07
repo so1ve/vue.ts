@@ -1,6 +1,24 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`fixtures > __fixtures__/basic.vue 1`] = `
+exports[`fixtures > __fixtures__/defineEmits/basic.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import type { Events } from \\"./basic-ts\\";
+
+defineEmits([\\"foo\\", \\"baz\\", \\"qux\\", \\"quote\\\\\\"\\"]);
+</script>
+"
+`;
+
+exports[`fixtures > __fixtures__/defineEmits/shorthand.vue 1`] = `
+"<script setup lang=\\"ts\\">
+import type { Events } from \\"./shorthand-ts\\";
+
+defineEmits([\\"foo\\", \\"bar\\", \\"quotes\\\\\\"\\"]);
+</script>
+"
+`;
+
+exports[`fixtures > __fixtures__/defineProps/basic.vue 1`] = `
 "<script
 	setup
 	lang=\\"ts\\"
@@ -16,7 +34,7 @@ stringUnion: \\"a\\" | \\"b\\"
 genericExtendsString: string
 array: string[]
 genericArray: (string | number)[]
-genericCondition: \\"a\\" | 1
+genericCondition: 1 | \\"a\\"
 function: () => void
 error: Error
 } & {
@@ -36,7 +54,7 @@ typeLiteral: TypeLiteral
 "
 `;
 
-exports[`fixtures > __fixtures__/core#8286.vue 1`] = `
+exports[`fixtures > __fixtures__/defineProps/core#8286.vue 1`] = `
 "<script setup lang=\\"ts\\">
 import { ButtonHTMLAttributes } from \\"vue\\";
 
@@ -230,7 +248,7 @@ onTransitionstart: any
 "
 `;
 
-exports[`fixtures > __fixtures__/core#8468.vue 1`] = `
+exports[`fixtures > __fixtures__/defineProps/core#8468.vue 1`] = `
 "<script setup lang=\\"ts\\" generic=\\"P extends Inputs\\">
 import type { Inputs } from \\"./core#8468-props.ts\\";
 
@@ -242,7 +260,7 @@ value: string | number
 "
 `;
 
-exports[`fixtures > __fixtures__/import-from-vue.vue 1`] = `
+exports[`fixtures > __fixtures__/defineProps/import-from-vue.vue 1`] = `
 "<script setup lang=\\"ts\\" generic=\\"T extends string\\">
 import type { Foo } from \\"./import-from-vue-vue.exclude.vue\\";
 

@@ -16,7 +16,7 @@ import VueComplexTypes from "../src/rollup";
 
 describe("fixtures compiled", async () => {
 	await testFixtures(
-		["__fixtures__/*.vue", "!__fixtures__/*.exclude.vue"],
+		["__fixtures__/**/*.vue", "!__fixtures__/**/*.exclude.vue"],
 		(_args, id) =>
 			rollupBuild(id, [
 				VueComplexTypes({

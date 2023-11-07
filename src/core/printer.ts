@@ -1,5 +1,7 @@
 import ts from "typescript";
 
+import { escapeQuotes } from "./utils";
+
 export class Printer {
 	constructor(private checker: ts.TypeChecker) {}
 
@@ -16,11 +18,11 @@ export class Printer {
 	}
 
 	private printIntersectionTypeNode(node: ts.IntersectionTypeNode): string {
-		return node.types.map((t) => this.print(t)).join(" & ");
+		return node.types.map((t) => this.printTypeArg(t)).join(" & ");
 	}
 
 	private printUnionTypeNode(node: ts.UnionTypeNode): string {
-		return node.types.map((t) => this.print(t)).join(" | ");
+		return node.types.map((t) => this.printTypeArg(t)).join(" | ");
 	}
 
 	private printTypeLiteralNode(node: ts.TypeLiteralNode): string {
@@ -75,7 +77,7 @@ export class Printer {
 		return parts.join("\n");
 	}
 
-	public print(node: ts.Node): string {
+	public printTypeArg(node: ts.Node): string {
 		// Intersection and Union
 		if (ts.isIntersectionTypeNode(node)) {
 			return this.printIntersectionTypeNode(node);
@@ -100,5 +102,43 @@ export class Printer {
 
 			return node.getText();
 		}
+	}
+
+	private printEventsByCallSignatures(
+		callSignatures: readonly ts.Signature[],
+	): string[] {
+		return callSignatures.map((c) => {
+			const parameters = c.getParameters();
+			const event = parameters[0];
+
+			return this.checker.typeToString(this.checker.getTypeOfSymbol(event));
+		});
+	}
+
+	private printEventsByMembers(members: ts.Symbol[]): string[] {
+		return members.map((m) => `"${escapeQuotes(m.getName())}"`);
+	}
+
+	public printEventsRuntimeArg(node: ts.Node): string {
+		const parts: string[] = [];
+
+		const type = this.checker.getTypeAtLocation(node);
+		const callSignatures = type.getCallSignatures();
+		const members = type.getProperties();
+
+		if (callSignatures.length > 0 && members.length > 0) {
+			// We cannot fallback here.
+			throw new Error(
+				"[unplugin-vue-complex-types] You may not use old style `defineEmits` and `defineEmits` shorthand together.",
+			);
+		}
+
+		if (members.length > 0) {
+			parts.push(...this.printEventsByMembers(members));
+		} else {
+			parts.push(...this.printEventsByCallSignatures(callSignatures));
+		}
+
+		return `[${parts.join(", ")}]`;
 	}
 }

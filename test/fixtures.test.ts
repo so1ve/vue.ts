@@ -13,11 +13,16 @@ beforeAll(() => {
 
 describe("fixtures", async () => {
 	await testFixtures(
-		["__fixtures__/*.vue", "!__fixtures__/*.exclude.vue"],
+		["__fixtures__/**/*.vue", "!__fixtures__/**/*.exclude.vue"],
 		async (_args, id) => {
 			const text = await readFile(id, { encoding: "utf-8" });
 
-			return (transform(text, id) as any).code;
+			return (
+				transform(text, id, {
+					defineEmits: true,
+					defineProps: true,
+				}) as any
+			).code;
 		},
 		{
 			cwd: __dirname,

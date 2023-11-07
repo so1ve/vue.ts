@@ -1,6 +1,46 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`fixtures compiled > __fixtures__/basic.vue 1`] = `
+exports[`fixtures compiled > __fixtures__/defineEmits/basic.vue 1`] = `
+"import { defineComponent } from 'vue';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+\\"use strict\\";
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"basic\\",
+  emits: [\\"foo\\", \\"baz\\", \\"qux\\", 'quote\\"'],
+  setup(__props) {
+    return () => {
+    };
+  }
+});
+
+var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { basic as default };
+"
+`;
+
+exports[`fixtures compiled > __fixtures__/defineEmits/shorthand.vue 1`] = `
+"import { defineComponent } from 'vue';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+\\"use strict\\";
+var _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: \\"shorthand\\",
+  emits: [\\"foo\\", \\"bar\\", 'quotes\\"'],
+  setup(__props) {
+    return () => {
+    };
+  }
+});
+
+var shorthand = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { shorthand as default };
+"
+`;
+
+exports[`fixtures compiled > __fixtures__/defineProps/basic.vue 1`] = `
 "import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
@@ -14,7 +54,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     genericExtendsString: { type: String, required: true },
     array: { type: Array, required: true },
     genericArray: { type: Array, required: true },
-    genericCondition: { type: [String, Number], required: true },
+    genericCondition: { type: [Number, String], required: true },
     function: { type: Function, required: true },
     error: { required: true },
     emptyInterface: { required: true },
@@ -36,7 +76,7 @@ export { basic as default };
 "
 `;
 
-exports[`fixtures compiled > __fixtures__/core#8286.vue 1`] = `
+exports[`fixtures compiled > __fixtures__/defineProps/core#8286.vue 1`] = `
 "import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
@@ -239,7 +279,7 @@ export { core_8286 as default };
 "
 `;
 
-exports[`fixtures compiled > __fixtures__/core#8468.vue 1`] = `
+exports[`fixtures compiled > __fixtures__/defineProps/core#8468.vue 1`] = `
 "import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
@@ -262,7 +302,7 @@ export { core_8468 as default };
 "
 `;
 
-exports[`fixtures compiled > __fixtures__/import-from-vue.vue 1`] = `
+exports[`fixtures compiled > __fixtures__/defineProps/import-from-vue.vue 1`] = `
 "import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
