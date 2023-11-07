@@ -16,11 +16,11 @@ export class Printer {
 	}
 
 	private printIntersectionTypeNode(node: ts.IntersectionTypeNode): string {
-		return node.types.map((t) => this.print(t)).join(" & ");
+		return node.types.map((t) => this.printTypeArg(t)).join(" & ");
 	}
 
 	private printUnionTypeNode(node: ts.UnionTypeNode): string {
-		return node.types.map((t) => this.print(t)).join(" | ");
+		return node.types.map((t) => this.printTypeArg(t)).join(" | ");
 	}
 
 	private printTypeLiteralNode(node: ts.TypeLiteralNode): string {
@@ -75,7 +75,7 @@ export class Printer {
 		return parts.join("\n");
 	}
 
-	public print(node: ts.Node): string {
+	public printTypeArg(node: ts.Node): string {
 		// Intersection and Union
 		if (ts.isIntersectionTypeNode(node)) {
 			return this.printIntersectionTypeNode(node);

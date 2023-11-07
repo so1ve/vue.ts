@@ -13,7 +13,7 @@ beforeAll(() => {
 
 describe("fixtures", async () => {
 	await testFixtures(
-		["__fixtures__/*.vue", "!__fixtures__/*.exclude.vue"],
+		["__fixtures__/**/*.vue", "!__fixtures__/**/*.exclude.vue"],
 		async (_args, id) => {
 			const text = await readFile(id, { encoding: "utf-8" });
 

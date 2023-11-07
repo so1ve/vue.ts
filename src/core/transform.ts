@@ -1,14 +1,12 @@
 import MagicString from "magic-string";
+import ts from "typescript";
 import type { TransformResult } from "unplugin";
 
 import { getLanguage } from "./language";
 import { Printer } from "./printer";
 
-export function transform(code: string, id: string): TransformResult {
+function transformDefineProps(printer: Printer, s: MagicString, id: string) {
 	const language = getLanguage();
-	const s = new MagicString(code);
-	const typeChecker = language.__internal__.typeChecker;
-	const printer = new Printer(typeChecker);
 	const definePropsTypeArg = language.findScriptRangesNode(
 		id,
 		(scriptSetupRanges) => scriptSetupRanges.props.define?.typeArg,
@@ -18,11 +16,77 @@ export function transform(code: string, id: string): TransformResult {
 		return;
 	}
 
-	const { node: typeArgNode, range: typeArgRange } = definePropsTypeArg;
+	const { virtualFileNode: typeArgNode, setupRange: typeArgRange } =
+		definePropsTypeArg;
 
-	const printedType = printer.print(typeArgNode);
+	const printedType = printer.printTypeArg(typeArgNode);
 
 	s.overwrite(typeArgRange.start, typeArgRange.end, printedType);
+}
+
+function transformDefineEmits(printer: Printer, s: MagicString, id: string) {
+	const language = getLanguage();
+	const defineEmits = language.findScriptRangesNode(
+		id,
+		(scriptSetupRanges) => scriptSetupRanges.emits.define,
+	);
+	if (!defineEmits) {
+		return;
+	}
+
+	const {
+		scriptNode: defineEmitsNode,
+		virtualFileNode: virtualFileDefineEmitsNode,
+		scriptSetupAst,
+		offset,
+	} = defineEmits;
+
+	// TODO: refactor when https://github.com/vuejs/language-tools/pull/3710 is merged
+	const defineEmitsTypeArg =
+		virtualFileDefineEmitsNode &&
+		ts.isCallExpression(virtualFileDefineEmitsNode) &&
+		virtualFileDefineEmitsNode.typeArguments?.[0];
+
+	if (!defineEmitsTypeArg) {
+		return;
+	}
+
+	const tokens = defineEmitsNode.getChildren(scriptSetupAst);
+
+	// defineEmits<     Arg   >()
+	//            ^           ^
+	const lessThanToken = tokens.find(
+		(t) => t.kind === ts.SyntaxKind.LessThanToken,
+	);
+	const greaterThanToken = tokens.find(
+		(t) => t.kind === ts.SyntaxKind.GreaterThanToken,
+	);
+	// defineEmits<     Arg   >()
+	//                         ^
+	const openParenToken = tokens.find(
+		(t) => t.kind === ts.SyntaxKind.OpenParenToken,
+	);
+
+	if (!lessThanToken || !greaterThanToken || !openParenToken) {
+		return;
+	}
+
+	const defineEmitsTypeArgRange = [
+		offset + lessThanToken.pos,
+		offset + greaterThanToken.end,
+	] as const;
+
+	// Remove the type argument
+	s.remove(...defineEmitsTypeArgRange);
+}
+
+export function transform(code: string, id: string): TransformResult {
+	const s = new MagicString(code);
+	const language = getLanguage();
+	const typeChecker = language.__internal__.typeChecker;
+	const printer = new Printer(typeChecker);
+	transformDefineProps(printer, s, id);
+	transformDefineEmits(printer, s, id);
 
 	return {
 		code: s.toString(),
