@@ -76,7 +76,6 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
     genericExtendsString: { type: String, required: true },
     array: { type: Array, required: true },
     genericArray: { type: Array, required: true },
-    genericCondition: { type: [Number, String], required: true },
     function: { type: Function, required: true },
     error: { required: true },
     emptyInterface: { required: true },

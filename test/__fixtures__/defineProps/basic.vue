@@ -13,7 +13,7 @@ defineProps<
 		genericExtendsString: T;
 		array: string[];
 		genericArray: U;
-		genericCondition: I extends "a" ? "a" : 1;
+		// genericCondition: I extends "a" ? "a" : 1;
 		function: () => void;
 		error: Error;
 	} & SomeInterface & {

@@ -22,12 +22,21 @@ export const transformDefineEmits: Transformer = (printer, s, id) => {
 
 	// TODO: refactor when https://github.com/vuejs/language-tools/pull/3710 is merged
 	const defineEmitsTypeArg =
-		virtualFileDefineEmitsNode &&
 		ts.isCallExpression(virtualFileDefineEmitsNode) &&
 		virtualFileDefineEmitsNode.typeArguments?.[0];
 
+	const defineEmitsRuntimeArg =
+		ts.isCallExpression(virtualFileDefineEmitsNode) &&
+		virtualFileDefineEmitsNode.arguments[0];
+
 	if (!defineEmitsTypeArg) {
 		return;
+	}
+
+	if (defineEmitsRuntimeArg) {
+		throw new Error(
+			"[unplugin-vue-complex-types] `defineEmits` cannot accept both runtime argument and type argument.",
+		);
 	}
 
 	const tokens = defineEmitsNode.getChildren(scriptSetupAst);
