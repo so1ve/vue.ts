@@ -125,9 +125,6 @@ exports[`fixtures > __fixtures__/no-type-annotation.tsx 1`] = `
 "import { defineComponent } from \\"vue\\";
 
 const Foo = defineComponent((props) => () => <div>{props}</div>);
-;Object.defineProperty(Foo, \\"props\\", {
-  value: [],
-});
 "
 `;
 
@@ -151,6 +148,9 @@ exports[`fixtures > __fixtures__/setup-option.tsx 1`] = `
 
 const Foo = defineComponent({
 	setup: (props: { foo: number }) => () => <div>{props}</div>,
+});
+;Object.defineProperty(Foo, \\"props\\", {
+  value: [\\"foo\\"],
 });
 "
 `;

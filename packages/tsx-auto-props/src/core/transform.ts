@@ -3,7 +3,7 @@ import MagicString from "magic-string";
 import ts from "typescript";
 import type { TransformResult } from "unplugin";
 
-import { getNodeAssignNode, isFunction } from "./utils";
+import { getNodeAssignNode } from "./utils";
 
 const generateDefineProps = (name: string, props: string[]) =>
 	`\n;Object.defineProperty(${name}, "props", {
@@ -19,7 +19,7 @@ export function transform(code: string, id: string): TransformResult {
 
 	language.traverseAst(
 		id,
-		(node, { virtualFileOrTsAst: ast, scriptSetupAst, isVirtualOrTsFile }) => {
+		(node, { virtualFileOrTsAst: ast, isVirtualOrTsFile }) => {
 			if (isVirtualOrTsFile && ts.isCallExpression(node)) {
 				const identifier = node.expression;
 				const symbol = typeChecker.getSymbolAtLocation(identifier);
@@ -32,25 +32,51 @@ export function transform(code: string, id: string): TransformResult {
 					)
 				) {
 					const arg = node.arguments[0];
-					if (arg) {
-						const argType = typeChecker.getTypeAtLocation(arg);
-						// defineComponent((props: Props) => { /* ... */ })
-						if (isFunction(arg)) {
-							const props = arg.parameters[0];
-							if (props) {
-								const propsList = typeChecker
-									.getTypeAtLocation(arg.parameters[0])
-									.getProperties()
-									.map((p) => p.name);
-								const { variableList, variable } = getNodeAssignNode(node);
-
-								if (variableList && variable) {
-									s.appendRight(
-										variableList.getEnd() + 1,
-										generateDefineProps(variable.name.getText(ast), propsList),
-									);
-								}
+					let setupFn: ts.FunctionLikeDeclaration | undefined;
+					// defineComponent({
+					//   setup: (props: Props) => { /* ... */ }
+					// })
+					if (ts.isObjectLiteralExpression(arg)) {
+						const props = arg.properties.find(
+							(p) =>
+								ts.isPropertyAssignment(p) &&
+								ts.isIdentifier(p.name) &&
+								p.name.escapedText === "props",
+						);
+						const setup = arg.properties.find(
+							(p) =>
+								ts.isPropertyAssignment(p) &&
+								ts.isIdentifier(p.name) &&
+								p.name.escapedText === "setup",
+						);
+						if (!props && setup && ts.isPropertyAssignment(setup)) {
+							const value = setup.initializer;
+							if (ts.isFunctionLike(value)) {
+								setupFn = value;
 							}
+						}
+					}
+					// defineComponent((props: Props) => { /* ... */ })
+					else if (ts.isFunctionLike(arg)) {
+						setupFn = arg;
+					} else {
+						throw new Error(
+							"[@vue.ts/tsx-auto-props] Invalid defineComponent argument",
+						);
+					}
+					const props = setupFn?.parameters[0];
+					if (props) {
+						const propsList = typeChecker
+							.getTypeAtLocation(props)
+							.getProperties()
+							.map((p) => p.name);
+						const { variableList, variable } = getNodeAssignNode(node);
+
+						if (propsList.length > 0 && variableList && variable) {
+							s.appendRight(
+								variableList.getEnd() + 1,
+								generateDefineProps(variable.name.getText(ast), propsList),
+							);
 						}
 					}
 				}

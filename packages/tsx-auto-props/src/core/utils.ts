@@ -10,13 +10,6 @@ export const resolveOptions = (rawOptions: Options): ResolvedOptions => ({
 	tsconfigPath: rawOptions.tsconfigPath ?? join(process.cwd(), "tsconfig.json"),
 });
 
-export const isFunction = (
-	node: ts.Node,
-): node is ts.ArrowFunction | ts.FunctionDeclaration | ts.FunctionExpression =>
-	ts.isArrowFunction(node) ||
-	ts.isFunctionDeclaration(node) ||
-	ts.isFunctionExpression(node);
-
 export function getNodeAssignNode(node: ts.Node) {
 	let parent: ts.Node | null = null;
 	let variableList: ts.VariableDeclarationList | null = null;
