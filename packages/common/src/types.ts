@@ -1,6 +1,6 @@
-export type BaseOptions = {
+import type { FilterPattern } from "@rollup/pluginutils";
+
+export interface BaseOptions {
 	include?: FilterPattern;
 	exclude?: FilterPattern;
-};
-
-import { FilterPattern } from "@rollup/pluginutils";
+}
