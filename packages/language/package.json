@@ -1,9 +1,12 @@
 {
 	"name": "@vue.ts/language",
-	"version": "0.3.0",
+	"version": "0.0.0",
 	"author": "Ray <i@mk1.io> (https://github.com/so1ve)",
-	"description": "",
-	"keywords": [],
+	"description": "Vue 3 Language Helper",
+	"keywords": [
+		"volar",
+		"vue"
+	],
 	"homepage": "https://github.com/so1ve/vue.ts/tree/main/packages/language#readme",
 	"repository": {
 		"type": "git",

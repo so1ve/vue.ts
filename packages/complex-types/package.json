@@ -1,6 +1,6 @@
 {
 	"name": "@vue.ts/complex-types",
-	"version": "0.3.0",
+	"version": "0.0.0",
 	"author": "Ray <i@mk1.io> (@so1ve)",
 	"description": "Resolve complex types in Vue SFCs.",
 	"keywords": [
