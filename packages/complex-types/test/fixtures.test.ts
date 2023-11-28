@@ -2,9 +2,9 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
 import { testFixtures } from "@vue-macros/test-utils";
+import { ensureLanguage } from "@vue.ts/language";
 import { beforeAll, describe } from "vitest";
 
-import { ensureLanguage } from "../src";
 import { transform } from "../src/core/transform";
 
 beforeAll(() => {

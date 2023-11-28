@@ -1,4 +1,5 @@
-import { getLanguage } from "../language";
+import { getLanguage } from "@vue.ts/language";
+
 import type { Transformer } from "../types";
 
 export const transformDefineProps: Transformer = (printer, s, id) => {

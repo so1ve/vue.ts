@@ -1,7 +1,7 @@
+import { getLanguage } from "@vue.ts/language";
 import MagicString from "magic-string";
 import type { TransformResult } from "unplugin";
 
-import { getLanguage } from "./language";
 import { Printer } from "./printer";
 import { getTransformers } from "./transformers";
 import type { TransformOptions } from "./types";

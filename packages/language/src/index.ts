@@ -213,7 +213,7 @@ function baseCreateLanguageWorker(
 	};
 }
 
-const LANGUAGE_GLOBAL_KEY = "__UNPLUGIN_VUE_COMPLEX_LANGUAGE__";
+const LANGUAGE_GLOBAL_KEY = "__VUETS_LANGUAGE__";
 export function ensureLanguage(tsconfigPath: string) {
 	if (!(globalThis as any)[LANGUAGE_GLOBAL_KEY]) {
 		(globalThis as any)[LANGUAGE_GLOBAL_KEY] = createLanguage(tsconfigPath);
@@ -222,7 +222,7 @@ export function ensureLanguage(tsconfigPath: string) {
 
 export function getLanguage(): Language {
 	if (!(globalThis as any)[LANGUAGE_GLOBAL_KEY]) {
-		throw new Error("[unplugin-vue-complex-types] Language not created!");
+		throw new Error("[@vue.ts/language] Language not created!");
 	}
 
 	return (globalThis as any)[LANGUAGE_GLOBAL_KEY];

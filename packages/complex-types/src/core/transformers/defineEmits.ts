@@ -1,6 +1,6 @@
+import { getLanguage } from "@vue.ts/language";
 import ts from "typescript";
 
-import { getLanguage } from "../language";
 import type { Transformer } from "../types";
 
 export const transformDefineEmits: Transformer = (printer, s, id) => {
