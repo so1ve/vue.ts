@@ -4,14 +4,14 @@
 		"lib": ["ESNext"],
 		"module": "ESNext",
 		"moduleResolution": "Node",
-		"paths": {
-			"@vue.ts/language": ["./packages/language/src/index.ts"]
-		},
 		"resolveJsonModule": true,
 		"strict": true,
 		"strictNullChecks": true,
 		"esModuleInterop": true,
 		"skipDefaultLibCheck": true,
-		"skipLibCheck": true
+		"skipLibCheck": true,
+		"paths": {
+			"@vue.ts/language": ["./packages/language/src/index.ts"]
+		}
 	}
 }
