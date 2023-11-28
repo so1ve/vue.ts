@@ -1,0 +1,45 @@
+{
+	"name": "@vue.ts/language",
+	"version": "0.0.0",
+	"author": "Ray <i@mk1.io> (https://github.com/so1ve)",
+	"description": "Vue 3 Language Helper",
+	"keywords": [
+		"volar",
+		"vue"
+	],
+	"homepage": "https://github.com/so1ve/vue.ts/tree/main/packages/language#readme",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/so1ve/vue.ts.git",
+		"directory": "/"
+	},
+	"bugs": {
+		"url": "https://github.com/so1ve/vue.ts/issues"
+	},
+	"license": "MIT",
+	"sideEffects": false,
+	"exports": {
+		".": {
+			"require": "./dist/index.cjs",
+			"import": "./dist/index.mjs"
+		}
+	},
+	"main": "dist/index.cjs",
+	"module": "dist/index.mjs",
+	"files": [
+		"dist"
+	],
+	"publishConfig": {
+		"access": "public"
+	},
+	"scripts": {
+		"build": "unbuild",
+		"prepublishOnly": "nr build",
+		"stub": "unbuild --stub"
+	},
+	"dependencies": {
+		"@volar/typescript": "1.10.10",
+		"@vue.ts/common": "workspace:*",
+		"@vue/language-core": "1.8.22"
+	}
+}

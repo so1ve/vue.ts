@@ -1,0 +1,40 @@
+{
+	"name": "@vue.ts/common",
+	"version": "0.0.0",
+	"author": "Ray <i@mk1.io> (https://github.com/so1ve)",
+	"description": "",
+	"keywords": [],
+	"homepage": "https://github.com/so1ve/vue.ts/tree/main/packages/common#readme",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/so1ve/vue.ts.git",
+		"directory": "/"
+	},
+	"bugs": {
+		"url": "https://github.com/so1ve/vue.ts/issues"
+	},
+	"license": "MIT",
+	"sideEffects": false,
+	"exports": {
+		".": {
+			"require": "./dist/index.cjs",
+			"import": "./dist/index.mjs"
+		}
+	},
+	"main": "dist/index.cjs",
+	"module": "dist/index.mjs",
+	"files": [
+		"dist"
+	],
+	"publishConfig": {
+		"access": "public"
+	},
+	"scripts": {
+		"build": "unbuild",
+		"prepublishOnly": "nr build",
+		"stub": "unbuild --stub"
+	},
+	"dependencies": {
+		"@rollup/pluginutils": "^5.0.5"
+	}
+}
