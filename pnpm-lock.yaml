@@ -114,6 +114,9 @@ importers:
       '@nuxt/kit':
         specifier: ^3.8.1
         version: 3.8.1(rollup@4.3.0)
+      '@vue.ts/common':
+        specifier: workspace:*
+        version: link:../common
       '@vue.ts/language':
         specifier: workspace:*
         version: link:../language

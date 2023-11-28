@@ -89,6 +89,7 @@
 	},
 	"dependencies": {
 		"@nuxt/kit": "^3.8.1",
+		"@vue.ts/common": "workspace:*",
 		"@vue.ts/language": "workspace:*",
 		"magic-string": "^0.30.5",
 		"unplugin": "^1.5.0"
