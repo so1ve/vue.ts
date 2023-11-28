@@ -1,6 +1,6 @@
 {
 	"name": "@vue.ts/language",
-	"version": "0.0.0",
+	"version": "0.4.0",
 	"author": "Ray <i@mk1.io> (https://github.com/so1ve)",
 	"description": "Vue 3 Language Helper",
 	"keywords": [
