@@ -13,10 +13,11 @@ export const transformDefineEmits: Transformer = (printer, s, id) => {
 		return;
 	}
 
+	const scriptSetupAst = language.getScriptSetupAst(id);
+
 	const {
 		scriptNode: defineEmitsNode,
 		virtualFileNode: virtualFileDefineEmitsNode,
-		scriptSetupAst,
 		offset,
 	} = defineEmits;
 

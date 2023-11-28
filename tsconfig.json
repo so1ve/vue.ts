@@ -4,6 +4,9 @@
 		"lib": ["ESNext"],
 		"module": "ESNext",
 		"moduleResolution": "Node",
+		"paths": {
+			"@vue.ts/language": ["./packages/language/src/index.ts"]
+		},
 		"resolveJsonModule": true,
 		"strict": true,
 		"strictNullChecks": true,
