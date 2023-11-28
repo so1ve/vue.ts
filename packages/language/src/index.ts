@@ -236,7 +236,8 @@ function baseCreateLanguageWorker(
 		cb: (
 			node: ts.Node,
 			context: {
-				ast: ts.SourceFile;
+				scriptSetupAst?: ts.SourceFile;
+				virtualFileOrTsAst: ts.SourceFile;
 				isVirtualOrTsFile: boolean;
 			},
 		) => void,
@@ -244,10 +245,14 @@ function baseCreateLanguageWorker(
 		filepath = normalizePath(filepath);
 		const scriptSetupAst = getScriptSetupAst(filepath);
 		const virtualFileOrTsAst = getVirtualFileOrTsAst(filepath);
+		if (!virtualFileOrTsAst) {
+			return;
+		}
 		if (scriptSetupAst) {
 			scriptSetupAst.forEachChild(function traverse(node: ts.Node) {
 				cb(node, {
-					ast: scriptSetupAst,
+					scriptSetupAst,
+					virtualFileOrTsAst,
 					isVirtualOrTsFile: false,
 				});
 				node.forEachChild(traverse);
@@ -256,7 +261,8 @@ function baseCreateLanguageWorker(
 		if (virtualFileOrTsAst) {
 			virtualFileOrTsAst.forEachChild(function traverse(node: ts.Node) {
 				cb(node, {
-					ast: virtualFileOrTsAst,
+					scriptSetupAst,
+					virtualFileOrTsAst,
 					isVirtualOrTsFile: true,
 				});
 				node.forEachChild(traverse);

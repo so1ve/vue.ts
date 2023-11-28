@@ -17,9 +17,15 @@ type P1 = {
 const Foo = defineComponent(<T,>(props: Props<T>) => {
 	return () => <div>{props}</div>;
 });
+;Object.defineProperty(Foo, \\"props\\", {
+  value: [\\"a\\",\\"b\\"],
+});
 
 const Bar = defineComponent((props: P1) => {
 	return () => <div>{props}</div>;
+});
+;Object.defineProperty(Bar, \\"props\\", {
+  value: [\\"a\\"],
 });
 "
 `;
@@ -34,6 +40,9 @@ type Props = 1 extends 1
 	: { a: string };
 
 const Foo = defineComponent((props: Props) => () => <div>{props}</div>);
+;Object.defineProperty(Foo, \\"props\\", {
+  value: [\\"foo\\"],
+});
 "
 `;
 
@@ -63,6 +72,9 @@ type Props = {
 const Foo = defineComponent(function (props: Props) {
 	return () => <div>{props}</div>;
 });
+;Object.defineProperty(Foo, \\"props\\", {
+  value: [\\"foo\\"],
+});
 "
 `;
 
@@ -72,6 +84,9 @@ exports[`fixtures > __fixtures__/inline-type.tsx 1`] = `
 const Foo = defineComponent<{ foo: number }>((props) => () => (
 	<div>{props}</div>
 ));
+;Object.defineProperty(Foo, \\"props\\", {
+  value: [\\"foo\\"],
+});
 "
 `;
 
@@ -81,6 +96,9 @@ exports[`fixtures > __fixtures__/inline-type-argument.tsx 1`] = `
 const Foo = defineComponent((props: { foo: number }) => () => (
 	<div>{props}</div>
 ));
+;Object.defineProperty(Foo, \\"props\\", {
+  value: [\\"foo\\"],
+});
 "
 `;
 
@@ -97,6 +115,9 @@ interface Props<T> {
 export const Foo = defineComponent(<T,>(props: Props<T>) => {
 	return () => <div>{props}</div>;
 });
+;Object.defineProperty(Foo, \\"props\\", {
+  value: [\\"a\\",\\"b\\"],
+});
 "
 `;
 
@@ -104,6 +125,9 @@ exports[`fixtures > __fixtures__/no-type-annotation.tsx 1`] = `
 "import { defineComponent } from \\"vue\\";
 
 const Foo = defineComponent((props) => () => <div>{props}</div>);
+;Object.defineProperty(Foo, \\"props\\", {
+  value: [],
+});
 "
 `;
 
@@ -139,5 +163,8 @@ type Props = {
 };
 
 const Foo = defineComponent<Props>((props) => () => <div>{props}</div>);
+;Object.defineProperty(Foo, \\"props\\", {
+  value: [\\"foo\\"],
+});
 "
 `;
