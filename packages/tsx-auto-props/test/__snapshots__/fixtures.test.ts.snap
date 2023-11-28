@@ -1,0 +1,143 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`fixtures > __fixtures__/basic.tsx 1`] = `
+"import { defineComponent } from \\"vue\\";
+
+interface Props<T> {
+	a: number;
+	b: {
+		some: boolean;
+	};
+}
+
+type P1 = {
+	a: 1;
+};
+
+const Foo = defineComponent(<T,>(props: Props<T>) => {
+	return () => <div>{props}</div>;
+});
+
+const Bar = defineComponent((props: P1) => {
+	return () => <div>{props}</div>;
+});
+"
+`;
+
+exports[`fixtures > __fixtures__/complex-type.tsx 1`] = `
+"import { defineComponent } from \\"vue\\";
+
+type Props = 1 extends 1
+	? {
+			foo: number;
+	  }
+	: { a: string };
+
+const Foo = defineComponent((props: Props) => () => <div>{props}</div>);
+"
+`;
+
+exports[`fixtures > __fixtures__/default-export.tsx 1`] = `
+"import { defineComponent } from \\"vue\\";
+
+interface Props<T> {
+	a: number;
+	b: {
+		some: boolean;
+	};
+}
+
+export default defineComponent(<T,>(props: Props<T>) => {
+	return () => <div>{props}</div>;
+});
+"
+`;
+
+exports[`fixtures > __fixtures__/function-declaration.tsx 1`] = `
+"import { defineComponent } from \\"vue\\";
+
+type Props = {
+	foo: number;
+};
+
+const Foo = defineComponent(function (props: Props) {
+	return () => <div>{props}</div>;
+});
+"
+`;
+
+exports[`fixtures > __fixtures__/inline-type.tsx 1`] = `
+"import { defineComponent } from \\"vue\\";
+
+const Foo = defineComponent<{ foo: number }>((props) => () => (
+	<div>{props}</div>
+));
+"
+`;
+
+exports[`fixtures > __fixtures__/inline-type-argument.tsx 1`] = `
+"import { defineComponent } from \\"vue\\";
+
+const Foo = defineComponent((props: { foo: number }) => () => (
+	<div>{props}</div>
+));
+"
+`;
+
+exports[`fixtures > __fixtures__/named-export.tsx 1`] = `
+"import { defineComponent } from \\"vue\\";
+
+interface Props<T> {
+	a: number;
+	b: {
+		some: boolean;
+	};
+}
+
+export const Foo = defineComponent(<T,>(props: Props<T>) => {
+	return () => <div>{props}</div>;
+});
+"
+`;
+
+exports[`fixtures > __fixtures__/no-type-annotation.tsx 1`] = `
+"import { defineComponent } from \\"vue\\";
+
+const Foo = defineComponent((props) => () => <div>{props}</div>);
+"
+`;
+
+exports[`fixtures > __fixtures__/props-set.tsx 1`] = `
+"import { defineComponent } from \\"vue\\";
+
+const Foo = defineComponent({
+	props: {
+		foo: {
+			type: Number,
+			required: true,
+		},
+	},
+	setup: (props: { foo: number }) => () => <div>{props}</div>,
+});
+"
+`;
+
+exports[`fixtures > __fixtures__/setup-option.tsx 1`] = `
+"import { defineComponent } from \\"vue\\";
+
+const Foo = defineComponent({
+	setup: (props: { foo: number }) => () => <div>{props}</div>,
+});
+"
+`;
+
+exports[`fixtures > __fixtures__/type-argument.tsx 1`] = `
+"import { defineComponent } from \\"vue\\";
+
+type Props = {
+	foo: number;
+};
+
+const Foo = defineComponent<Props>((props) => () => <div>{props}</div>);
+"
+`;

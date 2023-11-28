@@ -7,7 +7,7 @@ import type { Options } from "./types";
 import { resolveOptions } from "./utils";
 
 export default createUnplugin<Options | undefined>((options = {}) => ({
-	name: "@vue.ts/complex-types",
+	name: "unplugin-vue-complex-types",
 	buildStart() {
 		const resolvedOptions = resolveOptions(options);
 		ensureLanguage(resolvedOptions.tsconfigPath);
@@ -23,6 +23,6 @@ export default createUnplugin<Options | undefined>((options = {}) => ({
 			return;
 		}
 
-		return transform(code, id, resolvedOptions);
+		return transform(code, id);
 	},
 }));

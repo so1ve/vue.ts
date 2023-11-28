@@ -4,7 +4,7 @@ import type { Transformer } from "../types";
 
 export const transformDefineProps: Transformer = (printer, s, id) => {
 	const language = getLanguage();
-	const definePropsTypeArg = language.findNode(
+	const definePropsTypeArg = language.findNodeByRange(
 		id,
 		(scriptSetupRanges) => scriptSetupRanges.props.define?.typeArg,
 	);

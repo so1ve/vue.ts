@@ -6,9 +6,8 @@ import {
 	decorateLanguageService,
 } from "@volar/typescript";
 import * as vue from "@vue/language-core";
+import { normalizePath } from "@vue.ts/common";
 import type ts from "typescript/lib/tsserverlibrary";
-
-import { normalizePath } from "./utils";
 
 const require = createRequire(import.meta.url);
 
@@ -130,7 +129,7 @@ function baseCreateLanguageWorker(
 		return sourceFile.sfc.scriptSetup;
 	}
 
-	function findNode(
+	function findNodeByRange(
 		filepath: string,
 		filter: (ranges: vue.ScriptSetupRanges) => vue.TextRange | undefined,
 	):
@@ -156,7 +155,7 @@ function baseCreateLanguageWorker(
 			scriptSetupAst,
 			vueCompilerOptions,
 		);
-		const virtualFileAst = getVirtualFileAst(filepath);
+		const virtualFileAst = getVirtualFileOrTsAst(filepath);
 		if (!virtualFileAst) {
 			return;
 		}
@@ -216,22 +215,60 @@ function baseCreateLanguageWorker(
 		return scriptSetupBlock.ast;
 	}
 
-	function getVirtualFileAst(filepath: string) {
+	function getVirtualFileOrTsAst(filepath: string) {
 		filepath = normalizePath(filepath);
+		let virtualFileOrTsAst = program.getSourceFile(filepath);
+		if (virtualFileOrTsAst) {
+			return virtualFileOrTsAst;
+		}
 		const scriptSetupBlock = getScriptSetupBlock(filepath);
 		if (!scriptSetupBlock) {
 			return;
 		}
 		const { lang } = scriptSetupBlock;
-		const virtualFileAst = program.getSourceFile(`${filepath}.${lang}`);
+		virtualFileOrTsAst = program.getSourceFile(`${filepath}.${lang}`);
 
-		return virtualFileAst;
+		return virtualFileOrTsAst;
+	}
+
+	function traverseAst(
+		filepath: string,
+		cb: (
+			node: ts.Node,
+			context: {
+				ast: ts.SourceFile;
+				isVirtualOrTsFile: boolean;
+			},
+		) => void,
+	) {
+		filepath = normalizePath(filepath);
+		const scriptSetupAst = getScriptSetupAst(filepath);
+		const virtualFileOrTsAst = getVirtualFileOrTsAst(filepath);
+		if (scriptSetupAst) {
+			scriptSetupAst.forEachChild(function traverse(node: ts.Node) {
+				cb(node, {
+					ast: scriptSetupAst,
+					isVirtualOrTsFile: false,
+				});
+				node.forEachChild(traverse);
+			});
+		}
+		if (virtualFileOrTsAst) {
+			virtualFileOrTsAst.forEachChild(function traverse(node: ts.Node) {
+				cb(node, {
+					ast: virtualFileOrTsAst,
+					isVirtualOrTsFile: true,
+				});
+				node.forEachChild(traverse);
+			});
+		}
 	}
 
 	return {
-		findNode,
+		findNodeByRange,
 		getScriptSetupAst,
-		getVirtualFileAst,
+		getVirtualFileAst: getVirtualFileOrTsAst,
+		traverseAst,
 		__internal__: {
 			tsLs,
 			program,

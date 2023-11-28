@@ -1,6 +1,7 @@
 {
 	"compilerOptions": {
 		"target": "ES2018",
+		"jsx": "preserve",
 		"lib": ["ESNext"],
 		"module": "ESNext",
 		"moduleResolution": "Node",
@@ -11,7 +12,10 @@
 		"skipDefaultLibCheck": true,
 		"skipLibCheck": true,
 		"paths": {
-			"@vue.ts/language": ["./packages/language/src/index.ts"]
+			"@vue.ts/language": ["./packages/language/src/index.ts"],
+			"@vue.ts/common": ["./packages/common/src/index.ts"],
+			"@vue.ts/complex-types": ["./packages/complex-types/src/index.ts"],
+			"@vue.ts/tsx-auto-props": ["./packages/tsx-auto-props/src/index.ts"]
 		}
 	}
 }

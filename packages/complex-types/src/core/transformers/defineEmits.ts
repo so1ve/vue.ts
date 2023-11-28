@@ -5,7 +5,7 @@ import type { Transformer } from "../types";
 
 export const transformDefineEmits: Transformer = (printer, s, id) => {
 	const language = getLanguage();
-	const defineEmits = language.findNode(
+	const defineEmits = language.findNodeByRange(
 		id,
 		(scriptSetupRanges) => scriptSetupRanges.emits.define,
 	);

@@ -6,6 +6,8 @@ const windowsPathReg = /\\/g;
 export const normalizePath = (id: string) => id.replace(windowsPathReg, "/");
 
 export const resolveOptions = (rawOptions: Options): ResolvedOptions => ({
+	include: rawOptions.include ?? ["**/*.vue"],
+	exclude: rawOptions.exclude ?? ["node_modules/**"],
 	tsconfigPath: rawOptions.tsconfigPath ?? join(process.cwd(), "tsconfig.json"),
 	defineEmits: rawOptions.defineEmits ?? true,
 	defineProps: rawOptions.defineProps ?? true,

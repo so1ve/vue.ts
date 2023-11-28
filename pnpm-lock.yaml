@@ -45,11 +45,20 @@ importers:
         specifier: ^0.34.6
         version: 0.34.6
 
+  packages/common:
+    dependencies:
+      '@rollup/pluginutils':
+        specifier: ^5.0.5
+        version: 5.0.5(rollup@3.29.4)
+
   packages/complex-types:
     dependencies:
       '@nuxt/kit':
         specifier: ^3.8.1
         version: 3.8.1(rollup@4.3.0)
+      '@vue.ts/common':
+        specifier: workspace:*
+        version: link:../common
       '@vue.ts/language':
         specifier: workspace:*
         version: link:../language
@@ -90,9 +99,49 @@ importers:
       '@volar/typescript':
         specifier: 1.10.10
         version: 1.10.10
+      '@vue.ts/common':
+        specifier: workspace:*
+        version: link:../common
       '@vue/language-core':
         specifier: 1.8.22
         version: 1.8.22(typescript@5.2.2)
+
+  packages/tsx-auto-props:
+    dependencies:
+      '@nuxt/kit':
+        specifier: ^3.8.1
+        version: 3.8.1(rollup@4.3.0)
+      '@vue.ts/language':
+        specifier: workspace:*
+        version: link:../language
+      magic-string:
+        specifier: ^0.30.5
+        version: 0.30.5
+      typescript:
+        specifier: ^5.2.2
+        version: 5.2.2
+      unplugin:
+        specifier: ^1.5.0
+        version: 1.5.0
+      vue:
+        specifier: ^3.3.7
+        version: 3.3.7(typescript@5.2.2)
+    devDependencies:
+      '@nuxt/schema':
+        specifier: ^3.8.1
+        version: 3.8.1(rollup@4.3.0)
+      rollup:
+        specifier: ^4.3.0
+        version: 4.3.0
+      unbuild:
+        specifier: ^2.0.0
+        version: 2.0.0(typescript@5.2.2)
+      vite:
+        specifier: ^5.0.2
+        version: 5.0.2(@types/node@20.8.10)
+      webpack:
+        specifier: ^5.89.0
+        version: 5.89.0(esbuild@0.18.20)
 
 packages:
 
@@ -1172,7 +1221,6 @@ packages:
       estree-walker: 2.0.2
       picomatch: 2.3.1
       rollup: 3.29.4
-    dev: true
 
   /@rollup/pluginutils@5.0.5(rollup@4.3.0):
     resolution: {integrity: sha512-6aEYR910NyP73oHiJglti74iRyOwgFU4x3meH/H8OJx6Ry0j6cOVZ5X/wTvub7G7Ao6qaHBEaNsV3GLJkSsF+Q==}
@@ -5936,7 +5984,6 @@ packages:
     hasBin: true
     optionalDependencies:
       fsevents: 2.3.3
-    dev: true
 
   /rollup@4.3.0:
     resolution: {integrity: sha512-scIi1NrKLDIYSPK66jjECtII7vIgdAMFmFo8h6qm++I6nN9qDSV35Ku6erzGVqYjx+lj+j5wkusRMr++8SyDZg==}

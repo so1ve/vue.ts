@@ -1,21 +1,22 @@
 {
-	"name": "@vue.ts/complex-types",
+	"name": "@vue.ts/tsx-auto-props",
 	"version": "0.0.0",
 	"author": "Ray <i@mk1.io> (@so1ve)",
-	"description": "Resolve complex types in Vue SFCs.",
+	"description": "Automatically add props definition for Vue 3 TSX.",
 	"keywords": [
 		"astro",
 		"nuxt",
 		"rollup",
 		"rspack",
 		"transform",
+		"tsx",
 		"typescript",
 		"unplugin",
 		"vite",
 		"vue",
 		"webpack"
 	],
-	"homepage": "https://github.com/so1ve/vue.ts/tree/main/packages/language#readme",
+	"homepage": "https://github.com/so1ve/vue.ts/tree/main/packages/tsx-auto-props#readme",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/so1ve/vue.ts.git",
@@ -88,14 +89,12 @@
 	},
 	"dependencies": {
 		"@nuxt/kit": "^3.8.1",
-		"@vue.ts/common": "workspace:*",
 		"@vue.ts/language": "workspace:*",
 		"magic-string": "^0.30.5",
 		"unplugin": "^1.5.0"
 	},
 	"devDependencies": {
 		"@nuxt/schema": "^3.8.1",
-		"@vue-macros/better-define": "^1.6.12",
 		"rollup": "^4.3.0",
 		"unbuild": "^2.0.0",
 		"vite": "^5.0.2",
