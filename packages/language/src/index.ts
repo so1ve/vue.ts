@@ -114,6 +114,22 @@ function baseCreateLanguageWorker(
 	const program = tsLs.getProgram()!;
 	const typeChecker = program.getTypeChecker();
 
+	function getScriptSetupBlock(normalizedFilepath: string) {
+		const sourceFile = core.virtualFiles.getSource(normalizedFilepath)?.root;
+		if (!(sourceFile instanceof vue.VueFile)) {
+			return;
+		}
+		if (!sourceFile.sfc.scriptSetup) {
+			return;
+		}
+		const { lang } = sourceFile.sfc.scriptSetup;
+		if (lang !== "ts" && lang !== "tsx") {
+			return;
+		}
+
+		return sourceFile.sfc.scriptSetup;
+	}
+
 	function findNode(
 		filepath: string,
 		filter: (ranges: vue.ScriptSetupRanges) => vue.TextRange | undefined,
@@ -122,32 +138,17 @@ function baseCreateLanguageWorker(
 				virtualFileNode: ts.Node;
 				scriptNode: ts.Node;
 				setupRange: vue.TextRange;
-				scriptSetupAst: ts.SourceFile;
-				virtualFileAst: ts.SourceFile;
 				offset: number;
 		  }
 		| undefined {
 		filepath = normalizePath(filepath);
-		const sourceFile = core.virtualFiles.getSource(filepath)?.root;
-		if (!(sourceFile instanceof vue.VueFile)) {
+		const scriptSetupBlock = getScriptSetupBlock(filepath);
+		if (!scriptSetupBlock) {
 			return;
 		}
-		if (!sourceFile.sfc.scriptSetup) {
-			return;
-		}
-		const {
-			ast: scriptSetupAst,
-			startTagEnd: offset,
-			lang,
-		} = sourceFile.sfc.scriptSetup;
-		if (lang !== "ts" && lang !== "tsx") {
-			return;
-		}
-		// We get volar's generated virtual ts file because `scriptSetupAst`
-		// is the ast of `<script setup>` block, which is not in the program
-		// and cannot be used by type checker.
-		const virtualFileAst = program.getSourceFile(`${filepath}.${lang}`);
-		if (!virtualFileAst) {
+		const { startTagEnd: offset } = scriptSetupBlock;
+		const scriptSetupAst = getScriptSetupAst(filepath);
+		if (!scriptSetupAst) {
 			return;
 		}
 		const scriptSetupRanges = vue.parseScriptSetupRanges(
@@ -155,6 +156,10 @@ function baseCreateLanguageWorker(
 			scriptSetupAst,
 			vueCompilerOptions,
 		);
+		const virtualFileAst = getVirtualFileAst(filepath);
+		if (!virtualFileAst) {
+			return;
+		}
 		const virtualTsFileScriptSetupRanges = vue.parseScriptSetupRanges(
 			ts,
 			virtualFileAst,
@@ -197,14 +202,36 @@ function baseCreateLanguageWorker(
 			virtualFileNode: foundVirtualFileNode,
 			scriptNode: foundSetupNode,
 			setupRange,
-			scriptSetupAst,
-			virtualFileAst,
 			offset,
 		};
 	}
 
+	function getScriptSetupAst(filepath: string) {
+		filepath = normalizePath(filepath);
+		const scriptSetupBlock = getScriptSetupBlock(filepath);
+		if (!scriptSetupBlock) {
+			return;
+		}
+
+		return scriptSetupBlock.ast;
+	}
+
+	function getVirtualFileAst(filepath: string) {
+		filepath = normalizePath(filepath);
+		const scriptSetupBlock = getScriptSetupBlock(filepath);
+		if (!scriptSetupBlock) {
+			return;
+		}
+		const { lang } = scriptSetupBlock;
+		const virtualFileAst = program.getSourceFile(`${filepath}.${lang}`);
+
+		return virtualFileAst;
+	}
+
 	return {
 		findNode,
+		getScriptSetupAst,
+		getVirtualFileAst,
 		__internal__: {
 			tsLs,
 			program,
