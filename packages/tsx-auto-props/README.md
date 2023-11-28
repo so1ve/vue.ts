@@ -1,22 +1,46 @@
-# unplugin-vue-complex-types
+# unplugin-vue-tsx-auto-props
 
-[![NPM version](https://img.shields.io/npm/v/unplugin-vue-complex-types?color=a1b858&label=)](https://www.npmjs.com/package/unplugin-vue-complex-types)
+[![NPM version](https://img.shields.io/npm/v/unplugin-vue-tsx-auto-props?color=a1b858&label=)](https://www.npmjs.com/package/unplugin-vue-tsx-auto-props)
 
-Use [`@vue/language-core`](https://github.com/vuejs/language-tools/tree/master/packages/language-core) to support complex types for Vue Macros.
+## Why?
 
-For example: fixes https://github.com/vuejs/core/issues/8286.
+Vue does not provide a way to automatically specify props for functional components written in TSX. This plugin solves this problem.
+
+Before:
+
+```tsx
+import { defineComponent } from "vue";
+
+interface Props {
+	foo: string;
+}
+
+const Foo = defineComponent((props: Props) => () => <div>{props.foo}</div>);
+Foo.props = ["foo"]; // 👈 You need to manually specify the props :(
+```
+
+After:
+
+```tsx
+import { defineComponent } from "vue";
+
+interface Props {
+	foo: string;
+}
+
+const Foo = defineComponent((props: Props) => () => <div>{props.foo}</div>);
+Object.defineProperty(Foo, "props", {
+	value: ["foo"],
+}); // 👈 This plugin will do it for you!
+```
 
 ## 📦 Installation
 
 ```bash
-$ npm install -D unplugin-vue-complex-types
-$ yarn add -D unplugin-vue-complex-types
-$ pnpm add -D unplugin-vue-complex-types
+$ npm install -D unplugin-vue-tsx-auto-props
+$ yarn add -D unplugin-vue-tsx-auto-props
+$ pnpm add -D unplugin-vue-tsx-auto-props
 ```
-
-## TODOs
-
-- [ ] Add more tests
 
 ## 🚀 Usage
 
@@ -25,11 +49,11 @@ $ pnpm add -D unplugin-vue-complex-types
 
 ```ts
 // vite.config.ts
-import VueComplexTypes from "unplugin-vue-complex-types/vite";
+import VueTsxAutoProps from "unplugin-vue-tsx-auto-props/vite";
 
 export default defineConfig({
 	plugins: [
-		VueComplexTypes({
+		VueTsxAutoProps({
 			/* options */
 		}),
 	],
@@ -43,11 +67,11 @@ export default defineConfig({
 
 ```ts
 // rollup.config.js
-import VueComplexTypes from "unplugin-vue-complex-types/rollup";
+import VueTsxAutoProps from "unplugin-vue-tsx-auto-props/rollup";
 
 export default {
 	plugins: [
-		VueComplexTypes({
+		VueTsxAutoProps({
 			/* options */
 		}),
 		// other plugins
@@ -65,24 +89,7 @@ export default {
 module.exports = {
 	/* ... */
 	plugins: [
-		require("unplugin-vue-complex-types/webpack")({
-			/* options */
-		}),
-	],
-};
-```
-
-<br></details>
-
-<details>
-<summary>Rspack</summary><br>
-
-```ts
-// rspack.config.js
-module.exports = {
-	/* ... */
-	plugins: [
-		require("unplugin-vue-complex-types/rspack")({
+		require("unplugin-vue-tsx-auto-props/webpack")({
 			/* options */
 		}),
 	],
@@ -97,10 +104,7 @@ module.exports = {
 ```ts
 // nuxt.config.ts
 export default defineNuxtConfig({
-	modules: ["unplugin-vue-complex-types/nuxt"],
-	complexTypes: {
-		/* options */
-	},
+	modules: ["unplugin-vue-tsx-auto-props/nuxt"],
 });
 ```
 
@@ -114,7 +118,7 @@ export default defineNuxtConfig({
 module.exports = {
 	configureWebpack: {
 		plugins: [
-			require("unplugin-vue-complex-types/webpack")({
+			require("unplugin-vue-tsx-auto-props/webpack")({
 				/* options */
 			}),
 		],
@@ -132,7 +136,7 @@ module.exports = {
 module.exports = {
 	vitePlugins: [
 		[
-			"unplugin-vue-complex-types/vite",
+			"unplugin-vue-tsx-auto-props/vite",
 			{
 				/* options */
 			},
@@ -143,13 +147,13 @@ module.exports = {
 
 ```ts
 // quasar.conf.js [Webpack]
-const VueComplexTypesPlugin = require("unplugin-vue-complex-types/webpack");
+const VueTsxAutoPropsPlugin = require("unplugin-vue-tsx-auto-props/webpack");
 
 module.exports = {
 	build: {
 		chainWebpack(chain) {
-			chain.plugin("unplugin-vue-complex-types").use(
-				VueComplexTypesPlugin({
+			chain.plugin("unplugin-vue-tsx-auto-props").use(
+				VueTsxAutoPropsPlugin({
 					/* options */
 				}),
 			);
@@ -170,7 +174,7 @@ import { build } from "esbuild";
 build({
 	/* ... */
 	plugins: [
-		require("unplugin-vue-complex-types/esbuild")({
+		require("unplugin-vue-tsx-auto-props/esbuild")({
 			/* options */
 		}),
 	],
@@ -184,11 +188,11 @@ build({
 
 ```ts
 // astro.config.mjs
-import VueComplexTypes from "unplugin-vue-complex-types/astro";
+import VueTsxAutoProps from "unplugin-vue-tsx-auto-props/astro";
 
 export default defineConfig({
 	integrations: [
-		VueComplexTypes({
+		VueTsxAutoProps({
 			/* options */
 		}),
 	],
@@ -196,29 +200,6 @@ export default defineConfig({
 ```
 
 <br></details>
-
-## 📚 Options
-
-### `tsconfigPath`
-
-Path to your `tsconfig.json`.
-
-- Type: `string`
-- Default: `path.join(process.cwd(), "tsconfig.json")`
-
-### `defineEmits`
-
-Transform `defineEmits` or not.
-
-- Type: `boolean`
-- Default: `true`
-
-### `defineProps`
-
-Transform `defineProps` or not.
-
-- Type: `boolean`
-- Default: `true`
 
 ## 📝 License
 
