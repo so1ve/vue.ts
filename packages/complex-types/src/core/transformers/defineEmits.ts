@@ -36,7 +36,7 @@ export const transformDefineEmits: Transformer = (printer, s, id) => {
 
 	if (defineEmitsRuntimeArg) {
 		throw new Error(
-			"[unplugin-vue-complex-types] `defineEmits` cannot accept both runtime argument and type argument.",
+			"[@vue.ts/complex-types] `defineEmits` cannot accept both runtime argument and type argument.",
 		);
 	}
 

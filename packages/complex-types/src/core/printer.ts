@@ -95,7 +95,7 @@ export class Printer {
 		// Fallback
 		else {
 			console.error(
-				`[unplugin-vue-complex-types] \`${
+				`[@vue.ts/complex-types] \`${
 					ts.SyntaxKind[node.kind]
 				}\` is not supported.`,
 			);
@@ -129,7 +129,7 @@ export class Printer {
 		if (callSignatures.length > 0 && members.length > 0) {
 			// We cannot fallback here.
 			throw new Error(
-				"[unplugin-vue-complex-types] You may not use old style `defineEmits` and `defineEmits` shorthand together.",
+				"[@vue.ts/complex-types] You may not use old style `defineEmits` and `defineEmits` shorthand together.",
 			);
 		}
 

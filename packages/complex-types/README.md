@@ -1,6 +1,6 @@
-# unplugin-vue-complex-types
+# @vue.ts/complex-types
 
-[![NPM version](https://img.shields.io/npm/v/unplugin-vue-complex-types?color=a1b858&label=)](https://www.npmjs.com/package/unplugin-vue-complex-types)
+[![NPM version](https://img.shields.io/npm/v/@vue.ts/complex-types?color=a1b858&label=)](https://www.npmjs.com/package/@vue.ts/complex-types)
 
 Use [`@vue/language-core`](https://github.com/vuejs/language-tools/tree/master/packages/language-core) to support complex types for Vue Macros.
 
@@ -9,9 +9,9 @@ For example: fixes https://github.com/vuejs/core/issues/8286.
 ## 📦 Installation
 
 ```bash
-$ npm install -D unplugin-vue-complex-types
-$ yarn add -D unplugin-vue-complex-types
-$ pnpm add -D unplugin-vue-complex-types
+$ npm install -D @vue.ts/complex-types
+$ yarn add -D @vue.ts/complex-types
+$ pnpm add -D @vue.ts/complex-types
 ```
 
 ## TODOs
@@ -25,7 +25,7 @@ $ pnpm add -D unplugin-vue-complex-types
 
 ```ts
 // vite.config.ts
-import VueComplexTypes from "unplugin-vue-complex-types/vite";
+import VueComplexTypes from "@vue.ts/complex-types/vite";
 
 export default defineConfig({
 	plugins: [
@@ -43,7 +43,7 @@ export default defineConfig({
 
 ```ts
 // rollup.config.js
-import VueComplexTypes from "unplugin-vue-complex-types/rollup";
+import VueComplexTypes from "@vue.ts/complex-types/rollup";
 
 export default {
 	plugins: [
@@ -65,7 +65,7 @@ export default {
 module.exports = {
 	/* ... */
 	plugins: [
-		require("unplugin-vue-complex-types/webpack")({
+		require("@vue.ts/complex-types/webpack")({
 			/* options */
 		}),
 	],
@@ -82,7 +82,7 @@ module.exports = {
 module.exports = {
 	/* ... */
 	plugins: [
-		require("unplugin-vue-complex-types/rspack")({
+		require("@vue.ts/complex-types/rspack")({
 			/* options */
 		}),
 	],
@@ -97,7 +97,7 @@ module.exports = {
 ```ts
 // nuxt.config.ts
 export default defineNuxtConfig({
-	modules: ["unplugin-vue-complex-types/nuxt"],
+	modules: ["@vue.ts/complex-types/nuxt"],
 	complexTypes: {
 		/* options */
 	},
@@ -114,7 +114,7 @@ export default defineNuxtConfig({
 module.exports = {
 	configureWebpack: {
 		plugins: [
-			require("unplugin-vue-complex-types/webpack")({
+			require("@vue.ts/complex-types/webpack")({
 				/* options */
 			}),
 		],
@@ -132,7 +132,7 @@ module.exports = {
 module.exports = {
 	vitePlugins: [
 		[
-			"unplugin-vue-complex-types/vite",
+			"@vue.ts/complex-types/vite",
 			{
 				/* options */
 			},
@@ -143,12 +143,12 @@ module.exports = {
 
 ```ts
 // quasar.conf.js [Webpack]
-const VueComplexTypesPlugin = require("unplugin-vue-complex-types/webpack");
+const VueComplexTypesPlugin = require("@vue.ts/complex-types/webpack");
 
 module.exports = {
 	build: {
 		chainWebpack(chain) {
-			chain.plugin("unplugin-vue-complex-types").use(
+			chain.plugin("@vue.ts/complex-types").use(
 				VueComplexTypesPlugin({
 					/* options */
 				}),
@@ -170,7 +170,7 @@ import { build } from "esbuild";
 build({
 	/* ... */
 	plugins: [
-		require("unplugin-vue-complex-types/esbuild")({
+		require("@vue.ts/complex-types/esbuild")({
 			/* options */
 		}),
 	],
@@ -184,7 +184,7 @@ build({
 
 ```ts
 // astro.config.mjs
-import VueComplexTypes from "unplugin-vue-complex-types/astro";
+import VueComplexTypes from "@vue.ts/complex-types/astro";
 
 export default defineConfig({
 	integrations: [

@@ -1,6 +1,6 @@
-# unplugin-vue-tsx-auto-props
+# @vue.ts/tsx-auto-props
 
-[![NPM version](https://img.shields.io/npm/v/unplugin-vue-tsx-auto-props?color=a1b858&label=)](https://www.npmjs.com/package/unplugin-vue-tsx-auto-props)
+[![NPM version](https://img.shields.io/npm/v/@vue.ts/tsx-auto-props?color=a1b858&label=)](https://www.npmjs.com/package/@vue.ts/tsx-auto-props)
 
 ## Why?
 
@@ -37,9 +37,9 @@ Object.defineProperty(Foo, "props", {
 ## 📦 Installation
 
 ```bash
-$ npm install -D unplugin-vue-tsx-auto-props
-$ yarn add -D unplugin-vue-tsx-auto-props
-$ pnpm add -D unplugin-vue-tsx-auto-props
+$ npm install -D @vue.ts/tsx-auto-props
+$ yarn add -D @vue.ts/tsx-auto-props
+$ pnpm add -D @vue.ts/tsx-auto-props
 ```
 
 ## 🚀 Usage
@@ -49,7 +49,7 @@ $ pnpm add -D unplugin-vue-tsx-auto-props
 
 ```ts
 // vite.config.ts
-import VueTsxAutoProps from "unplugin-vue-tsx-auto-props/vite";
+import VueTsxAutoProps from "@vue.ts/tsx-auto-props/vite";
 
 export default defineConfig({
 	plugins: [
@@ -67,7 +67,7 @@ export default defineConfig({
 
 ```ts
 // rollup.config.js
-import VueTsxAutoProps from "unplugin-vue-tsx-auto-props/rollup";
+import VueTsxAutoProps from "@vue.ts/tsx-auto-props/rollup";
 
 export default {
 	plugins: [
@@ -89,7 +89,7 @@ export default {
 module.exports = {
 	/* ... */
 	plugins: [
-		require("unplugin-vue-tsx-auto-props/webpack")({
+		require("@vue.ts/tsx-auto-props/webpack")({
 			/* options */
 		}),
 	],
@@ -104,7 +104,7 @@ module.exports = {
 ```ts
 // nuxt.config.ts
 export default defineNuxtConfig({
-	modules: ["unplugin-vue-tsx-auto-props/nuxt"],
+	modules: ["@vue.ts/tsx-auto-props/nuxt"],
 });
 ```
 
@@ -118,7 +118,7 @@ export default defineNuxtConfig({
 module.exports = {
 	configureWebpack: {
 		plugins: [
-			require("unplugin-vue-tsx-auto-props/webpack")({
+			require("@vue.ts/tsx-auto-props/webpack")({
 				/* options */
 			}),
 		],
@@ -136,7 +136,7 @@ module.exports = {
 module.exports = {
 	vitePlugins: [
 		[
-			"unplugin-vue-tsx-auto-props/vite",
+			"@vue.ts/tsx-auto-props/vite",
 			{
 				/* options */
 			},
@@ -147,12 +147,12 @@ module.exports = {
 
 ```ts
 // quasar.conf.js [Webpack]
-const VueTsxAutoPropsPlugin = require("unplugin-vue-tsx-auto-props/webpack");
+const VueTsxAutoPropsPlugin = require("@vue.ts/tsx-auto-props/webpack");
 
 module.exports = {
 	build: {
 		chainWebpack(chain) {
-			chain.plugin("unplugin-vue-tsx-auto-props").use(
+			chain.plugin("@vue.ts/tsx-auto-props").use(
 				VueTsxAutoPropsPlugin({
 					/* options */
 				}),
@@ -174,7 +174,7 @@ import { build } from "esbuild";
 build({
 	/* ... */
 	plugins: [
-		require("unplugin-vue-tsx-auto-props/esbuild")({
+		require("@vue.ts/tsx-auto-props/esbuild")({
 			/* options */
 		}),
 	],
@@ -188,7 +188,7 @@ build({
 
 ```ts
 // astro.config.mjs
-import VueTsxAutoProps from "unplugin-vue-tsx-auto-props/astro";
+import VueTsxAutoProps from "@vue.ts/tsx-auto-props/astro";
 
 export default defineConfig({
 	integrations: [
