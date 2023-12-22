@@ -90,7 +90,7 @@ function baseCreateLanguageWorker(
 ) {
 	const vueLanguages = ts
 		? // eslint-disable-next-line etc/no-deprecated
-		  vue.createLanguages(host.getCompilationSettings(), vueCompilerOptions, ts)
+			vue.createLanguages(host.getCompilationSettings(), vueCompilerOptions, ts)
 		: [];
 	const core = vue.createLanguageContext(host, vueLanguages);
 	const tsLsHost = createLanguageServiceHost(core, ts, ts.sys);

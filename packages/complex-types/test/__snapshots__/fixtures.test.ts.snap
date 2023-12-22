@@ -85,10 +85,10 @@ formnovalidate: Booleanish | undefined
 formtarget: string | undefined
 name: string | undefined
 type: \\"submit\\" | \\"reset\\" | \\"button\\" | undefined
-value: string | number | string[] | undefined
+value: string | number | readonly string[] | undefined
 innerHTML: string | undefined
 class: any
-style: StyleValue | undefined
+style: StyleValue
 accesskey: string | undefined
 contenteditable: Booleanish | \\"inherit\\" | \\"plaintext-only\\" | undefined
 contextmenu: string | undefined
@@ -162,7 +162,7 @@ is: string | undefined
 'aria-posinset': Numberish | undefined
 'aria-pressed': Booleanish | \\"mixed\\" | undefined
 'aria-readonly': Booleanish | undefined
-'aria-relevant': \\"text\\" | \\"additions\\" | \\"additions text\\" | \\"all\\" | \\"removals\\" | undefined
+'aria-relevant': \\"text\\" | \\"additions\\" | \\"additions removals\\" | \\"additions text\\" | \\"all\\" | \\"removals\\" | \\"removals additions\\" | \\"removals text\\" | \\"text additions\\" | \\"text removals\\" | undefined
 'aria-required': Booleanish | undefined
 'aria-roledescription': string | undefined
 'aria-rowcount': Numberish | undefined
