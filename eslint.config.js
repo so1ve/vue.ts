@@ -3,6 +3,6 @@ const { so1ve } = require("@so1ve/eslint-config");
 module.exports = so1ve(
 	{},
 	{
-		ignores: ["packages/**/test/__fixtures__**"],
+		ignores: ["packages/**/test/__fixtures__/**"],
 	},
 );
