@@ -1,7 +1,7 @@
 {
 	"private": true,
 	"version": "0.5.0",
-	"packageManager": "pnpm@8.10.2",
+	"packageManager": "pnpm@8.14.0",
 	"scripts": {
 		"build": "pnpm -r run build",
 		"lint": "eslint . && prettier . --check",
@@ -13,8 +13,8 @@
 	},
 	"devDependencies": {
 		"@antfu/ni": "^0.21.8",
-		"@so1ve/eslint-config": "1.0.2",
-		"@so1ve/prettier-config": "1.0.2",
+		"@so1ve/eslint-config": "1.1.0",
+		"@so1ve/prettier-config": "1.1.0",
 		"@types/node": "^20.8.10",
 		"@vue-macros/test-utils": "^1.2.1",
 		"bumpp": "^9.2.0",
