@@ -73,7 +73,7 @@ importers:
         version: 5.3.3
       unplugin:
         specifier: ^1.5.0
-        version: 1.8.1
+        version: 1.8.2
       vue:
         specifier: ^3.3.7
         version: 3.3.13(typescript@5.3.3)
@@ -128,7 +128,7 @@ importers:
         version: 5.3.3
       unplugin:
         specifier: ^1.5.0
-        version: 1.8.1
+        version: 1.8.2
       vue:
         specifier: ^3.3.7
         version: 3.3.13(typescript@5.3.3)
@@ -2295,7 +2295,7 @@ packages:
     dependencies:
       '@vue-macros/api': 0.9.3(rollup@4.12.1)
       '@vue-macros/common': 1.10.1(rollup@4.12.1)
-      unplugin: 1.8.1
+      unplugin: 1.8.2
     transitivePeerDependencies:
       - rollup
       - vue
@@ -8142,7 +8142,7 @@ packages:
       acorn: 8.11.3
       estree-walker: 3.0.3
       magic-string: 0.30.5
-      unplugin: 1.8.1
+      unplugin: 1.8.2
     dev: false
 
   /undici-types@5.26.5:
@@ -8210,7 +8210,7 @@ packages:
       pkg-types: 1.0.3
       scule: 1.3.0
       strip-literal: 1.3.0
-      unplugin: 1.8.1
+      unplugin: 1.8.2
     transitivePeerDependencies:
       - rollup
 
@@ -8298,8 +8298,8 @@ packages:
       webpack-virtual-modules: 0.6.1
     dev: true
 
-  /unplugin@1.8.1:
-    resolution: {integrity: sha512-NDAvOEnZmeSRRmjfD0FoLzfve2/9lqceO5bR4J/2V72zphnFdq7UYo3fg6F1y1HfZEaSHa+7bZgbEN+z5x8ZDQ==}
+  /unplugin@1.8.2:
+    resolution: {integrity: sha512-fgldo8hwP8dV94ne3rwQqlZkZWdcqH4K48bXax+N0MrBapfvoTbIQt9L2Vj/DzZAbWI/+kd2b9ZDsB7QZgz/hw==}
     dependencies:
       acorn: 8.11.3
       chokidar: 3.6.0
