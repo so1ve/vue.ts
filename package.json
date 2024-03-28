@@ -17,7 +17,7 @@
 		"@so1ve/eslint-config": "^2.0.0",
 		"@so1ve/prettier-config": "^2.0.0",
 		"@types/node": "^20.8.10",
-		"@vue-macros/test-utils": "^1.2.1",
+		"@vue-macros/test-utils": "^1.4.0",
 		"bumpp": "^9.2.0",
 		"eslint": "^8.57.0",
 		"prettier": "^3.2.5",

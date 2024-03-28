@@ -21,7 +21,7 @@ importers:
         specifier: ^20.8.10
         version: 20.11.30
       '@vue-macros/test-utils':
-        specifier: ^1.2.1
+        specifier: ^1.4.0
         version: 1.4.0(@types/node@20.11.30)(vite@5.2.6)(vitest@0.34.6)
       bumpp:
         specifier: ^9.2.0
