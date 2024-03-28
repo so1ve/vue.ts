@@ -31,7 +31,11 @@ export class Printer {
 		for (const member of node.members) {
 			if (ts.isPropertySignature(member)) {
 				const stringBaseType = member.type
-					? this.checker.typeToString(this.getBaseType(member.type))
+					? this.checker.typeToString(
+							this.getBaseType(member.type),
+							undefined,
+							ts.TypeFormatFlags.NoTruncation,
+						)
 					: "any";
 
 				parts.push(
@@ -64,6 +68,8 @@ export class Printer {
 			const valueType = this.checker.getTypeOfSymbol(property);
 			const stringValueType = this.checker.typeToString(
 				this.getBaseType(valueType),
+				undefined,
+				ts.TypeFormatFlags.NoTruncation,
 			);
 			parts.push(
 				`${this.checker.symbolToString(
@@ -111,7 +117,11 @@ export class Printer {
 			const parameters = c.getParameters();
 			const event = parameters[0];
 
-			return this.checker.typeToString(this.checker.getTypeOfSymbol(event));
+			return this.checker.typeToString(
+				this.checker.getTypeOfSymbol(event),
+				undefined,
+				ts.TypeFormatFlags.NoTruncation,
+			);
 		});
 	}
 
