@@ -2,6 +2,7 @@
 	"compilerOptions": {
 		"target": "ES2018",
 		"jsx": "preserve",
+		"jsxImportSource": "vue",
 		"lib": ["ESNext"],
 		"module": "ESNext",
 		"moduleResolution": "Node",
