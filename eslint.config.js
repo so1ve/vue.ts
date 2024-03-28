@@ -1,8 +1,5 @@
-const { so1ve } = require("@so1ve/eslint-config");
+import { so1ve } from "@so1ve/eslint-config";
 
-module.exports = so1ve(
-	{},
-	{
-		ignores: ["packages/**/test/__fixtures__/**"],
-	},
-);
+export default so1ve({
+	ignores: ["packages/**/test/__fixtures__/**"],
+});

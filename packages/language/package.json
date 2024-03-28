@@ -38,8 +38,8 @@
 		"stub": "unbuild --stub"
 	},
 	"dependencies": {
-		"@volar/typescript": "1.10.10",
+		"@volar/typescript": "~2.1.6",
 		"@vue.ts/common": "workspace:*",
-		"@vue/language-core": "1.8.22"
+		"@vue/language-core": "2.0.7"
 	}
 }

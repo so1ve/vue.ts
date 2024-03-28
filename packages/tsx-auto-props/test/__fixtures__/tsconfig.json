@@ -11,6 +11,7 @@
 		"esModuleInterop": true,
 		"skipDefaultLibCheck": true,
 		"skipLibCheck": true,
-		"jsx": "preserve"
+		"jsx": "preserve",
+		"jsxImportSource": "vue"
 	}
 }

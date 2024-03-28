@@ -1,10 +1,7 @@
 import { createRequire } from "node:module";
 import * as path from "node:path";
 
-import {
-	createLanguageServiceHost,
-	decorateLanguageService,
-} from "@volar/typescript";
+import { createLanguage as createTypescriptLanguage } from "@volar/typescript";
 import * as vue from "@vue/language-core";
 import { normalizePath } from "@vue.ts/common";
 import type ts from "typescript/lib/tsserverlibrary";
@@ -20,6 +17,7 @@ function createLanguage(
 	return createLanguageWorker(
 		() => vue.createParsedCommandLine(ts, ts.sys, tsconfigPath),
 		path.dirname(tsconfig),
+		tsconfig,
 		ts,
 	);
 }
@@ -27,6 +25,7 @@ function createLanguage(
 function createLanguageWorker(
 	loadParsedCommandLine: () => vue.ParsedCommandLine,
 	rootPath: string,
+	configFileName: string | undefined,
 	ts: typeof import("typescript/lib/tsserverlibrary"),
 ) {
 	let parsedCommandLine = loadParsedCommandLine();
@@ -34,9 +33,11 @@ function createLanguageWorker(
 	let projectVersion = 0;
 
 	const scriptSnapshots = new Map<string, ts.IScriptSnapshot>();
-	const _host: vue.TypeScriptLanguageHost = {
-		workspacePath: rootPath,
-		rootPath,
+	const _host: vue.TypeScriptProjectHost = {
+		// Commented to wait for volar 2.2.0-alpha.0
+		// ...ts.sys,
+		// configFileName,
+		getCurrentDirectory: () => rootPath,
 		getProjectVersion: () => projectVersion.toString(),
 		getCompilationSettings: () => parsedCommandLine.options,
 		getScriptFileNames: () => fileNames,
@@ -51,13 +52,27 @@ function createLanguageWorker(
 
 			return scriptSnapshots.get(fileName);
 		},
+		getLanguageId: (fileName) => {
+			if (
+				parsedCommandLine.vueOptions.extensions.some((ext) =>
+					fileName.endsWith(ext),
+				)
+			) {
+				return "vue";
+			}
+
+			return vue.resolveCommonLanguageId(fileName);
+		},
+		// scriptIdToFileName: (id) => id,
+		// fileNameToScriptId: (id) => id,
 	};
 
 	return {
 		...baseCreateLanguageWorker(
-			_host,
-			vue.resolveVueCompilerOptions(parsedCommandLine.vueOptions),
 			ts,
+			configFileName,
+			_host,
+			parsedCommandLine.vueOptions,
 		),
 		updateFile(fileName: string, text: string) {
 			fileName = normalizePath(fileName);
@@ -84,22 +99,48 @@ function createLanguageWorker(
 type Language = ReturnType<typeof createLanguage>;
 
 function baseCreateLanguageWorker(
-	host: vue.TypeScriptLanguageHost,
-	vueCompilerOptions: vue.VueCompilerOptions,
 	ts: typeof import("typescript/lib/tsserverlibrary"),
+	configFileName: string | undefined,
+	host: vue.TypeScriptProjectHost,
+	vueCompilerOptions: vue.VueCompilerOptions,
 ) {
-	const vueLanguages = ts
-		? // eslint-disable-next-line etc/no-deprecated
-			vue.createLanguages(host.getCompilationSettings(), vueCompilerOptions, ts)
-		: [];
-	const core = vue.createLanguageContext(host, vueLanguages);
-	const tsLsHost = createLanguageServiceHost(core, ts, ts.sys);
-	const tsLs = ts.createLanguageService(tsLsHost);
+	const vueLanguagePlugin = vue.createVueLanguagePlugin(
+		ts,
+		(id) => id,
+		(fileName) => {
+			if (ts.sys.useCaseSensitiveFileNames) {
+				return host.getScriptFileNames().includes(fileName) ?? false;
+			} else {
+				const lowerFileName = fileName.toLowerCase();
+				for (const rootFile of host.getScriptFileNames()) {
+					if (rootFile.toLowerCase() === lowerFileName) {
+						return true;
+					}
+				}
 
-	decorateLanguageService(core.virtualFiles, tsLs, false);
+				return false;
+			}
+		},
+		host.getCompilationSettings(),
+		vueCompilerOptions,
+	);
+	const language = createTypescriptLanguage(
+		ts,
+		ts.sys,
+		[vueLanguagePlugin],
+		configFileName,
+		host,
+		{
+			fileIdToFileName: (id) => id,
+			fileNameToFileId: (id) => id,
+		},
+	);
+	const { languageServiceHost } = language.typescript!;
+	const tsLs = ts.createLanguageService(languageServiceHost);
 
-	const getScriptKind = tsLsHost.getScriptKind!;
-	tsLsHost.getScriptKind = (fileName) => {
+	const getScriptKind =
+		languageServiceHost.getScriptKind?.bind(languageServiceHost);
+	languageServiceHost.getScriptKind = (fileName) => {
 		if (fileName.endsWith(".vue.js")) {
 			return ts.ScriptKind.TS;
 		}
@@ -107,15 +148,15 @@ function baseCreateLanguageWorker(
 			return ts.ScriptKind.TSX;
 		}
 
-		return getScriptKind(fileName);
+		return getScriptKind!(fileName);
 	};
 
 	const program = tsLs.getProgram()!;
 	const typeChecker = program.getTypeChecker();
 
 	function getScriptSetupBlock(normalizedFilepath: string) {
-		const sourceFile = core.virtualFiles.getSource(normalizedFilepath)?.root;
-		if (!(sourceFile instanceof vue.VueFile)) {
+		const sourceFile = language.files.get(normalizedFilepath)?.generated?.code;
+		if (!(sourceFile instanceof vue.VueGeneratedCode)) {
 			return;
 		}
 		if (!sourceFile.sfc.scriptSetup) {
