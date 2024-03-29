@@ -76,7 +76,7 @@ importers:
         version: 5.4.3
       unplugin:
         specifier: ^1.5.0
-        version: 1.10.0
+        version: 1.10.1
       vue:
         specifier: ^3.3.7
         version: 3.4.21(typescript@5.4.3)
@@ -86,7 +86,7 @@ importers:
         version: 3.11.1(rollup@4.13.2)
       '@vue-macros/better-define':
         specifier: ^1.6.12
-        version: 1.7.3(rollup@4.13.2)(vue@3.4.21)
+        version: 1.7.4(rollup@4.13.2)(vue@3.4.21)
       rollup:
         specifier: ^4.3.0
         version: 4.13.2
@@ -131,7 +131,7 @@ importers:
         version: 5.4.3
       unplugin:
         specifier: ^1.5.0
-        version: 1.10.0
+        version: 1.10.1
       vue:
         specifier: ^3.3.7
         version: 3.4.21(typescript@5.4.3)
@@ -2117,32 +2117,32 @@ packages:
       path-browserify: 1.0.1
     dev: false
 
-  /@vue-macros/api@0.9.3(rollup@4.13.2)(vue@3.4.21):
-    resolution: {integrity: sha512-Yjq5gxdd97FIBNpxp7E2aRChqN6UVLEkRM6bgdaYDjbZsu6uvO2pkwQFQSx4Z0n8k/69KC4N05UQ1V68XF7I8Q==}
+  /@vue-macros/api@0.9.4(rollup@4.13.2)(vue@3.4.21):
+    resolution: {integrity: sha512-3ea2XoMsKx8+x1ZqQrYqQafEWWSUj1HD2FHBiG0cFBG+GBHmsDfiZp9k+haJe8fRYi7nyW20y9UxTESifIBREQ==}
     engines: {node: '>=16.14.0'}
     dependencies:
       '@babel/types': 7.24.0
-      '@vue-macros/common': 1.10.1(rollup@4.13.2)(vue@3.4.21)
+      '@vue-macros/common': 1.10.2(rollup@4.13.2)(vue@3.4.21)
       resolve.exports: 2.0.2
     transitivePeerDependencies:
       - rollup
       - vue
     dev: true
 
-  /@vue-macros/better-define@1.7.3(rollup@4.13.2)(vue@3.4.21):
-    resolution: {integrity: sha512-vw1GemB2WVO2rqXN4e0YXibeaPWud0d88hJvN4FnslZ5oMrr/ne9oo28Dqj1FZWmB7UlOiJIIGrPxZyMrSG6uw==}
+  /@vue-macros/better-define@1.7.4(rollup@4.13.2)(vue@3.4.21):
+    resolution: {integrity: sha512-59rN9gtlw6USuZOCNJX7kk9BOz/k8rE60kYSqbA5MPsizJvDplDdCpK07WwHvGxHyEp/JVxUMtBMzSBebwfPIA==}
     engines: {node: '>=16.14.0'}
     dependencies:
-      '@vue-macros/api': 0.9.3(rollup@4.13.2)(vue@3.4.21)
-      '@vue-macros/common': 1.10.1(rollup@4.13.2)(vue@3.4.21)
-      unplugin: 1.10.0
+      '@vue-macros/api': 0.9.4(rollup@4.13.2)(vue@3.4.21)
+      '@vue-macros/common': 1.10.2(rollup@4.13.2)(vue@3.4.21)
+      unplugin: 1.10.1
     transitivePeerDependencies:
       - rollup
       - vue
     dev: true
 
-  /@vue-macros/common@1.10.1(rollup@4.13.2)(vue@3.4.21):
-    resolution: {integrity: sha512-uftSpfwdwitcQT2lM8aVxcfe5rKQBzC9jMrtJM5sG4hEuFyfIvnJihpPpnaWxY+X4p64k+YYXtBFv+1O5Bq3dg==}
+  /@vue-macros/common@1.10.2(rollup@4.13.2)(vue@3.4.21):
+    resolution: {integrity: sha512-WC66NPVh2mJWqm4L0l/u/cOqm4pNOIwVdMGnDYAH2rHcOWy5x68GkhpkYTBu1+xwCSeHWOQn1TCGGbD+98fFpA==}
     engines: {node: '>=16.14.0'}
     peerDependencies:
       vue: ^2.7.0 || ^3.2.25
@@ -2153,7 +2153,7 @@ packages:
       '@babel/types': 7.24.0
       '@rollup/pluginutils': 5.1.0(rollup@4.13.2)
       '@vue/compiler-sfc': 3.4.21
-      ast-kit: 0.11.3(rollup@4.13.2)
+      ast-kit: 0.12.1
       local-pkg: 0.5.0
       magic-string-ast: 0.3.0
       vue: 3.4.21(typescript@5.4.3)
@@ -2608,15 +2608,12 @@ packages:
     resolution: {integrity: sha512-jgsaNduz+ndvGyFt3uSuWqvy4lCnIJiovtouQN5JZHOKCS2QuhEdbcQHFhVksz2N2U9hXJo8odG7ETyWlEeuDw==}
     dev: true
 
-  /ast-kit@0.11.3(rollup@4.13.2):
-    resolution: {integrity: sha512-qdwwKEhckRk0XE22/xDdmU3v/60E8Edu4qFhgTLIhGGDs/PAJwLw9pQn8Rj99PitlbBZbYpx0k/lbir4kg0SuA==}
+  /ast-kit@0.12.1:
+    resolution: {integrity: sha512-O+33g7x6irsESUcd47KdfWUrS2F6aGp9KeVJFGj0YjIznfXpBxVGjA0w+y/1OKqX4mFOfmZ9Xpf1ixPT4n9xxw==}
     engines: {node: '>=16.14.0'}
     dependencies:
       '@babel/parser': 7.24.1
-      '@rollup/pluginutils': 5.1.0(rollup@4.13.2)
       pathe: 1.1.2
-    transitivePeerDependencies:
-      - rollup
     dev: true
 
   /author-regex@1.0.0:
@@ -7437,7 +7434,7 @@ packages:
       acorn: 8.11.3
       estree-walker: 3.0.3
       magic-string: 0.30.8
-      unplugin: 1.10.0
+      unplugin: 1.10.1
     dev: false
 
   /undici-types@5.26.5:
@@ -7504,7 +7501,7 @@ packages:
       pkg-types: 1.0.3
       scule: 1.3.0
       strip-literal: 1.3.0
-      unplugin: 1.10.0
+      unplugin: 1.10.1
     transitivePeerDependencies:
       - rollup
 
@@ -7587,8 +7584,8 @@ packages:
       - terser
     dev: true
 
-  /unplugin@1.10.0:
-    resolution: {integrity: sha512-CuZtvvO8ua2Wl+9q2jEaqH6m3DoQ38N7pvBYQbbaeNlWGvK2l6GHiKi29aIHDPoSxdUzQ7Unevf1/ugil5X6Pg==}
+  /unplugin@1.10.1:
+    resolution: {integrity: sha512-d6Mhq8RJeGA8UfKCu54Um4lFA0eSaRa3XxdAJg8tIdxbu1ubW0hBCZUL7yI2uGyYCRndvbK8FLHzqy2XKfeMsg==}
     engines: {node: '>=14.0.0'}
     dependencies:
       acorn: 8.11.3
