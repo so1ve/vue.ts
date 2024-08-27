@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       '@antfu/ni':
-        specifier: ^0.21.8
-        version: 0.21.12
+        specifier: ^0.23.0
+        version: 0.23.0
       '@so1ve/eslint-config':
         specifier: ^2.0.0
         version: 2.0.0(@typescript-eslint/parser@7.5.0)(eslint-plugin-import@2.29.1)(eslint@8.57.0)(prettier@3.2.5)(typescript@5.4.4)(vitest@0.34.6)
@@ -79,7 +79,7 @@ importers:
         version: 1.10.1
       vue:
         specifier: ^3.3.7
-        version: 3.4.21(typescript@5.4.3)
+        version: 3.4.21(typescript@5.4.4)
     devDependencies:
       '@nuxt/schema':
         specifier: ^3.8.1
@@ -134,7 +134,7 @@ importers:
         version: 1.10.1
       vue:
         specifier: ^3.3.7
-        version: 3.4.21(typescript@5.4.3)
+        version: 3.4.21(typescript@5.4.4)
     devDependencies:
       '@nuxt/schema':
         specifier: ^3.8.1
@@ -166,8 +166,8 @@ packages:
       '@jridgewell/gen-mapping': 0.3.5
       '@jridgewell/trace-mapping': 0.3.25
 
-  /@antfu/ni@0.21.12:
-    resolution: {integrity: sha512-2aDL3WUv8hMJb2L3r/PIQWsTLyq7RQr3v9xD16fiz6O8ys1xEyLhhTOv8gxtZvJiTzjTF5pHoArvRdesGL1DMQ==}
+  /@antfu/ni@0.23.0:
+    resolution: {integrity: sha512-R5/GkA3PfGewAXLzz6lN5XagunF6PKeDtWt8dbZQXvHfebLS0qEczV+Azg/d+tKgSh6kRBpxvu8oSjARdPtw0A==}
     hasBin: true
     dev: true
 
@@ -7448,12 +7448,6 @@ packages:
       - supports-color
     dev: true
 
-  /typescript@5.4.3:
-    resolution: {integrity: sha512-KrPd3PKaCLr78MalgiwJnA25Nm8HAmdwN3mYUYZgG/wizIo9EainNVQI9/yDavtVFRN2h3k8uf3GLHuhDMgEHg==}
-    engines: {node: '>=14.17'}
-    hasBin: true
-    dev: false
-
   /typescript@5.4.4:
     resolution: {integrity: sha512-dGE2Vv8cpVvw28v8HCPqyb08EzbBURxDpuhJvTrusShUfGnhHBafDsLdS1EhhxyL6BJQE+2cT3dDPAv+MQ6oLw==}
     engines: {node: '>=14.17'}
@@ -7951,22 +7945,6 @@ packages:
     dependencies:
       de-indent: 1.0.2
       he: 1.2.0
-    dev: false
-
-  /vue@3.4.21(typescript@5.4.3):
-    resolution: {integrity: sha512-5hjyV/jLEIKD/jYl4cavMcnzKwjMKohureP8ejn3hhEjwhWIhWeuzL2kJAjzl/WyVsgPY56Sy4Z40C3lVshxXA==}
-    peerDependencies:
-      typescript: '*'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      '@vue/compiler-dom': 3.4.21
-      '@vue/compiler-sfc': 3.4.21
-      '@vue/runtime-dom': 3.4.21
-      '@vue/server-renderer': 3.4.21(vue@3.4.21)
-      '@vue/shared': 3.4.21
-      typescript: 5.4.3
     dev: false
 
   /vue@3.4.21(typescript@5.4.4):
