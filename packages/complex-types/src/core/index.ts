@@ -8,21 +8,23 @@ import { resolveOptions } from "./utils";
 
 export default createUnplugin<Options | undefined>((options = {}) => ({
 	name: "@vue.ts/complex-types",
+	enforce: 'pre',
 	buildStart() {
 		const resolvedOptions = resolveOptions(options);
 		ensureLanguage(resolvedOptions.tsconfigPath);
 	},
 	transform(code, id) {
+		const file = id.replace(/\?v=.*$/, '');
 		const resolvedOptions = resolveOptions(options);
 		const filter = createFilter(
 			resolvedOptions.include,
 			resolvedOptions.exclude,
 		);
 
-		if (!filter(id)) {
+		if (!filter(file)) {
 			return;
 		}
 
-		return transform(code, id, resolvedOptions);
+		return transform(code, file, resolvedOptions);
 	},
 }));

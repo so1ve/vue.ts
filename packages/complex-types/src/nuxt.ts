@@ -22,4 +22,4 @@ export default defineNuxtModule<Options>({
 		addVitePlugin(VitePlugin(options));
 		addWebpackPlugin(WebpackPlugin(options));
 	},
-}) as ModuleDefinition<Options>;
+});

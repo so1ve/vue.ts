@@ -71,6 +71,11 @@ export class Printer {
 				undefined,
 				ts.TypeFormatFlags.NoTruncation,
 			);
+
+			if (!questionToken && this.checker.isOptionalParameter(property.valueDeclaration as ts.ParameterDeclaration)) {
+				questionToken = "?"
+			}
+
 			parts.push(
 				`${this.checker.symbolToString(
 					property,
