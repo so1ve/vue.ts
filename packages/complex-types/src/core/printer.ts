@@ -60,11 +60,12 @@ export class Printer {
 		const type = this.checker.getTypeAtLocation(node);
 		const properties = type.getProperties();
 		const parts = ["{"];
-		let questionToken = "";
-		if (ts.isMappedTypeNode(node)) {
-			questionToken = node.questionToken?.getText() ?? "";
-		}
+		const isMapped = ts.isMappedTypeNode(node);
 		for (const property of properties) {
+			const questionToken = isMapped
+				? node.questionToken?.getText() ?? ""
+				: (property.flags & ts.SymbolFlags.Optional ? "?" : "");
+
 			const valueType = this.checker.getTypeOfSymbol(property);
 			const stringValueType = this.checker.typeToString(
 				this.getBaseType(valueType),
@@ -77,7 +78,6 @@ export class Printer {
 				)}${questionToken}: ${stringValueType}`,
 			);
 		}
-
 		parts.push("}");
 
 		return parts.join("\n");
