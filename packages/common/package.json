@@ -35,6 +35,6 @@
 		"stub": "unbuild --stub"
 	},
 	"dependencies": {
-		"@rollup/pluginutils": "^5.0.5"
+		"@rollup/pluginutils": "^5.2.0"
 	}
 }
