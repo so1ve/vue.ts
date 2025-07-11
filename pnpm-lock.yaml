@@ -12,11 +12,11 @@ importers:
         specifier: ^25.0.0
         version: 25.0.0
       '@so1ve/eslint-config':
-        specifier: ^3.6.1
-        version: 3.6.1(@typescript-eslint/eslint-plugin@8.36.0(@typescript-eslint/parser@8.36.0(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3))(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3))(@typescript-eslint/parser@8.36.0(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3))(@typescript-eslint/utils@8.36.0(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3))(eslint-import-resolver-node@0.3.9)(eslint@9.30.1(jiti@2.4.2))(prettier@3.6.2)(typescript@5.8.3)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.0.13)(jiti@2.4.2)(terser@5.43.1)(yaml@2.8.0))
+        specifier: ^3.7.0
+        version: 3.7.0(@typescript-eslint/eslint-plugin@8.36.0(@typescript-eslint/parser@8.36.0(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3))(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3))(@typescript-eslint/parser@8.36.0(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3))(@typescript-eslint/utils@8.36.0(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3))(eslint-import-resolver-node@0.3.9)(eslint@9.30.1(jiti@2.4.2))(prettier@3.6.2)(typescript@5.8.3)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.0.13)(jiti@2.4.2)(terser@5.43.1)(yaml@2.8.0))
       '@so1ve/prettier-config':
-        specifier: ^3.6.1
-        version: 3.6.1(prettier@3.6.2)
+        specifier: ^3.7.0
+        version: 3.7.0(prettier@3.6.2)
       '@types/node':
         specifier: ^24.0.13
         version: 24.0.13
@@ -1029,27 +1029,27 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@so1ve/eslint-config@3.6.1':
-    resolution: {integrity: sha512-yocAyVPHvfyxNJEHpw/1YXoXq/w1u5HagjozFO7lx66cXqQXIMdJpeQJxpf3lE5TDLPqaojF9IdJnFqeJ3/OOQ==}
+  '@so1ve/eslint-config@3.7.0':
+    resolution: {integrity: sha512-yOmygG5tmh/6QAeYyZkNUpIMzgQdEPUnteEpupF8CADZmSg5IRbDDGGV0XgJGDYex+Ntztw/3vs/bTDubXV25Q==}
     peerDependencies:
       eslint: '>=8.40.0'
       prettier: ^3.0.0
 
-  '@so1ve/eslint-plugin-sort-imports@3.6.1':
-    resolution: {integrity: sha512-4mG6nqlUbbsEL39lVTGIhPjrzOn0LpsBwHBuaplxIJ/4K6pjsy9r7Zl5XU9XjfOhN4FdoCClo4/vsdtTy8Qh3Q==}
+  '@so1ve/eslint-plugin-sort-imports@3.7.0':
+    resolution: {integrity: sha512-gMIhH37tBiPPaAgeFjzlJC8kI/uCBYaqWWkeyQYBH3r3CS3+Wfx6qquHMhBwb5DBuFvvee3u3Mv6+vvR71jKFA==}
     peerDependencies:
       eslint: '>=8.40.0'
 
-  '@so1ve/eslint-plugin@3.6.1':
-    resolution: {integrity: sha512-qnYgZU3//N6QIOXkBKO6u675LqUY0bewRt5zsK+zPYooVqLEN68e1W1BNunTPGw6iT5pFm24UmRn0Ewq4DF9TQ==}
+  '@so1ve/eslint-plugin@3.7.0':
+    resolution: {integrity: sha512-pABUNBYlj0BKpnvXNtjOrVi52bx2j0u1dhDJXi3mm/6oa/QBGWWjo/tJvjT0hbu/Jn+ziGpo1sEV+KHzhzbU5A==}
 
-  '@so1ve/prettier-config@3.6.1':
-    resolution: {integrity: sha512-1ps48zsOWffOkxUFp/IDrDmR/9/lnroJ4tbKwH6Z2aOB7hMvzAra0pWowebgA3QT1t5q/+7dnIOBwhJgTr+Ezw==}
+  '@so1ve/prettier-config@3.7.0':
+    resolution: {integrity: sha512-S+hMB6uEJZu8alYJALSpgnE86b8fQQDxr2555pBk1Nn4Y/X5yOOXIFdoFp+kRxdcakEcg5pG8pmMgN/lnMpc0Q==}
     peerDependencies:
       prettier: ^3.6.0
 
-  '@so1ve/prettier-plugin-toml@3.6.1':
-    resolution: {integrity: sha512-of9jfDeXPahYi6FPnlRc8BbLz3RYq14AIXqjmhzUhVTXzNijYLpy8wbvYeMQXRDu2YDbk1tHsdRq8KB/cSo2wQ==}
+  '@so1ve/prettier-plugin-toml@3.7.0':
+    resolution: {integrity: sha512-yVKlqelOzqVhcPJkOBwd9xjN/bsirOdY514E6zZPg2rhWjxA8ZgQJ8wPlJWoA0mi0Lw99AQdtuKdVTLl8JXegA==}
     peerDependencies:
       prettier: ^3.6.0
 
@@ -4780,13 +4780,13 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.44.2':
     optional: true
 
-  '@so1ve/eslint-config@3.6.1(@typescript-eslint/eslint-plugin@8.36.0(@typescript-eslint/parser@8.36.0(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3))(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3))(@typescript-eslint/parser@8.36.0(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3))(@typescript-eslint/utils@8.36.0(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3))(eslint-import-resolver-node@0.3.9)(eslint@9.30.1(jiti@2.4.2))(prettier@3.6.2)(typescript@5.8.3)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.0.13)(jiti@2.4.2)(terser@5.43.1)(yaml@2.8.0))':
+  '@so1ve/eslint-config@3.7.0(@typescript-eslint/eslint-plugin@8.36.0(@typescript-eslint/parser@8.36.0(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3))(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3))(@typescript-eslint/parser@8.36.0(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3))(@typescript-eslint/utils@8.36.0(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3))(eslint-import-resolver-node@0.3.9)(eslint@9.30.1(jiti@2.4.2))(prettier@3.6.2)(typescript@5.8.3)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.0.13)(jiti@2.4.2)(terser@5.43.1)(yaml@2.8.0))':
     dependencies:
       '@eslint-community/eslint-plugin-eslint-comments': 4.5.0(eslint@9.30.1(jiti@2.4.2))
       '@html-eslint/eslint-plugin': 0.42.0(eslint@9.30.1(jiti@2.4.2))
       '@html-eslint/parser': 0.42.0
-      '@so1ve/eslint-plugin': 3.6.1(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3)
-      '@so1ve/eslint-plugin-sort-imports': 3.6.1(eslint@9.30.1(jiti@2.4.2))
+      '@so1ve/eslint-plugin': 3.7.0(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3)
+      '@so1ve/eslint-plugin-sort-imports': 3.7.0(eslint@9.30.1(jiti@2.4.2))
       '@stylistic/eslint-plugin': 5.1.0(eslint@9.30.1(jiti@2.4.2))
       '@unocss/eslint-config': 66.3.3(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3)
       '@vitest/eslint-plugin': 1.3.4(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.0.13)(jiti@2.4.2)(terser@5.43.1)(yaml@2.8.0))
@@ -4837,12 +4837,12 @@ snapshots:
       - typescript
       - vitest
 
-  '@so1ve/eslint-plugin-sort-imports@3.6.1(eslint@9.30.1(jiti@2.4.2))':
+  '@so1ve/eslint-plugin-sort-imports@3.7.0(eslint@9.30.1(jiti@2.4.2))':
     dependencies:
       eslint: 9.30.1(jiti@2.4.2)
       natsort: 2.0.3
 
-  '@so1ve/eslint-plugin@3.6.1(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3)':
+  '@so1ve/eslint-plugin@3.7.0(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3)':
     dependencies:
       '@typescript-eslint/types': 8.36.0
       '@typescript-eslint/utils': 8.36.0(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3)
@@ -4851,14 +4851,14 @@ snapshots:
       - supports-color
       - typescript
 
-  '@so1ve/prettier-config@3.6.1(prettier@3.6.2)':
+  '@so1ve/prettier-config@3.7.0(prettier@3.6.2)':
     dependencies:
-      '@so1ve/prettier-plugin-toml': 3.6.1(prettier@3.6.2)
+      '@so1ve/prettier-plugin-toml': 3.7.0(prettier@3.6.2)
       prettier: 3.6.2
       prettier-plugin-astro: 0.14.1
       prettier-plugin-pkgsort: 0.2.1(prettier@3.6.2)
 
-  '@so1ve/prettier-plugin-toml@3.6.1(prettier@3.6.2)':
+  '@so1ve/prettier-plugin-toml@3.7.0(prettier@3.6.2)':
     dependencies:
       prettier: 3.6.2
 

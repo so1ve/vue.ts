@@ -7,9 +7,8 @@ export type ValidTransforms = "defineEmits" | "defineProps";
 
 export type Options = {
 	tsconfigPath?: string;
-} & {
-	[Transform in ValidTransforms]?: boolean;
-} & BaseOptions;
+} & Partial<Record<ValidTransforms, boolean>> &
+	BaseOptions;
 
 export type ResolvedOptions = Required<Options>;
 export type TransformOptions = Pick<ResolvedOptions, ValidTransforms>;

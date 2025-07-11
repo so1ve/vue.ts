@@ -1,3 +1,3 @@
 export { createFilter } from "@rollup/pluginutils";
-export * from "./types";
+export type * from "./types";
 export * from "./utils";
