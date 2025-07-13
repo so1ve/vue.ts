@@ -1,10 +1,16 @@
 import { createRequire } from "node:module";
 import * as path from "node:path";
 
-import { createLanguage as createTypescriptLanguage } from "@volar/typescript";
+import type { TypeScriptProjectHost } from "@volar/typescript";
+import {
+	createLanguageServiceHost,
+	resolveFileLanguageId,
+} from "@volar/typescript";
 import * as vue from "@vue/language-core";
 import { normalizePath } from "@vue.ts/common";
 import type ts from "typescript/lib/tsserverlibrary";
+
+import { createHelpers } from "./helpers";
 
 const require = createRequire(import.meta.url);
 
@@ -15,9 +21,8 @@ function createLanguage(
 	const tsconfig = normalizePath(tsconfigPath);
 
 	return createLanguageWorker(
-		() => vue.createParsedCommandLine(ts, ts.sys, tsconfigPath),
+		() => vue.createParsedCommandLine(ts, ts.sys, tsconfigPath, true),
 		path.dirname(tsconfig),
-		tsconfig,
 		ts,
 	);
 }
@@ -25,117 +30,70 @@ function createLanguage(
 function createLanguageWorker(
 	loadParsedCommandLine: () => vue.ParsedCommandLine,
 	rootPath: string,
-	configFileName: string | undefined,
 	ts: typeof import("typescript/lib/tsserverlibrary"),
 ) {
 	let parsedCommandLine = loadParsedCommandLine();
-	let fileNames = parsedCommandLine.fileNames.map(normalizePath);
+	let fileNames = new Set(
+		parsedCommandLine.fileNames.map((fileName) => normalizePath(fileName)),
+	);
 	let projectVersion = 0;
 
-	const scriptSnapshots = new Map<string, ts.IScriptSnapshot>();
-	const _host: vue.TypeScriptProjectHost = {
-		// Commented to wait for volar 2.2.0-alpha.0
-		// ...ts.sys,
-		// configFileName,
+	const projectHost: TypeScriptProjectHost = {
 		getCurrentDirectory: () => rootPath,
 		getProjectVersion: () => projectVersion.toString(),
 		getCompilationSettings: () => parsedCommandLine.options,
-		getScriptFileNames: () => fileNames,
+		getScriptFileNames: () => [...fileNames],
 		getProjectReferences: () => parsedCommandLine.projectReferences,
-		getScriptSnapshot: (fileName) => {
+	};
+
+	const scriptSnapshots = new Map<string, ts.IScriptSnapshot | undefined>();
+
+	const vueLanguagePlugin = vue.createVueLanguagePlugin<string>(
+		ts,
+		projectHost.getCompilationSettings(),
+		parsedCommandLine.vueOptions,
+		(id) => id,
+	);
+
+	const language = vue.createLanguage(
+		[
+			vueLanguagePlugin,
+			{
+				getLanguageId(fileName) {
+					return resolveFileLanguageId(fileName);
+				},
+			},
+		],
+		new vue.FileMap(ts.sys.useCaseSensitiveFileNames),
+		(fileName) => {
+			let snapshot = scriptSnapshots.get(fileName);
+
 			if (!scriptSnapshots.has(fileName)) {
 				const fileText = ts.sys.readFile(fileName);
-				if (fileText !== undefined) {
+				if (fileText) {
 					scriptSnapshots.set(fileName, ts.ScriptSnapshot.fromString(fileText));
+				} else {
+					scriptSnapshots.set(fileName, undefined);
 				}
 			}
 
-			return scriptSnapshots.get(fileName);
-		},
-		getLanguageId: (fileName) => {
-			if (
-				parsedCommandLine.vueOptions.extensions.some((ext) =>
-					fileName.endsWith(ext),
-				)
-			) {
-				return "vue";
-			}
+			snapshot = scriptSnapshots.get(fileName);
 
-			return vue.resolveCommonLanguageId(fileName);
-		},
-		// scriptIdToFileName: (id) => id,
-		// fileNameToScriptId: (id) => id,
-	};
-
-	return {
-		...baseCreateLanguageWorker(
-			ts,
-			configFileName,
-			_host,
-			parsedCommandLine.vueOptions,
-		),
-		updateFile(fileName: string, text: string) {
-			fileName = normalizePath(fileName);
-			scriptSnapshots.set(fileName, ts.ScriptSnapshot.fromString(text));
-			projectVersion++;
-		},
-		deleteFile(fileName: string) {
-			fileName = normalizePath(fileName);
-			fileNames = fileNames.filter((f) => f !== fileName);
-			projectVersion++;
-		},
-		reload() {
-			parsedCommandLine = loadParsedCommandLine();
-			fileNames = parsedCommandLine.fileNames.map(normalizePath);
-			this.clearCache();
-		},
-		clearCache() {
-			scriptSnapshots.clear();
-			projectVersion++;
-		},
-	};
-}
-
-type Language = ReturnType<typeof createLanguage>;
-
-function baseCreateLanguageWorker(
-	ts: typeof import("typescript/lib/tsserverlibrary"),
-	configFileName: string | undefined,
-	host: vue.TypeScriptProjectHost,
-	vueCompilerOptions: vue.VueCompilerOptions,
-) {
-	const vueLanguagePlugin = vue.createVueLanguagePlugin(
-		ts,
-		(id) => id,
-		(fileName) => {
-			if (ts.sys.useCaseSensitiveFileNames) {
-				return host.getScriptFileNames().includes(fileName) ?? false;
+			if (snapshot) {
+				language.scripts.set(fileName, snapshot);
 			} else {
-				const lowerFileName = fileName.toLowerCase();
-				for (const rootFile of host.getScriptFileNames()) {
-					if (rootFile.toLowerCase() === lowerFileName) {
-						return true;
-					}
-				}
-
-				return false;
+				language.scripts.delete(fileName);
 			}
 		},
-		host.getCompilationSettings(),
-		vueCompilerOptions,
 	);
-	const language = createTypescriptLanguage(
+
+	const { languageServiceHost } = createLanguageServiceHost(
 		ts,
 		ts.sys,
-		[vueLanguagePlugin],
-		configFileName,
-		host,
-		{
-			fileIdToFileName: (id) => id,
-			fileNameToFileId: (id) => id,
-		},
+		language as any,
+		(s) => s,
+		projectHost,
 	);
-	const { languageServiceHost } = language.typescript!;
 	const tsLs = ts.createLanguageService(languageServiceHost);
 
 	const getScriptKind =
@@ -154,168 +112,37 @@ function baseCreateLanguageWorker(
 	const program = tsLs.getProgram()!;
 	const typeChecker = program.getTypeChecker();
 
-	function getScriptSetupBlock(normalizedFilepath: string) {
-		const sourceFile = language.files.get(normalizedFilepath)?.generated?.code;
-		if (!(sourceFile instanceof vue.VueGeneratedCode)) {
-			return;
-		}
-		if (!sourceFile.sfc.scriptSetup) {
-			return;
-		}
-		const { lang } = sourceFile.sfc.scriptSetup;
-		if (lang !== "ts" && lang !== "tsx") {
-			return;
-		}
-
-		return sourceFile.sfc.scriptSetup;
-	}
-
-	function findNodeByRange(
-		filepath: string,
-		filter: (ranges: vue.ScriptSetupRanges) => vue.TextRange | undefined,
-	):
-		| {
-				virtualFileNode: ts.Node;
-				scriptNode: ts.Node;
-				setupRange: vue.TextRange;
-				offset: number;
-		  }
-		| undefined {
-		filepath = normalizePath(filepath);
-		const scriptSetupBlock = getScriptSetupBlock(filepath);
-		if (!scriptSetupBlock) {
-			return;
-		}
-		const { startTagEnd: offset } = scriptSetupBlock;
-		const scriptSetupAst = getScriptSetupAst(filepath);
-		if (!scriptSetupAst) {
-			return;
-		}
-		const scriptSetupRanges = vue.parseScriptSetupRanges(
-			ts,
-			scriptSetupAst,
-			vueCompilerOptions,
-		);
-		const virtualFileAst = getVirtualFileOrTsAst(filepath);
-		if (!virtualFileAst) {
-			return;
-		}
-		const virtualTsFileScriptSetupRanges = vue.parseScriptSetupRanges(
-			ts,
-			virtualFileAst,
-			vueCompilerOptions,
-		);
-		const sourceRange = filter(scriptSetupRanges);
-		const virtualTsRange = filter(virtualTsFileScriptSetupRanges);
-		if (!sourceRange || !virtualTsRange) {
-			return;
-		}
-		let foundVirtualFileNode!: ts.Node;
-		virtualFileAst.forEachChild(function traverse(node: ts.Node) {
-			if (
-				node.getStart(virtualFileAst) === virtualTsRange.start &&
-				node.getEnd() === virtualTsRange.end
-			) {
-				foundVirtualFileNode = node;
-			} else {
-				node.forEachChild(traverse);
-			}
-		});
-		let foundSetupNode!: ts.Node;
-		scriptSetupAst.forEachChild(function traverse(node: ts.Node) {
-			if (
-				node.getStart(scriptSetupAst) === sourceRange.start &&
-				node.getEnd() === sourceRange.end
-			) {
-				foundSetupNode = node;
-			} else {
-				node.forEachChild(traverse);
-			}
-		});
-
-		const setupRange: vue.TextRange = {
-			start: offset + sourceRange.start,
-			end: offset + sourceRange.end,
-		};
-
-		return {
-			virtualFileNode: foundVirtualFileNode,
-			scriptNode: foundSetupNode,
-			setupRange,
-			offset,
-		};
-	}
-
-	function getScriptSetupAst(filepath: string) {
-		filepath = normalizePath(filepath);
-		const scriptSetupBlock = getScriptSetupBlock(filepath);
-		if (!scriptSetupBlock) {
-			return;
-		}
-
-		return scriptSetupBlock.ast;
-	}
-
-	function getVirtualFileOrTsAst(filepath: string) {
-		filepath = normalizePath(filepath);
-		let virtualFileOrTsAst = program.getSourceFile(filepath);
-		if (virtualFileOrTsAst) {
-			return virtualFileOrTsAst;
-		}
-		const scriptSetupBlock = getScriptSetupBlock(filepath);
-		if (!scriptSetupBlock) {
-			return;
-		}
-		const { lang } = scriptSetupBlock;
-		virtualFileOrTsAst = program.getSourceFile(`${filepath}.${lang}`);
-
-		return virtualFileOrTsAst;
-	}
-
-	function traverseAst(
-		filepath: string,
-		cb: (
-			node: ts.Node,
-			context: {
-				scriptSetupAst?: ts.SourceFile;
-				virtualFileOrTsAst: ts.SourceFile;
-				isVirtualOrTsFile: boolean;
-			},
-		) => void,
-	) {
-		filepath = normalizePath(filepath);
-		const scriptSetupAst = getScriptSetupAst(filepath);
-		const virtualFileOrTsAst = getVirtualFileOrTsAst(filepath);
-		if (!virtualFileOrTsAst) {
-			return;
-		}
-		if (scriptSetupAst) {
-			scriptSetupAst.forEachChild(function traverse(node: ts.Node) {
-				cb(node, {
-					scriptSetupAst,
-					virtualFileOrTsAst,
-					isVirtualOrTsFile: false,
-				});
-				node.forEachChild(traverse);
-			});
-		}
-		if (virtualFileOrTsAst) {
-			virtualFileOrTsAst.forEachChild(function traverse(node: ts.Node) {
-				cb(node, {
-					scriptSetupAst,
-					virtualFileOrTsAst,
-					isVirtualOrTsFile: true,
-				});
-				node.forEachChild(traverse);
-			});
-		}
-	}
+	const helpers = createHelpers(
+		language,
+		program,
+		parsedCommandLine.vueOptions,
+		ts,
+	);
 
 	return {
-		findNodeByRange,
-		getScriptSetupAst,
-		getVirtualFileAst: getVirtualFileOrTsAst,
-		traverseAst,
+		...helpers,
+		updateFile(fileName: string, text: string) {
+			fileName = normalizePath(fileName);
+			scriptSnapshots.set(fileName, ts.ScriptSnapshot.fromString(text));
+			fileNames.add(fileName);
+			projectVersion++;
+		},
+		deleteFile(fileName: string) {
+			fileName = normalizePath(fileName);
+			fileNames.delete(fileName);
+			projectVersion++;
+		},
+		reload() {
+			parsedCommandLine = loadParsedCommandLine();
+			fileNames = new Set(
+				parsedCommandLine.fileNames.map((fileName) => normalizePath(fileName)),
+			);
+			this.clearCache();
+		},
+		clearCache() {
+			scriptSnapshots.clear();
+			projectVersion++;
+		},
 		__internal__: {
 			tsLs,
 			program,
@@ -323,6 +150,8 @@ function baseCreateLanguageWorker(
 		},
 	};
 }
+
+type Language = ReturnType<typeof createLanguage>;
 
 const LANGUAGE_GLOBAL_KEY = "__VUETS_LANGUAGE__";
 export function ensureLanguage(tsconfigPath: string) {
