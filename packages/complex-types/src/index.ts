@@ -9,26 +9,27 @@ import { resolveOptions } from "./core/utils";
 
 export const unpluginFactory: UnpluginFactory<Options | undefined> = (
 	options = {},
-) => ({
-	name: "@vue.ts/complex-types",
-	buildStart() {
-		const resolvedOptions = resolveOptions(options);
-		ensureLanguage(resolvedOptions.tsconfigPath);
-	},
-	transform(code, id) {
-		const resolvedOptions = resolveOptions(options);
-		const filter = createFilter(
-			resolvedOptions.include,
-			resolvedOptions.exclude,
-		);
+) => {
+	const resolvedOptions = resolveOptions(options);
+	const filter = createFilter(resolvedOptions.include, resolvedOptions.exclude);
 
-		if (!filter(id)) {
-			return;
-		}
+	return {
+		name: "@vue.ts/complex-types",
 
-		return transform(code, id, resolvedOptions);
-	},
-});
+		buildStart() {
+			const resolvedOptions = resolveOptions(options);
+			ensureLanguage(resolvedOptions.tsconfigPath);
+		},
+
+		transform(code, id) {
+			if (!filter(id)) {
+				return;
+			}
+
+			return transform(code, id, resolvedOptions);
+		},
+	};
+};
 
 export const unplugin = /* #__PURE__ */ createUnplugin(unpluginFactory);
 
