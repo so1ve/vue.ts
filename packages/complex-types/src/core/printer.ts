@@ -281,6 +281,21 @@ export class Printer {
 	}
 
 	private printConditionalTypeNode(node: ts.ConditionalTypeNode): string {
+		// Try to evaluate the conditional type using the type checker
+		const conditionalType = this.checker.getTypeAtLocation(node);
+
+		if (
+			conditionalType &&
+			!(conditionalType.flags & ts.TypeFlags.Conditional)
+		) {
+			const resolvedTypeString = this.typeToString(conditionalType);
+
+			if (resolvedTypeString !== node.getText()) {
+				return resolvedTypeString;
+			}
+		}
+
+		// If we can't resolve it or it's still conditional, fall back to the original logic
 		const checkType = this.print(node.checkType);
 		const extendsType = this.print(node.extendsType);
 		const trueType = this.print(node.trueType);

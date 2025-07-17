@@ -124,7 +124,10 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 		},
 		error: { required: true },
 		emptyInterface: { required: true },
-		conditionalNumber: { required: true },
+		conditionalNumber: {
+			type: Number,
+			required: true
+		},
 		interface: {
 			type: Object,
 			required: true

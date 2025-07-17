@@ -54,7 +54,7 @@ error: Error
 } & {
 emptyInterface: {
 }
-conditionalNumber: number extends boolean ? string : number
+conditionalNumber: number
 interface: {
 aaa: 1
 }
