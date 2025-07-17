@@ -124,12 +124,15 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 		},
 		error: { required: true },
 		emptyInterface: { required: true },
-		conditionalNumber: {
-			type: Number,
+		conditionalNumber: { required: true },
+		interface: {
+			type: Object,
 			required: true
 		},
-		interface: { required: true },
-		typeLiteral: { required: true },
+		typeLiteral: {
+			type: Object,
+			required: true
+		},
 		"1-1": { required: false },
 		"2-1": { required: false }
 	},
@@ -158,189 +161,198 @@ import _export_sfc from '[NULL]/plugin-vue/export-helper';
 var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "core#8286",
 	props: {
-		autofocus: { required: false },
-		disabled: { required: false },
-		form: { required: false },
-		formaction: { required: false },
-		formenctype: { required: false },
-		formmethod: { required: false },
-		formnovalidate: { required: false },
-		formtarget: { required: false },
-		name: { required: false },
-		type: { required: false },
-		value: { required: false },
-		innerHTML: { required: false },
-		class: { required: false },
-		style: { required: false },
-		accesskey: { required: false },
-		contenteditable: { required: false },
-		contextmenu: { required: false },
-		dir: { required: false },
-		draggable: { required: false },
-		hidden: { required: false },
-		id: { required: false },
-		inert: { required: false },
-		lang: { required: false },
-		placeholder: { required: false },
-		spellcheck: { required: false },
-		tabindex: { required: false },
-		title: { required: false },
-		translate: { required: false },
-		radiogroup: { required: false },
-		role: { required: false },
-		about: { required: false },
-		datatype: { required: false },
-		inlist: { required: false },
-		prefix: { required: false },
-		property: { required: false },
-		resource: { required: false },
-		typeof: { required: false },
-		vocab: { required: false },
-		autocapitalize: { required: false },
-		autocorrect: { required: false },
-		autosave: { required: false },
-		color: { required: false },
-		itemprop: { required: false },
-		itemscope: { required: false },
-		itemtype: { required: false },
-		itemid: { required: false },
-		itemref: { required: false },
-		results: { required: false },
-		security: { required: false },
-		unselectable: { required: false },
-		inputmode: { required: false },
-		is: { required: false },
-		"aria-activedescendant": { required: false },
-		"aria-atomic": { required: false },
-		"aria-autocomplete": { required: false },
-		"aria-busy": { required: false },
-		"aria-checked": { required: false },
-		"aria-colcount": { required: false },
-		"aria-colindex": { required: false },
-		"aria-colspan": { required: false },
-		"aria-controls": { required: false },
-		"aria-current": { required: false },
-		"aria-describedby": { required: false },
-		"aria-details": { required: false },
-		"aria-disabled": { required: false },
-		"aria-dropeffect": { required: false },
-		"aria-errormessage": { required: false },
-		"aria-expanded": { required: false },
-		"aria-flowto": { required: false },
-		"aria-grabbed": { required: false },
-		"aria-haspopup": { required: false },
-		"aria-hidden": { required: false },
-		"aria-invalid": { required: false },
-		"aria-keyshortcuts": { required: false },
-		"aria-label": { required: false },
-		"aria-labelledby": { required: false },
-		"aria-level": { required: false },
-		"aria-live": { required: false },
-		"aria-modal": { required: false },
-		"aria-multiline": { required: false },
-		"aria-multiselectable": { required: false },
-		"aria-orientation": { required: false },
-		"aria-owns": { required: false },
-		"aria-placeholder": { required: false },
-		"aria-posinset": { required: false },
-		"aria-pressed": { required: false },
-		"aria-readonly": { required: false },
-		"aria-relevant": { required: false },
-		"aria-required": { required: false },
-		"aria-roledescription": { required: false },
-		"aria-rowcount": { required: false },
-		"aria-rowindex": { required: false },
-		"aria-rowspan": { required: false },
-		"aria-selected": { required: false },
-		"aria-setsize": { required: false },
-		"aria-sort": { required: false },
-		"aria-valuemax": { required: false },
-		"aria-valuemin": { required: false },
-		"aria-valuenow": { required: false },
-		"aria-valuetext": { required: false },
-		onCopy: { required: false },
-		onCut: { required: false },
-		onPaste: { required: false },
-		onCompositionend: { required: false },
-		onCompositionstart: { required: false },
-		onCompositionupdate: { required: false },
-		onDrag: { required: false },
-		onDragend: { required: false },
-		onDragenter: { required: false },
-		onDragexit: { required: false },
-		onDragleave: { required: false },
-		onDragover: { required: false },
-		onDragstart: { required: false },
-		onDrop: { required: false },
-		onFocus: { required: false },
-		onFocusin: { required: false },
-		onFocusout: { required: false },
-		onBlur: { required: false },
-		onChange: { required: false },
-		onBeforeinput: { required: false },
-		onInput: { required: false },
-		onReset: { required: false },
-		onSubmit: { required: false },
-		onInvalid: { required: false },
-		onLoad: { required: false },
-		onError: { required: false },
-		onKeydown: { required: false },
-		onKeypress: { required: false },
-		onKeyup: { required: false },
-		onAuxclick: { required: false },
-		onClick: { required: false },
-		onContextmenu: { required: false },
-		onDblclick: { required: false },
-		onMousedown: { required: false },
-		onMouseenter: { required: false },
-		onMouseleave: { required: false },
-		onMousemove: { required: false },
-		onMouseout: { required: false },
-		onMouseover: { required: false },
-		onMouseup: { required: false },
-		onAbort: { required: false },
-		onCanplay: { required: false },
-		onCanplaythrough: { required: false },
-		onDurationchange: { required: false },
-		onEmptied: { required: false },
-		onEncrypted: { required: false },
-		onEnded: { required: false },
-		onLoadeddata: { required: false },
-		onLoadedmetadata: { required: false },
-		onLoadstart: { required: false },
-		onPause: { required: false },
-		onPlay: { required: false },
-		onPlaying: { required: false },
-		onProgress: { required: false },
-		onRatechange: { required: false },
-		onSeeked: { required: false },
-		onSeeking: { required: false },
-		onStalled: { required: false },
-		onSuspend: { required: false },
-		onTimeupdate: { required: false },
-		onVolumechange: { required: false },
-		onWaiting: { required: false },
-		onSelect: { required: false },
-		onScroll: { required: false },
-		onScrollend: { required: false },
-		onTouchcancel: { required: false },
-		onTouchend: { required: false },
-		onTouchmove: { required: false },
-		onTouchstart: { required: false },
-		onPointerdown: { required: false },
-		onPointermove: { required: false },
-		onPointerup: { required: false },
-		onPointercancel: { required: false },
-		onPointerenter: { required: false },
-		onPointerleave: { required: false },
-		onPointerover: { required: false },
-		onPointerout: { required: false },
-		onWheel: { required: false },
-		onAnimationstart: { required: false },
-		onAnimationend: { required: false },
-		onAnimationiteration: { required: false },
-		onTransitionend: { required: false },
-		onTransitionstart: { required: false }
+		"aria-activedescendant": {
+			type: String,
+			required: false
+		},
+		"aria-atomic": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-autocomplete": {
+			type: String,
+			required: false
+		},
+		"aria-busy": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-checked": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-colcount": {
+			type: [Number, String],
+			required: false
+		},
+		"aria-colindex": {
+			type: [Number, String],
+			required: false
+		},
+		"aria-colspan": {
+			type: [Number, String],
+			required: false
+		},
+		"aria-controls": {
+			type: String,
+			required: false
+		},
+		"aria-current": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-describedby": {
+			type: String,
+			required: false
+		},
+		"aria-details": {
+			type: String,
+			required: false
+		},
+		"aria-disabled": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-dropeffect": {
+			type: String,
+			required: false
+		},
+		"aria-errormessage": {
+			type: String,
+			required: false
+		},
+		"aria-expanded": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-flowto": {
+			type: String,
+			required: false
+		},
+		"aria-grabbed": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-haspopup": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-hidden": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-invalid": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-keyshortcuts": {
+			type: String,
+			required: false
+		},
+		"aria-label": {
+			type: String,
+			required: false
+		},
+		"aria-labelledby": {
+			type: String,
+			required: false
+		},
+		"aria-level": {
+			type: [Number, String],
+			required: false
+		},
+		"aria-live": {
+			type: String,
+			required: false
+		},
+		"aria-modal": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-multiline": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-multiselectable": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-orientation": {
+			type: String,
+			required: false
+		},
+		"aria-owns": {
+			type: String,
+			required: false
+		},
+		"aria-placeholder": {
+			type: String,
+			required: false
+		},
+		"aria-posinset": {
+			type: [Number, String],
+			required: false
+		},
+		"aria-pressed": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-readonly": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-relevant": {
+			type: String,
+			required: false
+		},
+		"aria-required": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-roledescription": {
+			type: String,
+			required: false
+		},
+		"aria-rowcount": {
+			type: [Number, String],
+			required: false
+		},
+		"aria-rowindex": {
+			type: [Number, String],
+			required: false
+		},
+		"aria-rowspan": {
+			type: [Number, String],
+			required: false
+		},
+		"aria-selected": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-setsize": {
+			type: [Number, String],
+			required: false
+		},
+		"aria-sort": {
+			type: String,
+			required: false
+		},
+		"aria-valuemax": {
+			type: [Number, String],
+			required: false
+		},
+		"aria-valuemin": {
+			type: [Number, String],
+			required: false
+		},
+		"aria-valuenow": {
+			type: [Number, String],
+			required: false
+		},
+		"aria-valuetext": {
+			type: String,
+			required: false
+		}
 	},
 	setup(__props, { expose: __expose }) {
 		__expose();
