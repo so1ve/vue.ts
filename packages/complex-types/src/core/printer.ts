@@ -445,6 +445,7 @@ export class Printer {
 		} else if (
 			ts.isLiteralTypeNode(node) ||
 			ts.isThisTypeNode(node) ||
+			ts.isPropertyAccessExpression(node) ||
 			this.isKeywordTypeNode(node)
 		) {
 			return node.getText();
