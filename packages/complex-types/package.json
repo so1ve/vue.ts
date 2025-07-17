@@ -67,31 +67,31 @@
 		"watch": "tsdown --watch"
 	},
 	"dependencies": {
-		"@nuxt/kit": "^3.17.6",
+		"@nuxt/kit": "catalog:",
 		"@vue.ts/language": "workspace:*",
 		"@vue.ts/shared": "workspace:*",
-		"magic-string": "^0.30.17",
-		"unplugin": "^2.3.5"
+		"magic-string": "catalog:",
+		"unplugin": "catalog:"
 	},
 	"devDependencies": {
-		"@nuxt/schema": "^3.17.6",
+		"@nuxt/schema": "catalog:",
 		"@vue-macros/better-define": "^1.11.4",
-		"rolldown": "1.0.0-beta.27",
-		"rollup": "^4.44.2",
-		"vite": "^7.0.4",
-		"webpack": "^5.100.1"
+		"rolldown": "catalog:",
+		"rollup": "catalog:",
+		"vite": "catalog:",
+		"webpack": "catalog:"
 	},
 	"peerDependencies": {
-		"@farmfe/core": ">=1",
-		"@nuxt/kit": "^3 || ^4",
-		"@nuxt/schema": "^3 || ^4",
-		"esbuild": "*",
-		"rolldown": "*",
-		"rollup": "^3",
-		"typescript": "^5.2.2",
-		"vite": ">=3",
-		"vue": "^3.3.7",
-		"webpack": "^4 || ^5"
+		"@farmfe/core": "catalog:peer",
+		"@nuxt/kit": "catalog:peer",
+		"@nuxt/schema": "catalog:peer",
+		"esbuild": "catalog:peer",
+		"rolldown": "catalog:peer",
+		"rollup": "catalog:peer",
+		"typescript": "catalog:peer",
+		"vite": "catalog:peer",
+		"vue": "catalog:peer",
+		"webpack": "catalog:peer"
 	},
 	"peerDependenciesMeta": {
 		"@farmfe/core": {

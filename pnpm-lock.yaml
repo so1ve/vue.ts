@@ -4,6 +4,46 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    '@nuxt/kit':
+      specifier: ^3.17.6
+      version: 3.17.6
+    '@nuxt/schema':
+      specifier: ^3.17.6
+      version: 3.17.6
+    magic-string:
+      specifier: ^0.30.17
+      version: 0.30.17
+    rolldown:
+      specifier: 1.0.0-beta.27
+      version: 1.0.0-beta.27
+    rollup:
+      specifier: ^4.44.2
+      version: 4.44.2
+    unplugin:
+      specifier: ^2.3.5
+      version: 2.3.5
+    vite:
+      specifier: ^7.0.4
+      version: 7.0.4
+    webpack:
+      specifier: ^5.100.1
+      version: 5.100.1
+  peer:
+    '@farmfe/core':
+      specifier: '>=1'
+      version: 1.7.10
+    esbuild:
+      specifier: '*'
+      version: 0.25.6
+    typescript:
+      specifier: '>=5.5'
+      version: 5.8.3
+    vue:
+      specifier: '>=3'
+      version: 3.5.17
+
 importers:
 
   .:
@@ -54,59 +94,53 @@ importers:
         specifier: ^3.5.17
         version: 3.5.17(typescript@5.8.3)
 
-  packages/common:
-    dependencies:
-      '@rollup/pluginutils':
-        specifier: ^5.2.0
-        version: 5.2.0(rollup@4.44.2)
-
   packages/complex-types:
     dependencies:
       '@farmfe/core':
-        specifier: '>=1'
+        specifier: catalog:peer
         version: 1.7.10
       '@nuxt/kit':
-        specifier: ^3.17.6
+        specifier: 'catalog:'
         version: 3.17.6
       '@vue.ts/language':
         specifier: workspace:*
         version: link:../language
       '@vue.ts/shared':
         specifier: workspace:*
-        version: link:../common
+        version: link:../shared
       esbuild:
-        specifier: '*'
+        specifier: catalog:peer
         version: 0.25.6
       magic-string:
-        specifier: ^0.30.17
+        specifier: 'catalog:'
         version: 0.30.17
       typescript:
-        specifier: ^5.2.2
+        specifier: catalog:peer
         version: 5.8.3
       unplugin:
-        specifier: ^2.3.5
+        specifier: 'catalog:'
         version: 2.3.5
       vue:
-        specifier: ^3.3.7
+        specifier: catalog:peer
         version: 3.5.17(typescript@5.8.3)
     devDependencies:
       '@nuxt/schema':
-        specifier: ^3.17.6
+        specifier: 'catalog:'
         version: 3.17.6
       '@vue-macros/better-define':
         specifier: ^1.11.4
         version: 1.11.4(vue@3.5.17(typescript@5.8.3))
       rolldown:
-        specifier: 1.0.0-beta.27
+        specifier: 'catalog:'
         version: 1.0.0-beta.27
       rollup:
-        specifier: ^4.44.2
+        specifier: 'catalog:'
         version: 4.44.2
       vite:
-        specifier: ^7.0.4
+        specifier: 'catalog:'
         version: 7.0.4(@types/node@24.0.13)(jiti@2.4.2)(terser@5.43.1)(yaml@2.8.0)
       webpack:
-        specifier: ^5.100.1
+        specifier: 'catalog:'
         version: 5.100.1(esbuild@0.25.6)
 
   packages/language:
@@ -116,49 +150,55 @@ importers:
         version: 2.4.18
       '@vue.ts/shared':
         specifier: workspace:*
-        version: link:../common
+        version: link:../shared
       '@vue/language-core':
         specifier: 3.0.1
         version: 3.0.1(typescript@5.8.3)
 
+  packages/shared:
+    dependencies:
+      '@rollup/pluginutils':
+        specifier: ^5.2.0
+        version: 5.2.0(rollup@4.44.2)
+
   packages/tsx-auto-props:
     dependencies:
       '@farmfe/core':
-        specifier: '>=1'
+        specifier: catalog:peer
         version: 1.7.10
       '@nuxt/kit':
-        specifier: ^3.17.6
+        specifier: 'catalog:'
         version: 3.17.6
       '@vue.ts/language':
         specifier: workspace:*
         version: link:../language
       '@vue.ts/shared':
         specifier: workspace:*
-        version: link:../common
+        version: link:../shared
       esbuild:
-        specifier: '*'
+        specifier: catalog:peer
         version: 0.25.6
       magic-string:
-        specifier: ^0.30.17
+        specifier: 'catalog:'
         version: 0.30.17
       unplugin:
-        specifier: ^2.3.5
+        specifier: 'catalog:'
         version: 2.3.5
     devDependencies:
       '@nuxt/schema':
-        specifier: ^3.17.6
+        specifier: 'catalog:'
         version: 3.17.6
       rolldown:
-        specifier: 1.0.0-beta.27
+        specifier: 'catalog:'
         version: 1.0.0-beta.27
       rollup:
-        specifier: ^4.44.2
+        specifier: 'catalog:'
         version: 4.44.2
       vite:
-        specifier: ^7.0.4
+        specifier: 'catalog:'
         version: 7.0.4(@types/node@24.0.13)(jiti@2.4.2)(terser@5.43.1)(yaml@2.8.0)
       webpack:
-        specifier: ^5.100.1
+        specifier: 'catalog:'
         version: 5.100.1(esbuild@0.25.6)
 
 packages:

@@ -1,6 +1,29 @@
 packages:
   - packages/*
 
+catalog:
+  "@nuxt/kit": ^3.17.6
+  "@nuxt/schema": ^3.17.6
+  "rolldown": 1.0.0-beta.27
+  "rollup": ^4.44.2
+  "vite": ^7.0.4
+  "webpack": ^5.100.1
+  "magic-string": ^0.30.17
+  "unplugin": ^2.3.5
+
+catalogs:
+  peer:
+    "@farmfe/core": ">=1"
+    "@nuxt/kit": "^3 || ^4"
+    "@nuxt/schema": "^3 || ^4"
+    "esbuild": "*"
+    "rolldown": "*"
+    "rollup": "^3"
+    "vite": ">=3"
+    "webpack": "^4 || ^5"
+    "vue": ">=3"
+    "typescript": ">=5.5"
+
 onlyBuiltDependencies:
   - esbuild
   - unrs-resolver
