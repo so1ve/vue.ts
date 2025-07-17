@@ -34,7 +34,7 @@
 	"scripts": {
 		"build": "tsdown",
 		"prepublishOnly": "nr build",
-		"watch": "tsdown --tsdown"
+		"watch": "tsdown --watch"
 	},
 	"dependencies": {
 		"@rollup/pluginutils": "^5.2.0"
