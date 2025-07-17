@@ -13,7 +13,7 @@ export class Printer {
 		);
 	}
 
-	private printOuterUnionOrIntersection(
+	private printUnionOrIntersection(
 		type: ts.UnionOrIntersectionType,
 		separator: string,
 		inner: boolean,
@@ -51,9 +51,9 @@ export class Printer {
 
 	private printType(type: ts.Type, inner = false): string {
 		if (type.isUnion()) {
-			return this.printOuterUnionOrIntersection(type, " | ", inner);
+			return this.printUnionOrIntersection(type, " | ", inner);
 		} else if (type.isIntersection()) {
-			return this.printOuterUnionOrIntersection(type, " & ", inner);
+			return this.printUnionOrIntersection(type, " & ", inner);
 		}
 		// WIP
 		if (this.typeToString(type).endsWith("[]")) {
