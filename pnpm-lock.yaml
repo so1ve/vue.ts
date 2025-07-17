@@ -55,7 +55,7 @@ importers:
         version: 3.5.17(typescript@5.8.3)
 
   packages/common:
-    devDependencies:
+    dependencies:
       '@rollup/pluginutils':
         specifier: ^5.2.0
         version: 5.2.0(rollup@4.44.2)

@@ -1,5 +1,5 @@
-import { normalizePath } from "@vue.ts/shared";
 import { getLanguage } from "@vue.ts/language";
+import { normalizePath } from "@vue.ts/shared";
 import MagicString from "magic-string";
 import ts from "typescript";
 import type { TransformResult } from "unplugin";
