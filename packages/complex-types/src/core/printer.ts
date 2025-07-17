@@ -17,6 +17,14 @@ export class Printer {
 		);
 	}
 
+	private typeToString(type: ts.Type): string {
+		return this.checker.typeToString(
+			type,
+			undefined,
+			ts.TypeFormatFlags.NoTruncation,
+		);
+	}
+
 	private printIntersectionTypeNode(node: ts.IntersectionTypeNode): string {
 		return node.types.map((t) => this.print(t)).join(" & ");
 	}
@@ -31,11 +39,7 @@ export class Printer {
 		for (const member of node.members) {
 			if (ts.isPropertySignature(member)) {
 				const stringBaseType = member.type
-					? this.checker.typeToString(
-							this.getBaseType(member.type),
-							undefined,
-							ts.TypeFormatFlags.NoTruncation,
-						)
+					? this.typeToString(this.getBaseType(member.type))
 					: "any";
 
 				parts.push(
@@ -69,11 +73,7 @@ export class Printer {
 					: "";
 
 			const valueType = this.checker.getTypeOfSymbol(property);
-			const stringValueType = this.checker.typeToString(
-				this.getBaseType(valueType),
-				undefined,
-				ts.TypeFormatFlags.NoTruncation,
-			);
+			const stringValueType = this.typeToString(this.getBaseType(valueType));
 			parts.push(
 				`${this.checker.symbolToString(
 					property,
@@ -119,21 +119,13 @@ export class Printer {
 			} else if (ts.isMethodSignature(member)) {
 				const signature = this.checker.getSignatureFromDeclaration(member);
 				const returnType = signature
-					? this.checker.typeToString(
-							signature.getReturnType(),
-							undefined,
-							ts.TypeFormatFlags.NoTruncation,
-						)
+					? this.typeToString(signature.getReturnType())
 					: "any";
 
 				const parameters = member.parameters
 					.map((param) => {
 						const paramType = param.type
-							? this.checker.typeToString(
-									this.getBaseType(param.type),
-									undefined,
-									ts.TypeFormatFlags.NoTruncation,
-								)
+							? this.typeToString(this.getBaseType(param.type))
 							: "any";
 
 						return `${param.name.getText()}: ${paramType}`;
@@ -182,11 +174,7 @@ export class Printer {
 			if (ts.isPropertyDeclaration(member)) {
 				const name = member.name?.getText();
 				const typeAnnotation = member.type
-					? this.checker.typeToString(
-							this.getBaseType(member.type),
-							undefined,
-							ts.TypeFormatFlags.NoTruncation,
-						)
+					? this.typeToString(this.getBaseType(member.type))
 					: "any";
 				const optional = member.questionToken ? "?" : "";
 				parts.push(`${name}${optional}: ${typeAnnotation}`);
@@ -194,21 +182,13 @@ export class Printer {
 				const name = member.name?.getText();
 				const signature = this.checker.getSignatureFromDeclaration(member);
 				const returnType = signature
-					? this.checker.typeToString(
-							signature.getReturnType(),
-							undefined,
-							ts.TypeFormatFlags.NoTruncation,
-						)
+					? this.typeToString(signature.getReturnType())
 					: "any";
 
 				const parameters = member.parameters
 					.map((param) => {
 						const paramType = param.type
-							? this.checker.typeToString(
-									this.getBaseType(param.type),
-									undefined,
-									ts.TypeFormatFlags.NoTruncation,
-								)
+							? this.typeToString(this.getBaseType(param.type))
 							: "any";
 
 						return `${param.name.getText()}: ${paramType}`;
@@ -220,11 +200,7 @@ export class Printer {
 				const parameters = member.parameters
 					.map((param) => {
 						const paramType = param.type
-							? this.checker.typeToString(
-									this.getBaseType(param.type),
-									undefined,
-									ts.TypeFormatFlags.NoTruncation,
-								)
+							? this.typeToString(this.getBaseType(param.type))
 							: "any";
 
 						return `${param.name.getText()}: ${paramType}`;
@@ -326,7 +302,11 @@ export class Printer {
 
 			for (const type of node.types) {
 				if (ts.isExpressionWithTypeArguments(type)) {
-					parts.push(this.print(type.expression));
+					if (type.expression && type.typeArguments) {
+						parts.push(this.print(type));
+					} else {
+						parts.push(this.print(type.expression));
+					}
 				}
 			}
 
@@ -394,8 +374,6 @@ export class Printer {
 			return this.printUnionTypeNode(node);
 		} else if (ts.isTypeLiteralNode(node)) {
 			return this.printTypeLiteralNode(node);
-		} else if (ts.isMappedTypeNode(node)) {
-			return this.printTypeByType(node);
 		} else if (ts.isTypeReferenceNode(node)) {
 			return this.print(node.typeName);
 		} else if (ts.isInterfaceDeclaration(node)) {
@@ -449,6 +427,11 @@ export class Printer {
 			this.isKeywordTypeNode(node)
 		) {
 			return node.getText();
+		} else if (
+			ts.isMappedTypeNode(node) ||
+			ts.isExpressionWithTypeArguments(node)
+		) {
+			return this.printTypeByType(node);
 		} else {
 			console.error(
 				`[@vue.ts/complex-types] \`${
@@ -467,11 +450,7 @@ export class Printer {
 			const parameters = c.getParameters();
 			const event = parameters[0];
 
-			return this.checker.typeToString(
-				this.checker.getTypeOfSymbol(event),
-				undefined,
-				ts.TypeFormatFlags.NoTruncation,
-			);
+			return this.typeToString(this.checker.getTypeOfSymbol(event));
 		});
 	}
 
