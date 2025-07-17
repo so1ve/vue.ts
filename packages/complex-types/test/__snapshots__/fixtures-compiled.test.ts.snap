@@ -124,12 +124,15 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 		},
 		error: { required: true },
 		emptyInterface: { required: true },
-		conditionalNumber: {
-			type: Number,
+		conditionalNumber: { required: true },
+		interface: {
+			type: Object,
 			required: true
 		},
-		interface: { required: true },
-		typeLiteral: { required: true },
+		typeLiteral: {
+			type: Object,
+			required: true
+		},
 		"1-1": { required: false },
 		"2-1": { required: false }
 	},
@@ -158,6 +161,7 @@ import _export_sfc from '[NULL]/plugin-vue/export-helper';
 var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "core#8286",
 	props: {
+<<<<<<< HEAD
 		autofocus: { required: false },
 		disabled: { required: false },
 		form: { required: false },
@@ -341,6 +345,400 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 		onAnimationiteration: { required: false },
 		onTransitionend: { required: false },
 		onTransitionstart: { required: false }
+=======
+		"aria-activedescendant": {
+			type: String,
+			required: false
+		},
+		"aria-atomic": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-autocomplete": {
+			type: String,
+			required: false
+		},
+		"aria-busy": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-checked": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-colcount": {
+			type: [Number, String],
+			required: false
+		},
+		"aria-colindex": {
+			type: [Number, String],
+			required: false
+		},
+		"aria-colspan": {
+			type: [Number, String],
+			required: false
+		},
+		"aria-controls": {
+			type: String,
+			required: false
+		},
+		"aria-current": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-describedby": {
+			type: String,
+			required: false
+		},
+		"aria-details": {
+			type: String,
+			required: false
+		},
+		"aria-disabled": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-dropeffect": {
+			type: String,
+			required: false
+		},
+		"aria-errormessage": {
+			type: String,
+			required: false
+		},
+		"aria-expanded": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-flowto": {
+			type: String,
+			required: false
+		},
+		"aria-grabbed": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-haspopup": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-hidden": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-invalid": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-keyshortcuts": {
+			type: String,
+			required: false
+		},
+		"aria-label": {
+			type: String,
+			required: false
+		},
+		"aria-labelledby": {
+			type: String,
+			required: false
+		},
+		"aria-level": {
+			type: [Number, String],
+			required: false
+		},
+		"aria-live": {
+			type: String,
+			required: false
+		},
+		"aria-modal": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-multiline": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-multiselectable": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-orientation": {
+			type: String,
+			required: false
+		},
+		"aria-owns": {
+			type: String,
+			required: false
+		},
+		"aria-placeholder": {
+			type: String,
+			required: false
+		},
+		"aria-posinset": {
+			type: [Number, String],
+			required: false
+		},
+		"aria-pressed": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-readonly": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-relevant": {
+			type: String,
+			required: false
+		},
+		"aria-required": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-roledescription": {
+			type: String,
+			required: false
+		},
+		"aria-rowcount": {
+			type: [Number, String],
+			required: false
+		},
+		"aria-rowindex": {
+			type: [Number, String],
+			required: false
+		},
+		"aria-rowspan": {
+			type: [Number, String],
+			required: false
+		},
+		"aria-selected": {
+			type: [Boolean, String],
+			required: false
+		},
+		"aria-setsize": {
+			type: [Number, String],
+			required: false
+		},
+		"aria-sort": {
+			type: String,
+			required: false
+		},
+		"aria-valuemax": {
+			type: [Number, String],
+			required: false
+		},
+		"aria-valuemin": {
+			type: [Number, String],
+			required: false
+		},
+		"aria-valuenow": {
+			type: [Number, String],
+			required: false
+		},
+		"aria-valuetext": {
+			type: String,
+			required: false
+		},
+		innerHTML: {
+			type: String,
+			required: false
+		},
+		class: { required: false },
+		style: {
+			type: [Boolean, String],
+			skipCheck: true,
+			required: false
+		},
+		accesskey: {
+			type: String,
+			required: false
+		},
+		contenteditable: {
+			type: [Boolean, String],
+			required: false
+		},
+		contextmenu: {
+			type: String,
+			required: false
+		},
+		dir: {
+			type: String,
+			required: false
+		},
+		draggable: {
+			type: [Boolean, String],
+			required: false
+		},
+		hidden: {
+			type: [Boolean, String],
+			required: false
+		},
+		id: {
+			type: String,
+			required: false
+		},
+		inert: {
+			type: [Boolean, String],
+			required: false
+		},
+		lang: {
+			type: String,
+			required: false
+		},
+		placeholder: {
+			type: String,
+			required: false
+		},
+		spellcheck: {
+			type: [Boolean, String],
+			required: false
+		},
+		tabindex: {
+			type: [Number, String],
+			required: false
+		},
+		title: {
+			type: String,
+			required: false
+		},
+		translate: {
+			type: String,
+			required: false
+		},
+		radiogroup: {
+			type: String,
+			required: false
+		},
+		role: {
+			type: String,
+			required: false
+		},
+		about: {
+			type: String,
+			required: false
+		},
+		datatype: {
+			type: String,
+			required: false
+		},
+		inlist: { required: false },
+		prefix: {
+			type: String,
+			required: false
+		},
+		property: {
+			type: String,
+			required: false
+		},
+		resource: {
+			type: String,
+			required: false
+		},
+		typeof: {
+			type: String,
+			required: false
+		},
+		vocab: {
+			type: String,
+			required: false
+		},
+		autocapitalize: {
+			type: String,
+			required: false
+		},
+		autocorrect: {
+			type: String,
+			required: false
+		},
+		autosave: {
+			type: String,
+			required: false
+		},
+		color: {
+			type: String,
+			required: false
+		},
+		itemprop: {
+			type: String,
+			required: false
+		},
+		itemscope: {
+			type: [Boolean, String],
+			required: false
+		},
+		itemtype: {
+			type: String,
+			required: false
+		},
+		itemid: {
+			type: String,
+			required: false
+		},
+		itemref: {
+			type: String,
+			required: false
+		},
+		results: {
+			type: [Number, String],
+			required: false
+		},
+		security: {
+			type: String,
+			required: false
+		},
+		unselectable: {
+			type: String,
+			required: false
+		},
+		inputmode: {
+			type: String,
+			required: false
+		},
+		is: {
+			type: String,
+			required: false
+		},
+		autofocus: {
+			type: [Boolean, String],
+			required: false
+		},
+		disabled: {
+			type: [Boolean, String],
+			required: false
+		},
+		form: {
+			type: String,
+			required: false
+		},
+		formaction: {
+			type: String,
+			required: false
+		},
+		formenctype: {
+			type: String,
+			required: false
+		},
+		formmethod: {
+			type: String,
+			required: false
+		},
+		formnovalidate: {
+			type: [Boolean, String],
+			required: false
+		},
+		formtarget: {
+			type: String,
+			required: false
+		},
+		name: {
+			type: String,
+			required: false
+		},
+		type: {
+			type: String,
+			required: false
+		},
+		value: { required: false }
+>>>>>>> 705bc02 (wip)
 	},
 	setup(__props, { expose: __expose }) {
 		__expose();

@@ -51,12 +51,7 @@ array: string[]
 genericArray: (string | number)[]
 function: () => void
 error: Error
-} & {
-emptyInterface: EmptyInterface
-conditionalNumber: number
-interface: Interface
-typeLiteral: TypeLiteral
-} & {
+} & SomeInterface & {
 "1-1": string
 "2-1": string
 } & {
@@ -74,6 +69,7 @@ import { ButtonHTMLAttributes } from "vue";
 
 interface MyButtonProps extends ButtonHTMLAttributes {}
 
+<<<<<<< HEAD
 defineProps<{
 autofocus?: Booleanish | undefined
 disabled?: Booleanish | undefined
@@ -259,6 +255,9 @@ onAnimationiteration?: any
 onTransitionend?: any
 onTransitionstart?: any
 }>();
+=======
+defineProps<& ButtonHTMLAttributes>();
+>>>>>>> 705bc02 (wip)
 </script>
 "
 `;
@@ -267,10 +266,7 @@ exports[`fixtures > __fixtures__/defineProps/core#8468.vue 1`] = `
 "<script setup lang="ts" generic="P extends Inputs">
 import type { Inputs } from "./core#8468-props.ts";
 
-defineProps<{
-type: "number" | "text"
-value: string | number
-}>();
+defineProps<Inputs>();
 </script>
 "
 `;
@@ -279,9 +275,7 @@ exports[`fixtures > __fixtures__/defineProps/import-from-vue.vue 1`] = `
 "<script setup lang="ts" generic="T extends string">
 import type { Foo } from "./import-from-vue-vue.exclude.vue";
 
-defineProps<{
-foo: string
-}>();
+defineProps<Foo>();
 </script>
 "
 `;
