@@ -119,13 +119,6 @@ export class Printer {
 
 			// Avoid keeping the original type
 			return "{}";
-		} else if (ts.isTypeAliasDeclaration(declaration)) {
-			if (declaration.type) {
-				return this.printType(declaration.type);
-			}
-
-			// Avoid keeping the original type
-			return "{}";
 		}
 		// Handle parameter declarations
 		else if (ts.isParameter(declaration) && declaration.type) {
