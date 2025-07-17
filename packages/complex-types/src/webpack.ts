@@ -1,10 +1,5 @@
-import type { UnpluginFactoryOutput, WebpackPluginInstance } from "unplugin";
+import { createWebpackPlugin } from "unplugin";
 
-import unplugin from "./core";
-import type { Options } from "./types";
+import { unpluginFactory } from ".";
 
-// Workaround TS2742
-export default unplugin.webpack as UnpluginFactoryOutput<
-	Options,
-	WebpackPluginInstance
->;
+export default createWebpackPlugin(unpluginFactory);

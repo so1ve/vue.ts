@@ -18,11 +18,11 @@ export class Printer {
 	}
 
 	private printIntersectionTypeNode(node: ts.IntersectionTypeNode): string {
-		return node.types.map((t) => this.printTypeArg(t)).join(" & ");
+		return node.types.map((t) => this.printType(t)).join(" & ");
 	}
 
 	private printUnionTypeNode(node: ts.UnionTypeNode): string {
-		return node.types.map((t) => this.printTypeArg(t)).join(" | ");
+		return node.types.map((t) => this.printType(t)).join(" | ");
 	}
 
 	private printTypeLiteralNode(node: ts.TypeLiteralNode): string {
@@ -83,23 +83,337 @@ export class Printer {
 		return parts.join("\n");
 	}
 
-	public printTypeArg(node: ts.Node): string {
-		// Intersection and Union
+	private printIdentifier(node: ts.Identifier): string {
+		const symbol = this.checker.getSymbolAtLocation(node);
+		if (!symbol) {
+			return node.getText();
+		}
+
+		const declarations = symbol.getDeclarations();
+		if (!declarations || declarations.length === 0) {
+			return node.getText();
+		}
+
+		// Try to resolve the type from the first declaration
+		const declaration = declarations[0];
+
+		// Handle type alias declarations
+		if (ts.isTypeAliasDeclaration(declaration) && declaration.type) {
+			return this.printType(declaration.type);
+		}
+		// Handle interface declarations
+		else if (ts.isInterfaceDeclaration(declaration)) {
+			return this.printInterfaceDeclaration(declaration);
+		}
+		// Handle variable declarations with type annotations
+		else if (ts.isVariableDeclaration(declaration) && declaration.type) {
+			return this.printType(declaration.type);
+		}
+		// Handle type parameter declarations
+		else if (ts.isTypeParameterDeclaration(declaration)) {
+			if (declaration.constraint) {
+				return this.printType(declaration.constraint);
+			} else if (declaration.default) {
+				return this.printType(declaration.default);
+			}
+
+			// Avoid keeping the original type
+			return "{}";
+		}
+		// Handle parameter declarations
+		else if (ts.isParameter(declaration) && declaration.type) {
+			return this.printType(declaration.type);
+		}
+
+		// Fallback to type string representation
+		const type = this.checker.getTypeAtLocation(node);
+
+		return this.checker.typeToString(
+			type,
+			undefined,
+			ts.TypeFormatFlags.NoTruncation,
+		);
+	}
+
+	private printInterfaceDeclaration(node: ts.InterfaceDeclaration): string {
+		const parts = ["{"];
+
+		for (const member of node.members) {
+			if (ts.isPropertySignature(member)) {
+				const stringBaseType = member.type
+					? this.checker.typeToString(
+							this.getBaseType(member.type),
+							undefined,
+							ts.TypeFormatFlags.NoTruncation,
+						)
+					: "any";
+
+				parts.push(
+					[
+						member.name?.getText(),
+						member.questionToken?.getText(),
+						": ",
+						stringBaseType,
+					]
+						.filter(Boolean)
+						.join(""),
+				);
+			} else if (ts.isMethodSignature(member)) {
+				const signature = this.checker.getSignatureFromDeclaration(member);
+				const returnType = signature
+					? this.checker.typeToString(
+							signature.getReturnType(),
+							undefined,
+							ts.TypeFormatFlags.NoTruncation,
+						)
+					: "any";
+
+				const parameters = member.parameters
+					.map((param) => {
+						const paramType = param.type
+							? this.checker.typeToString(
+									this.getBaseType(param.type),
+									undefined,
+									ts.TypeFormatFlags.NoTruncation,
+								)
+							: "any";
+
+						return `${param.name.getText()}: ${paramType}`;
+					})
+					.join(", ");
+
+				parts.push(`${member.name?.getText()}(${parameters}): ${returnType}`);
+			}
+		}
+
+		parts.push("}");
+
+		return parts.join("\n");
+	}
+
+	private printEnumDeclaration(node: ts.EnumDeclaration): string {
+		const parts = ["{"];
+
+		for (const member of node.members) {
+			const name = member.name.getText();
+			if (member.initializer) {
+				const value = member.initializer.getText();
+				parts.push(`${name}: ${value}`);
+			} else {
+				// Auto-incrementing enum member
+				parts.push(`${name}: number`);
+			}
+		}
+
+		parts.push("}");
+
+		return parts.join("\n");
+	}
+
+	private printClassDeclaration(node: ts.ClassDeclaration): string {
+		const parts = ["{"];
+
+		for (const member of node.members) {
+			if (ts.isPropertyDeclaration(member)) {
+				const name = member.name?.getText();
+				const typeAnnotation = member.type
+					? this.checker.typeToString(
+							this.getBaseType(member.type),
+							undefined,
+							ts.TypeFormatFlags.NoTruncation,
+						)
+					: "any";
+				const optional = member.questionToken ? "?" : "";
+				parts.push(`${name}${optional}: ${typeAnnotation}`);
+			} else if (ts.isMethodDeclaration(member)) {
+				const name = member.name?.getText();
+				const signature = this.checker.getSignatureFromDeclaration(member);
+				const returnType = signature
+					? this.checker.typeToString(
+							signature.getReturnType(),
+							undefined,
+							ts.TypeFormatFlags.NoTruncation,
+						)
+					: "any";
+
+				const parameters = member.parameters
+					.map((param) => {
+						const paramType = param.type
+							? this.checker.typeToString(
+									this.getBaseType(param.type),
+									undefined,
+									ts.TypeFormatFlags.NoTruncation,
+								)
+							: "any";
+
+						return `${param.name.getText()}: ${paramType}`;
+					})
+					.join(", ");
+
+				parts.push(`${name}(${parameters}): ${returnType}`);
+			} else if (ts.isConstructorDeclaration(member)) {
+				const parameters = member.parameters
+					.map((param) => {
+						const paramType = param.type
+							? this.checker.typeToString(
+									this.getBaseType(param.type),
+									undefined,
+									ts.TypeFormatFlags.NoTruncation,
+								)
+							: "any";
+
+						return `${param.name.getText()}: ${paramType}`;
+					})
+					.join(", ");
+
+				parts.push(`constructor(${parameters}): void`);
+			}
+		}
+
+		parts.push("}");
+
+		return parts.join("\n");
+	}
+
+	private printFunctionTypeNode(node: ts.FunctionTypeNode): string {
+		const parameters = node.parameters
+			.map((param) => {
+				const paramType = param.type ? this.printType(param.type) : "any";
+				const optional = param.questionToken ? "?" : "";
+				const rest = param.dotDotDotToken ? "..." : "";
+
+				return `${rest}${param.name.getText()}${optional}: ${paramType}`;
+			})
+			.join(", ");
+
+		const returnType = node.type ? this.printType(node.type) : "any";
+
+		return `(${parameters}) => ${returnType}`;
+	}
+
+	private printConstructorTypeNode(node: ts.ConstructorTypeNode): string {
+		const parameters = node.parameters
+			.map((param) => {
+				const paramType = param.type ? this.printType(param.type) : "any";
+				const optional = param.questionToken ? "?" : "";
+				const rest = param.dotDotDotToken ? "..." : "";
+
+				return `${rest}${param.name.getText()}${optional}: ${paramType}`;
+			})
+			.join(", ");
+
+		const returnType = node.type ? this.printType(node.type) : "any";
+
+		return `new (${parameters}) => ${returnType}`;
+	}
+
+	private printTypeQueryNode(node: ts.TypeQueryNode): string {
+		const exprName = node.exprName.getText();
+
+		return `typeof ${exprName}`;
+	}
+
+	private printArrayTypeNode(node: ts.ArrayTypeNode): string {
+		return `${this.printType(node.elementType)}[]`;
+	}
+
+	private printTupleTypeNode(node: ts.TupleTypeNode): string {
+		const elements = node.elements.map((element) => {
+			if (ts.isRestTypeNode(element)) {
+				return `...${this.printType(element.type)}`;
+			}
+			if (ts.isOptionalTypeNode(element)) {
+				return `${this.printType(element.type)}?`;
+			}
+			if (ts.isNamedTupleMember(element)) {
+				const type = this.printType(element.type);
+				const optional = element.questionToken ? "?" : "";
+				const rest = element.dotDotDotToken ? "..." : "";
+
+				return `${rest}${element.name.getText()}${optional}: ${type}`;
+			}
+
+			return this.printType(element);
+		});
+
+		return `[${elements.join(", ")}]`;
+	}
+
+	private printConditionalTypeNode(node: ts.ConditionalTypeNode): string {
+		const checkType = this.printType(node.checkType);
+		const extendsType = this.printType(node.extendsType);
+		const trueType = this.printType(node.trueType);
+		const falseType = this.printType(node.falseType);
+
+		return `${checkType} extends ${extendsType} ? ${trueType} : ${falseType}`;
+	}
+
+	private printIndexedAccessTypeNode(node: ts.IndexedAccessTypeNode): string {
+		const objectType = this.printType(node.objectType);
+		const indexType = this.printType(node.indexType);
+
+		return `${objectType}[${indexType}]`;
+	}
+
+	private isKeywordTypeNode(node: ts.Node): boolean {
+		return (
+			node.kind === ts.SyntaxKind.StringKeyword ||
+			node.kind === ts.SyntaxKind.NumberKeyword ||
+			node.kind === ts.SyntaxKind.BooleanKeyword ||
+			node.kind === ts.SyntaxKind.ObjectKeyword ||
+			node.kind === ts.SyntaxKind.UndefinedKeyword ||
+			node.kind === ts.SyntaxKind.NullKeyword ||
+			node.kind === ts.SyntaxKind.VoidKeyword ||
+			node.kind === ts.SyntaxKind.AnyKeyword ||
+			node.kind === ts.SyntaxKind.UnknownKeyword ||
+			node.kind === ts.SyntaxKind.NeverKeyword ||
+			node.kind === ts.SyntaxKind.SymbolKeyword ||
+			node.kind === ts.SyntaxKind.BigIntKeyword
+		);
+	}
+
+	public printType(node: ts.Node): string {
 		if (ts.isIntersectionTypeNode(node)) {
 			return this.printIntersectionTypeNode(node);
 		} else if (ts.isUnionTypeNode(node)) {
 			return this.printUnionTypeNode(node);
-		}
-		// Type Literal and Mapped Type
-		else if (ts.isTypeLiteralNode(node)) {
+		} else if (ts.isTypeLiteralNode(node)) {
 			return this.printTypeLiteralNode(node);
-		}
-		// Mapped Type and Type Reference
-		else if (ts.isMappedTypeNode(node) || ts.isTypeReferenceNode(node)) {
+		} else if (ts.isMappedTypeNode(node) || ts.isTypeReferenceNode(node)) {
 			return this.printByType(node);
-		}
-		// Fallback
-		else {
+		} else if (ts.isIdentifier(node)) {
+			return this.printIdentifier(node);
+		} else if (ts.isInterfaceDeclaration(node)) {
+			return this.printInterfaceDeclaration(node);
+		} else if (ts.isTypeAliasDeclaration(node)) {
+			return node.type ? this.printType(node.type) : "any";
+		} else if (ts.isEnumDeclaration(node)) {
+			return this.printEnumDeclaration(node);
+		} else if (ts.isClassDeclaration(node)) {
+			return this.printClassDeclaration(node);
+		} else if (ts.isFunctionTypeNode(node)) {
+			return this.printFunctionTypeNode(node);
+		} else if (ts.isConstructorTypeNode(node)) {
+			return this.printConstructorTypeNode(node);
+		} else if (ts.isTypeQueryNode(node)) {
+			return this.printTypeQueryNode(node);
+		} else if (ts.isArrayTypeNode(node)) {
+			return this.printArrayTypeNode(node);
+		} else if (ts.isTupleTypeNode(node)) {
+			return this.printTupleTypeNode(node);
+		} else if (ts.isConditionalTypeNode(node)) {
+			return this.printConditionalTypeNode(node);
+		} else if (ts.isIndexedAccessTypeNode(node)) {
+			return this.printIndexedAccessTypeNode(node);
+		} else if (ts.isParenthesizedTypeNode(node)) {
+			return this.printType(node.type);
+		} else if (
+			ts.isLiteralTypeNode(node) ||
+			ts.isThisTypeNode(node) ||
+			this.isKeywordTypeNode(node)
+		) {
+			return node.getText();
+		} else {
 			console.error(
 				`[@vue.ts/complex-types] \`${
 					ts.SyntaxKind[node.kind]

@@ -2,7 +2,7 @@ import { join } from "node:path";
 
 import ts from "typescript";
 
-import type { Options, ResolvedOptions } from "./types";
+import type { Options, ResolvedOptions } from "../types";
 
 export const resolveOptions = (rawOptions: Options): ResolvedOptions => ({
 	include: rawOptions.include ?? ["**/*.vue", "**/*.tsx"],

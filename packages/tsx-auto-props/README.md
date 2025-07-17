@@ -63,6 +63,25 @@ export default defineConfig({
 <br></details>
 
 <details>
+<summary>Rolldown</summary><br>
+
+```ts
+// rolldown.config.js
+import VueTsxAutoProps from "@vue.ts/tsx-auto-props/rolldown";
+
+export default {
+	plugins: [
+		VueTsxAutoProps({
+			/* options */
+		}),
+		// other plugins
+	],
+};
+```
+
+<br></details>
+
+<details>
 <summary>Rollup</summary><br>
 
 ```ts

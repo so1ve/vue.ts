@@ -2,8 +2,12 @@
 	"name": "@vue.ts/common",
 	"version": "0.6.0",
 	"author": "Ray <i@mk1.io> (https://github.com/so1ve)",
-	"description": "",
-	"keywords": [],
+	"type": "module",
+	"description": "Utils used by vue.ts",
+	"keywords": [
+		"utils",
+		"vue.ts"
+	],
 	"homepage": "https://github.com/so1ve/vue.ts/tree/main/packages/common#readme",
 	"repository": {
 		"type": "git",
@@ -16,13 +20,11 @@
 	"license": "MIT",
 	"sideEffects": false,
 	"exports": {
-		".": {
-			"require": "./dist/index.cjs",
-			"import": "./dist/index.mjs"
-		}
+		".": "./dist/index.js"
 	},
-	"main": "dist/index.cjs",
-	"module": "dist/index.mjs",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"files": [
 		"dist"
 	],
@@ -30,11 +32,11 @@
 		"access": "public"
 	},
 	"scripts": {
-		"build": "unbuild",
+		"build": "tsdown",
 		"prepublishOnly": "nr build",
-		"stub": "unbuild --stub"
+		"watch": "tsdown --watch"
 	},
 	"dependencies": {
-		"@rollup/pluginutils": "^5.0.5"
+		"@rollup/pluginutils": "^5.2.0"
 	}
 }

@@ -1,3 +1,5 @@
-import unplugin from "./core";
+import { createEsbuildPlugin } from "unplugin";
 
-export default unplugin.esbuild;
+import { unpluginFactory } from ".";
+
+export default createEsbuildPlugin(unpluginFactory);

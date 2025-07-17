@@ -2,10 +2,13 @@
 	"name": "@vue.ts/complex-types",
 	"version": "0.6.0",
 	"author": "Ray <i@mk1.io> (@so1ve)",
+	"type": "module",
 	"description": "Resolve complex types in Vue SFCs.",
 	"keywords": [
 		"astro",
+		"farm",
 		"nuxt",
+		"rolldown",
 		"rollup",
 		"rspack",
 		"transform",
@@ -13,6 +16,7 @@
 		"unplugin",
 		"vite",
 		"vue",
+		"vue.ts",
 		"webpack"
 	],
 	"homepage": "https://github.com/so1ve/vue.ts/tree/main/packages/language#readme",
@@ -27,46 +31,22 @@
 	"license": "MIT",
 	"sideEffects": false,
 	"exports": {
-		".": {
-			"require": "./dist/index.cjs",
-			"import": "./dist/index.mjs"
-		},
+		".": "./dist/index.js",
 		"./*": "./*",
-		"./astro": {
-			"require": "./dist/astro.cjs",
-			"import": "./dist/astro.mjs"
-		},
-		"./esbuild": {
-			"require": "./dist/esbuild.cjs",
-			"import": "./dist/esbuild.mjs"
-		},
-		"./nuxt": {
-			"require": "./dist/nuxt.cjs",
-			"import": "./dist/nuxt.mjs"
-		},
-		"./rollup": {
-			"require": "./dist/rollup.cjs",
-			"import": "./dist/rollup.mjs"
-		},
-		"./rspack": {
-			"require": "./dist/rspack.cjs",
-			"import": "./dist/rspack.mjs"
-		},
-		"./types": {
-			"require": "./dist/types.cjs",
-			"import": "./dist/types.mjs"
-		},
-		"./vite": {
-			"require": "./dist/vite.cjs",
-			"import": "./dist/vite.mjs"
-		},
-		"./webpack": {
-			"require": "./dist/webpack.cjs",
-			"import": "./dist/webpack.mjs"
-		}
+		"./astro": "./dist/astro.js",
+		"./esbuild": "./dist/esbuild.js",
+		"./farm": "./dist/farm.js",
+		"./nuxt": "./dist/nuxt.js",
+		"./rolldown": "./dist/rolldown.js",
+		"./rollup": "./dist/rollup.js",
+		"./rspack": "./dist/rspack.js",
+		"./types": "./dist/types.js",
+		"./vite": "./dist/vite.js",
+		"./webpack": "./dist/webpack.js"
 	},
-	"main": "./dist/index.cjs",
-	"module": "./dist/index.mjs",
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
+	"types": "dist/index.d.ts",
 	"typesVersions": {
 		"*": {
 			"*": [
@@ -82,27 +62,61 @@
 		"access": "public"
 	},
 	"scripts": {
-		"build": "unbuild",
+		"build": "tsdown",
 		"prepublishOnly": "nr build",
-		"stub": "unbuild --stub"
+		"watch": "tsdown --watch"
 	},
 	"dependencies": {
-		"@nuxt/kit": "^3.8.1",
+		"@nuxt/kit": "^3.17.6",
 		"@vue.ts/common": "workspace:*",
 		"@vue.ts/language": "workspace:*",
-		"magic-string": "^0.30.5",
-		"unplugin": "^1.5.0"
+		"magic-string": "^0.30.17",
+		"unplugin": "^2.3.5"
 	},
 	"devDependencies": {
-		"@nuxt/schema": "^3.8.1",
-		"@vue-macros/better-define": "^1.6.12",
-		"rollup": "^4.3.0",
-		"unbuild": "^2.0.0",
-		"vite": "^5.0.2",
-		"webpack": "^5.89.0"
+		"@nuxt/schema": "^3.17.6",
+		"@vue-macros/better-define": "^1.11.4",
+		"rolldown": "1.0.0-beta.27",
+		"rollup": "^4.44.2",
+		"vite": "^7.0.4",
+		"webpack": "^5.100.1"
 	},
 	"peerDependencies": {
+		"@farmfe/core": ">=1",
+		"@nuxt/kit": "^3 || ^4",
+		"@nuxt/schema": "^3 || ^4",
+		"esbuild": "*",
+		"rolldown": "*",
+		"rollup": "^3",
 		"typescript": "^5.2.2",
-		"vue": "^3.3.7"
+		"vite": ">=3",
+		"vue": "^3.3.7",
+		"webpack": "^4 || ^5"
+	},
+	"peerDependenciesMeta": {
+		"@farmfe/core": {
+			"optional": true
+		},
+		"@nuxt/kit": {
+			"optional": true
+		},
+		"@nuxt/schema": {
+			"optional": true
+		},
+		"esbuild": {
+			"optional": true
+		},
+		"rolldown": {
+			"optional": true
+		},
+		"rollup": {
+			"optional": true
+		},
+		"vite": {
+			"optional": true
+		},
+		"webpack": {
+			"optional": true
+		}
 	}
 }
