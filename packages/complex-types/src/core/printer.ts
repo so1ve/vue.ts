@@ -18,11 +18,11 @@ export class Printer {
 	}
 
 	private printIntersectionTypeNode(node: ts.IntersectionTypeNode): string {
-		return node.types.map((t) => this.printType(t)).join(" & ");
+		return node.types.map((t) => this.print(t)).join(" & ");
 	}
 
 	private printUnionTypeNode(node: ts.UnionTypeNode): string {
-		return node.types.map((t) => this.printType(t)).join(" | ");
+		return node.types.map((t) => this.print(t)).join(" | ");
 	}
 
 	private printTypeLiteralNode(node: ts.TypeLiteralNode): string {
@@ -56,7 +56,7 @@ export class Printer {
 		return parts.join("\n");
 	}
 
-	private printByType(node: ts.Node): string {
+	private printTypeByType(node: ts.Node): string {
 		const type = this.checker.getTypeAtLocation(node);
 		const properties = type.getProperties();
 		const parts = ["{"];
@@ -83,7 +83,7 @@ export class Printer {
 		return parts.join("\n");
 	}
 
-	private printIdentifier(node: ts.Identifier): string {
+	private printIdentifier(node: ts.Identifier) {
 		const symbol = this.checker.getSymbolAtLocation(node);
 		if (!symbol) {
 			return node.getText();
@@ -94,45 +94,7 @@ export class Printer {
 			return node.getText();
 		}
 
-		// Try to resolve the type from the first declaration
-		const declaration = declarations[0];
-
-		// Handle type alias declarations
-		if (ts.isTypeAliasDeclaration(declaration) && declaration.type) {
-			return this.printType(declaration.type);
-		}
-		// Handle interface declarations
-		else if (ts.isInterfaceDeclaration(declaration)) {
-			return this.printInterfaceDeclaration(declaration);
-		}
-		// Handle variable declarations with type annotations
-		else if (ts.isVariableDeclaration(declaration) && declaration.type) {
-			return this.printType(declaration.type);
-		}
-		// Handle type parameter declarations
-		else if (ts.isTypeParameterDeclaration(declaration)) {
-			if (declaration.constraint) {
-				return this.printType(declaration.constraint);
-			} else if (declaration.default) {
-				return this.printType(declaration.default);
-			}
-
-			// Avoid keeping the original type
-			return "{}";
-		}
-		// Handle parameter declarations
-		else if (ts.isParameter(declaration) && declaration.type) {
-			return this.printType(declaration.type);
-		}
-
-		// Fallback to type string representation
-		const type = this.checker.getTypeAtLocation(node);
-
-		return this.checker.typeToString(
-			type,
-			undefined,
-			ts.TypeFormatFlags.NoTruncation,
-		);
+		return this.print(declarations[0]);
 	}
 
 	private printInterfaceDeclaration(node: ts.InterfaceDeclaration): string {
@@ -140,13 +102,7 @@ export class Printer {
 
 		for (const member of node.members) {
 			if (ts.isPropertySignature(member)) {
-				const stringBaseType = member.type
-					? this.checker.typeToString(
-							this.getBaseType(member.type),
-							undefined,
-							ts.TypeFormatFlags.NoTruncation,
-						)
-					: "any";
+				const stringBaseType = member.type ? this.print(member.type) : "any";
 
 				parts.push(
 					[
@@ -188,7 +144,14 @@ export class Printer {
 
 		parts.push("}");
 
-		return parts.join("\n");
+		let result = parts.join("\n");
+		if (node.heritageClauses && node.heritageClauses.length > 0) {
+			result = node.heritageClauses
+				.map((clause) => this.print(clause))
+				.join(" & ");
+		}
+
+		return result;
 	}
 
 	private printEnumDeclaration(node: ts.EnumDeclaration): string {
@@ -278,7 +241,7 @@ export class Printer {
 	private printFunctionTypeNode(node: ts.FunctionTypeNode): string {
 		const parameters = node.parameters
 			.map((param) => {
-				const paramType = param.type ? this.printType(param.type) : "any";
+				const paramType = param.type ? this.print(param.type) : "any";
 				const optional = param.questionToken ? "?" : "";
 				const rest = param.dotDotDotToken ? "..." : "";
 
@@ -286,7 +249,7 @@ export class Printer {
 			})
 			.join(", ");
 
-		const returnType = node.type ? this.printType(node.type) : "any";
+		const returnType = node.type ? this.print(node.type) : "any";
 
 		return `(${parameters}) => ${returnType}`;
 	}
@@ -294,7 +257,7 @@ export class Printer {
 	private printConstructorTypeNode(node: ts.ConstructorTypeNode): string {
 		const parameters = node.parameters
 			.map((param) => {
-				const paramType = param.type ? this.printType(param.type) : "any";
+				const paramType = param.type ? this.print(param.type) : "any";
 				const optional = param.questionToken ? "?" : "";
 				const rest = param.dotDotDotToken ? "..." : "";
 
@@ -302,7 +265,7 @@ export class Printer {
 			})
 			.join(", ");
 
-		const returnType = node.type ? this.printType(node.type) : "any";
+		const returnType = node.type ? this.print(node.type) : "any";
 
 		return `new (${parameters}) => ${returnType}`;
 	}
@@ -314,45 +277,93 @@ export class Printer {
 	}
 
 	private printArrayTypeNode(node: ts.ArrayTypeNode): string {
-		return `${this.printType(node.elementType)}[]`;
+		return `${this.print(node.elementType)}[]`;
 	}
 
 	private printTupleTypeNode(node: ts.TupleTypeNode): string {
 		const elements = node.elements.map((element) => {
 			if (ts.isRestTypeNode(element)) {
-				return `...${this.printType(element.type)}`;
+				return `...${this.print(element.type)}`;
 			}
 			if (ts.isOptionalTypeNode(element)) {
-				return `${this.printType(element.type)}?`;
+				return `${this.print(element.type)}?`;
 			}
 			if (ts.isNamedTupleMember(element)) {
-				const type = this.printType(element.type);
+				const type = this.print(element.type);
 				const optional = element.questionToken ? "?" : "";
 				const rest = element.dotDotDotToken ? "..." : "";
 
 				return `${rest}${element.name.getText()}${optional}: ${type}`;
 			}
 
-			return this.printType(element);
+			return this.print(element);
 		});
 
 		return `[${elements.join(", ")}]`;
 	}
 
 	private printConditionalTypeNode(node: ts.ConditionalTypeNode): string {
-		const checkType = this.printType(node.checkType);
-		const extendsType = this.printType(node.extendsType);
-		const trueType = this.printType(node.trueType);
-		const falseType = this.printType(node.falseType);
+		const checkType = this.print(node.checkType);
+		const extendsType = this.print(node.extendsType);
+		const trueType = this.print(node.trueType);
+		const falseType = this.print(node.falseType);
 
 		return `${checkType} extends ${extendsType} ? ${trueType} : ${falseType}`;
 	}
 
 	private printIndexedAccessTypeNode(node: ts.IndexedAccessTypeNode): string {
-		const objectType = this.printType(node.objectType);
-		const indexType = this.printType(node.indexType);
+		const objectType = this.print(node.objectType);
+		const indexType = this.print(node.indexType);
 
 		return `${objectType}[${indexType}]`;
+	}
+
+	private printHeritageClause(node: ts.HeritageClause): string {
+		if (node.token === ts.SyntaxKind.ExtendsKeyword) {
+			const parts = [];
+
+			for (const type of node.types) {
+				if (ts.isExpressionWithTypeArguments(type)) {
+					parts.push(this.print(type.expression));
+				}
+			}
+
+			return parts.join(" & ");
+		}
+
+		return "";
+	}
+
+	private printImportSpecifier(node: ts.ImportSpecifier): string {
+		const name = node.propertyName
+			? node.propertyName.getText()
+			: node.name.getText();
+		const symbol = this.checker.getSymbolAtLocation(node.name);
+		if (!symbol) {
+			return name;
+		}
+
+		const aliasedSymbol = this.checker.getAliasedSymbol(symbol);
+		const targetSymbol = aliasedSymbol || symbol;
+
+		const declarations = targetSymbol.getDeclarations();
+		if (!declarations || declarations.length === 0) {
+			return name;
+		}
+
+		const declaration = declarations.find(
+			(decl) =>
+				ts.isTypeAliasDeclaration(decl) ||
+				ts.isInterfaceDeclaration(decl) ||
+				ts.isClassDeclaration(decl) ||
+				ts.isEnumDeclaration(decl) ||
+				ts.isVariableDeclaration(decl),
+		);
+		if (declaration) {
+			return this.print(declaration);
+		}
+
+		return name;
 	}
 
 	private isKeywordTypeNode(node: ts.Node): boolean {
@@ -372,21 +383,23 @@ export class Printer {
 		);
 	}
 
-	public printType(node: ts.Node): string {
-		if (ts.isIntersectionTypeNode(node)) {
+	public print(node: ts.Node): string {
+		if (ts.isIdentifier(node)) {
+			return this.printIdentifier(node);
+		} else if (ts.isIntersectionTypeNode(node)) {
 			return this.printIntersectionTypeNode(node);
 		} else if (ts.isUnionTypeNode(node)) {
 			return this.printUnionTypeNode(node);
 		} else if (ts.isTypeLiteralNode(node)) {
 			return this.printTypeLiteralNode(node);
-		} else if (ts.isMappedTypeNode(node) || ts.isTypeReferenceNode(node)) {
-			return this.printByType(node);
-		} else if (ts.isIdentifier(node)) {
-			return this.printIdentifier(node);
+		} else if (ts.isMappedTypeNode(node)) {
+			return this.printTypeByType(node);
+		} else if (ts.isTypeReferenceNode(node)) {
+			return this.print(node.typeName);
 		} else if (ts.isInterfaceDeclaration(node)) {
 			return this.printInterfaceDeclaration(node);
 		} else if (ts.isTypeAliasDeclaration(node)) {
-			return node.type ? this.printType(node.type) : "any";
+			return node.type ? this.print(node.type) : "any";
 		} else if (ts.isEnumDeclaration(node)) {
 			return this.printEnumDeclaration(node);
 		} else if (ts.isClassDeclaration(node)) {
@@ -406,7 +419,27 @@ export class Printer {
 		} else if (ts.isIndexedAccessTypeNode(node)) {
 			return this.printIndexedAccessTypeNode(node);
 		} else if (ts.isParenthesizedTypeNode(node)) {
-			return this.printType(node.type);
+			return this.print(node.type);
+		} else if (ts.isHeritageClause(node)) {
+			return this.printHeritageClause(node);
+		} else if (ts.isTypeAliasDeclaration(node) && node.type) {
+			return this.print(node.type);
+		} else if (ts.isInterfaceDeclaration(node)) {
+			return this.printInterfaceDeclaration(node);
+		} else if (ts.isVariableDeclaration(node) && node.type) {
+			return this.print(node.type);
+		} else if (ts.isImportSpecifier(node)) {
+			return this.printImportSpecifier(node);
+		} else if (ts.isTypeParameterDeclaration(node)) {
+			if (node.constraint) {
+				return this.print(node.constraint);
+			} else if (node.default) {
+				return this.print(node.default);
+			}
+
+			return "{}";
+		} else if (ts.isParameter(node) && node.type) {
+			return this.print(node.type);
 		} else if (
 			ts.isLiteralTypeNode(node) ||
 			ts.isThisTypeNode(node) ||
