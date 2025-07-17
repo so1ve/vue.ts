@@ -50,7 +50,7 @@ defineProps<
 "array": string[],
 "genericArray": (string | number)[],
 "genericCondition": string | number,
-"function": object,
+"function": Function,
 "error": object,
 "null": null | string,
 } & {

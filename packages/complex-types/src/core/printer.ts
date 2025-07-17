@@ -59,9 +59,15 @@ export class Printer {
 		if (this.typeToString(type).endsWith("[]")) {
 			return this.typeToString(type);
 		} else if (type.flags & ts.TypeFlags.Object) {
+			const decl = type.getSymbol()?.declarations?.[0];
+			if (decl && ts.isFunctionTypeNode(decl)) {
+				return "Function";
+			}
+
 			if (inner) {
 				return "object";
 			}
+
 			const properties = type.getProperties();
 			const props: Record<
 				string,
