@@ -1,3 +1,5 @@
-import unplugin from "./core";
+import { createRollupPlugin } from "unplugin";
 
-export default unplugin.rollup;
+import { unpluginFactory } from ".";
+
+export default createRollupPlugin(unpluginFactory);

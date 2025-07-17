@@ -17,7 +17,7 @@ const require = createRequire(import.meta.url);
 function createLanguage(
 	tsconfigPath: string,
 	ts: typeof import("typescript/lib/tsserverlibrary") = require("typescript"),
-) {
+): ReturnType<typeof createLanguageWorker> {
 	const tsconfig = normalizePath(tsconfigPath);
 
 	return createLanguageWorker(
@@ -154,7 +154,7 @@ function createLanguageWorker(
 type Language = ReturnType<typeof createLanguage>;
 
 const LANGUAGE_GLOBAL_KEY = "__VUETS_LANGUAGE__";
-export function ensureLanguage(tsconfigPath: string) {
+export function ensureLanguage(tsconfigPath: string): void {
 	if (!(globalThis as any)[LANGUAGE_GLOBAL_KEY]) {
 		(globalThis as any)[LANGUAGE_GLOBAL_KEY] = createLanguage(tsconfigPath);
 	}
