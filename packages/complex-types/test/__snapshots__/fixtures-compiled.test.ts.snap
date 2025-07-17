@@ -537,6 +537,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 		"aria-valuetext": {
 			type: String,
 			required: false
+<<<<<<< HEAD
 		},
 		innerHTML: {
 			type: String,
@@ -739,6 +740,9 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 		},
 		value: { required: false }
 >>>>>>> 705bc02 (wip)
+=======
+		}
+>>>>>>> 57be219 (the fix)
 	},
 	setup(__props, { expose: __expose }) {
 		__expose();

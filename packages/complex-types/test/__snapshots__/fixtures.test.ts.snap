@@ -51,7 +51,17 @@ array: string[]
 genericArray: (string | number)[]
 function: () => void
 error: Error
-} & SomeInterface & {
+} & {
+emptyInterface: {
+}
+conditionalNumber: number extends boolean ? string : number
+interface: {
+aaa: 1
+}
+typeLiteral: {
+foo: number
+}
+} & {
 "1-1": string
 "2-1": string
 } & {
@@ -69,6 +79,7 @@ import { ButtonHTMLAttributes } from "vue";
 
 interface MyButtonProps extends ButtonHTMLAttributes {}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 defineProps<{
 autofocus?: Booleanish | undefined
@@ -258,6 +269,59 @@ onTransitionstart?: any
 =======
 defineProps<& ButtonHTMLAttributes>();
 >>>>>>> 705bc02 (wip)
+=======
+defineProps<{
+'aria-activedescendant'?: string
+'aria-atomic'?: boolean | 'true' | 'false'
+'aria-autocomplete'?: 'none' | 'inline' | 'list' | 'both'
+'aria-busy'?: boolean | 'true' | 'false'
+'aria-checked'?: boolean | 'true' | 'false' | 'mixed'
+'aria-colcount'?: number | string
+'aria-colindex'?: number | string
+'aria-colspan'?: number | string
+'aria-controls'?: string
+'aria-current'?: boolean | 'true' | 'false' | 'page' | 'step' | 'location' | 'date' | 'time'
+'aria-describedby'?: string
+'aria-details'?: string
+'aria-disabled'?: boolean | 'true' | 'false'
+'aria-dropeffect'?: 'none' | 'copy' | 'execute' | 'link' | 'move' | 'popup'
+'aria-errormessage'?: string
+'aria-expanded'?: boolean | 'true' | 'false'
+'aria-flowto'?: string
+'aria-grabbed'?: boolean | 'true' | 'false'
+'aria-haspopup'?: boolean | 'true' | 'false' | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog'
+'aria-hidden'?: boolean | 'true' | 'false'
+'aria-invalid'?: boolean | 'true' | 'false' | 'grammar' | 'spelling'
+'aria-keyshortcuts'?: string
+'aria-label'?: string
+'aria-labelledby'?: string
+'aria-level'?: number | string
+'aria-live'?: 'off' | 'assertive' | 'polite'
+'aria-modal'?: boolean | 'true' | 'false'
+'aria-multiline'?: boolean | 'true' | 'false'
+'aria-multiselectable'?: boolean | 'true' | 'false'
+'aria-orientation'?: 'horizontal' | 'vertical'
+'aria-owns'?: string
+'aria-placeholder'?: string
+'aria-posinset'?: number | string
+'aria-pressed'?: boolean | 'true' | 'false' | 'mixed'
+'aria-readonly'?: boolean | 'true' | 'false'
+'aria-relevant'?: 'additions' | 'additions removals' | 'additions text' | 'all' | 'removals' | 'removals additions' | 'removals text' | 'text' | 'text additions' | 'text removals'
+'aria-required'?: boolean | 'true' | 'false'
+'aria-roledescription'?: string
+'aria-rowcount'?: number | string
+'aria-rowindex'?: number | string
+'aria-rowspan'?: number | string
+'aria-selected'?: boolean | 'true' | 'false'
+'aria-setsize'?: number | string
+'aria-sort'?: 'none' | 'ascending' | 'descending' | 'other'
+'aria-valuemax'?: number | string
+'aria-valuemin'?: number | string
+'aria-valuenow'?: number | string
+'aria-valuetext'?: string
+} & {
+}>();
+>>>>>>> 57be219 (the fix)
 </script>
 "
 `;
@@ -266,7 +330,13 @@ exports[`fixtures > __fixtures__/defineProps/core#8468.vue 1`] = `
 "<script setup lang="ts" generic="P extends Inputs">
 import type { Inputs } from "./core#8468-props.ts";
 
-defineProps<Inputs>();
+defineProps<{
+type: string
+value: string
+} | {
+type: string
+value: number
+}>();
 </script>
 "
 `;
@@ -275,7 +345,9 @@ exports[`fixtures > __fixtures__/defineProps/import-from-vue.vue 1`] = `
 "<script setup lang="ts" generic="T extends string">
 import type { Foo } from "./import-from-vue-vue.exclude.vue";
 
-defineProps<Foo>();
+defineProps<{
+foo: string
+}>();
 </script>
 "
 `;
