@@ -1,5 +1,5 @@
+import { normalizePath } from "@vue.ts/common";
 import { getLanguage } from "@vue.ts/language";
-import { normalizePath } from "vite";
 
 import type { Transformer } from "../types";
 
