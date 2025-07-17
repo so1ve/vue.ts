@@ -1,17 +1,27 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`fixtures compiled > __fixtures__/defineEmits/basic.vue 1`] = `
-"import { defineComponent } from 'vue';
+"// basic.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-\\"use strict\\";
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"basic\\",
-  emits: [\\"foo\\", \\"baz\\", \\"qux\\", 'quote\\"'],
-  setup(__props) {
-    return () => {
-    };
-  }
+	__name: "basic",
+	emits: [
+		"foo",
+		"baz",
+		"qux",
+		"quote\\""
+	],
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -21,19 +31,24 @@ export { basic as default };
 `;
 
 exports[`fixtures compiled > __fixtures__/defineEmits/core#9541.vue 1`] = `
-"import { defineComponent } from 'vue';
+"// core_9541.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-\\"use strict\\";
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"core#9541\\",
-  emits: [\\"unChange\\", \\"change\\"],
-  setup(__props, { emit: __emit }) {
-    const emit = __emit;
-    emit(\\"change\\", 1);
-    return () => {
-    };
-  }
+	__name: "core#9541",
+	emits: ["unChange", "change"],
+	setup(__props, { expose: __expose, emit: __emit }) {
+		__expose();
+		const emit = __emit;
+		emit("change", 1);
+		const __returned__ = { emit };
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var core_9541 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -43,17 +58,26 @@ export { core_9541 as default };
 `;
 
 exports[`fixtures compiled > __fixtures__/defineEmits/shorthand.vue 1`] = `
-"import { defineComponent } from 'vue';
+"// shorthand.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-\\"use strict\\";
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"shorthand\\",
-  emits: [\\"foo\\", \\"bar\\", 'quotes\\"'],
-  setup(__props) {
-    return () => {
-    };
-  }
+	__name: "shorthand",
+	emits: [
+		"foo",
+		"bar",
+		"quotes\\""
+	],
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var shorthand = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -63,32 +87,61 @@ export { shorthand as default };
 `;
 
 exports[`fixtures compiled > __fixtures__/defineProps/basic.vue 1`] = `
-"import { defineComponent } from 'vue';
+"// basic.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-\\"use strict\\";
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"basic\\",
-  props: {
-    string: { type: String, required: true },
-    optionalString: { type: String, required: false },
-    stringUnion: { type: String, required: true },
-    genericExtendsString: { type: String, required: true },
-    array: { type: Array, required: true },
-    genericArray: { type: Array, required: true },
-    function: { type: Function, required: true },
-    error: { required: true },
-    emptyInterface: { required: true },
-    conditionalNumber: { type: Number, required: true },
-    interface: { required: true },
-    typeLiteral: { required: true },
-    \\"1-1\\": { required: false },
-    \\"2-1\\": { required: false }
-  },
-  setup(__props) {
-    return () => {
-    };
-  }
+	__name: "basic",
+	props: {
+		string: {
+			type: String,
+			required: true
+		},
+		optionalString: {
+			type: String,
+			required: false
+		},
+		stringUnion: {
+			type: String,
+			required: true
+		},
+		genericExtendsString: {
+			type: String,
+			required: true
+		},
+		array: {
+			type: Array,
+			required: true
+		},
+		genericArray: {
+			type: Array,
+			required: true
+		},
+		function: {
+			type: Function,
+			required: true
+		},
+		error: { required: true },
+		emptyInterface: { required: true },
+		conditionalNumber: {
+			type: Number,
+			required: true
+		},
+		interface: { required: true },
+		typeLiteral: { required: true },
+		"1-1": { required: false },
+		"2-1": { required: false }
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var basic = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -98,200 +151,206 @@ export { basic as default };
 `;
 
 exports[`fixtures compiled > __fixtures__/defineProps/core#8286.vue 1`] = `
-"import { defineComponent } from 'vue';
+"// core_8286.js
+import { defineComponent, ButtonHTMLAttributes } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-\\"use strict\\";
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"core#8286\\",
-  props: {
-    autofocus: { required: true },
-    disabled: { required: true },
-    form: { required: true },
-    formaction: { required: true },
-    formenctype: { required: true },
-    formmethod: { required: true },
-    formnovalidate: { required: true },
-    formtarget: { required: true },
-    name: { required: true },
-    type: { required: true },
-    value: { required: true },
-    innerHTML: { required: true },
-    class: { required: true },
-    style: { required: true },
-    accesskey: { required: true },
-    contenteditable: { required: true },
-    contextmenu: { required: true },
-    dir: { required: true },
-    draggable: { required: true },
-    hidden: { required: true },
-    id: { required: true },
-    inert: { required: true },
-    lang: { required: true },
-    placeholder: { required: true },
-    spellcheck: { required: true },
-    tabindex: { required: true },
-    title: { required: true },
-    translate: { required: true },
-    radiogroup: { required: true },
-    role: { required: true },
-    about: { required: true },
-    datatype: { required: true },
-    inlist: { required: true },
-    prefix: { required: true },
-    property: { required: true },
-    resource: { required: true },
-    typeof: { required: true },
-    vocab: { required: true },
-    autocapitalize: { required: true },
-    autocorrect: { required: true },
-    autosave: { required: true },
-    color: { required: true },
-    itemprop: { required: true },
-    itemscope: { required: true },
-    itemtype: { required: true },
-    itemid: { required: true },
-    itemref: { required: true },
-    results: { required: true },
-    security: { required: true },
-    unselectable: { required: true },
-    inputmode: { required: true },
-    is: { required: true },
-    \\"aria-activedescendant\\": { required: true },
-    \\"aria-atomic\\": { required: true },
-    \\"aria-autocomplete\\": { required: true },
-    \\"aria-busy\\": { required: true },
-    \\"aria-checked\\": { required: true },
-    \\"aria-colcount\\": { required: true },
-    \\"aria-colindex\\": { required: true },
-    \\"aria-colspan\\": { required: true },
-    \\"aria-controls\\": { required: true },
-    \\"aria-current\\": { required: true },
-    \\"aria-describedby\\": { required: true },
-    \\"aria-details\\": { required: true },
-    \\"aria-disabled\\": { required: true },
-    \\"aria-dropeffect\\": { required: true },
-    \\"aria-errormessage\\": { required: true },
-    \\"aria-expanded\\": { required: true },
-    \\"aria-flowto\\": { required: true },
-    \\"aria-grabbed\\": { required: true },
-    \\"aria-haspopup\\": { required: true },
-    \\"aria-hidden\\": { required: true },
-    \\"aria-invalid\\": { required: true },
-    \\"aria-keyshortcuts\\": { required: true },
-    \\"aria-label\\": { required: true },
-    \\"aria-labelledby\\": { required: true },
-    \\"aria-level\\": { required: true },
-    \\"aria-live\\": { required: true },
-    \\"aria-modal\\": { required: true },
-    \\"aria-multiline\\": { required: true },
-    \\"aria-multiselectable\\": { required: true },
-    \\"aria-orientation\\": { required: true },
-    \\"aria-owns\\": { required: true },
-    \\"aria-placeholder\\": { required: true },
-    \\"aria-posinset\\": { required: true },
-    \\"aria-pressed\\": { required: true },
-    \\"aria-readonly\\": { required: true },
-    \\"aria-relevant\\": { required: true },
-    \\"aria-required\\": { required: true },
-    \\"aria-roledescription\\": { required: true },
-    \\"aria-rowcount\\": { required: true },
-    \\"aria-rowindex\\": { required: true },
-    \\"aria-rowspan\\": { required: true },
-    \\"aria-selected\\": { required: true },
-    \\"aria-setsize\\": { required: true },
-    \\"aria-sort\\": { required: true },
-    \\"aria-valuemax\\": { required: true },
-    \\"aria-valuemin\\": { required: true },
-    \\"aria-valuenow\\": { required: true },
-    \\"aria-valuetext\\": { required: true },
-    onCopy: { required: true },
-    onCut: { required: true },
-    onPaste: { required: true },
-    onCompositionend: { required: true },
-    onCompositionstart: { required: true },
-    onCompositionupdate: { required: true },
-    onDrag: { required: true },
-    onDragend: { required: true },
-    onDragenter: { required: true },
-    onDragexit: { required: true },
-    onDragleave: { required: true },
-    onDragover: { required: true },
-    onDragstart: { required: true },
-    onDrop: { required: true },
-    onFocus: { required: true },
-    onFocusin: { required: true },
-    onFocusout: { required: true },
-    onBlur: { required: true },
-    onChange: { required: true },
-    onBeforeinput: { required: true },
-    onInput: { required: true },
-    onReset: { required: true },
-    onSubmit: { required: true },
-    onInvalid: { required: true },
-    onLoad: { required: true },
-    onError: { required: true },
-    onKeydown: { required: true },
-    onKeypress: { required: true },
-    onKeyup: { required: true },
-    onAuxclick: { required: true },
-    onClick: { required: true },
-    onContextmenu: { required: true },
-    onDblclick: { required: true },
-    onMousedown: { required: true },
-    onMouseenter: { required: true },
-    onMouseleave: { required: true },
-    onMousemove: { required: true },
-    onMouseout: { required: true },
-    onMouseover: { required: true },
-    onMouseup: { required: true },
-    onAbort: { required: true },
-    onCanplay: { required: true },
-    onCanplaythrough: { required: true },
-    onDurationchange: { required: true },
-    onEmptied: { required: true },
-    onEncrypted: { required: true },
-    onEnded: { required: true },
-    onLoadeddata: { required: true },
-    onLoadedmetadata: { required: true },
-    onLoadstart: { required: true },
-    onPause: { required: true },
-    onPlay: { required: true },
-    onPlaying: { required: true },
-    onProgress: { required: true },
-    onRatechange: { required: true },
-    onSeeked: { required: true },
-    onSeeking: { required: true },
-    onStalled: { required: true },
-    onSuspend: { required: true },
-    onTimeupdate: { required: true },
-    onVolumechange: { required: true },
-    onWaiting: { required: true },
-    onSelect: { required: true },
-    onScroll: { required: true },
-    onTouchcancel: { required: true },
-    onTouchend: { required: true },
-    onTouchmove: { required: true },
-    onTouchstart: { required: true },
-    onPointerdown: { required: true },
-    onPointermove: { required: true },
-    onPointerup: { required: true },
-    onPointercancel: { required: true },
-    onPointerenter: { required: true },
-    onPointerleave: { required: true },
-    onPointerover: { required: true },
-    onPointerout: { required: true },
-    onWheel: { required: true },
-    onAnimationstart: { required: true },
-    onAnimationend: { required: true },
-    onAnimationiteration: { required: true },
-    onTransitionend: { required: true },
-    onTransitionstart: { required: true }
-  },
-  setup(__props) {
-    return () => {
-    };
-  }
+	__name: "core#8286",
+	props: {
+		autofocus: { required: true },
+		disabled: { required: true },
+		form: { required: true },
+		formaction: { required: true },
+		formenctype: { required: true },
+		formmethod: { required: true },
+		formnovalidate: { required: true },
+		formtarget: { required: true },
+		name: { required: true },
+		type: { required: true },
+		value: { required: true },
+		innerHTML: { required: true },
+		class: { required: true },
+		style: { required: true },
+		accesskey: { required: true },
+		contenteditable: { required: true },
+		contextmenu: { required: true },
+		dir: { required: true },
+		draggable: { required: true },
+		hidden: { required: true },
+		id: { required: true },
+		inert: { required: true },
+		lang: { required: true },
+		placeholder: { required: true },
+		spellcheck: { required: true },
+		tabindex: { required: true },
+		title: { required: true },
+		translate: { required: true },
+		radiogroup: { required: true },
+		role: { required: true },
+		about: { required: true },
+		datatype: { required: true },
+		inlist: { required: true },
+		prefix: { required: true },
+		property: { required: true },
+		resource: { required: true },
+		typeof: { required: true },
+		vocab: { required: true },
+		autocapitalize: { required: true },
+		autocorrect: { required: true },
+		autosave: { required: true },
+		color: { required: true },
+		itemprop: { required: true },
+		itemscope: { required: true },
+		itemtype: { required: true },
+		itemid: { required: true },
+		itemref: { required: true },
+		results: { required: true },
+		security: { required: true },
+		unselectable: { required: true },
+		inputmode: { required: true },
+		is: { required: true },
+		"aria-activedescendant": { required: true },
+		"aria-atomic": { required: true },
+		"aria-autocomplete": { required: true },
+		"aria-busy": { required: true },
+		"aria-checked": { required: true },
+		"aria-colcount": { required: true },
+		"aria-colindex": { required: true },
+		"aria-colspan": { required: true },
+		"aria-controls": { required: true },
+		"aria-current": { required: true },
+		"aria-describedby": { required: true },
+		"aria-details": { required: true },
+		"aria-disabled": { required: true },
+		"aria-dropeffect": { required: true },
+		"aria-errormessage": { required: true },
+		"aria-expanded": { required: true },
+		"aria-flowto": { required: true },
+		"aria-grabbed": { required: true },
+		"aria-haspopup": { required: true },
+		"aria-hidden": { required: true },
+		"aria-invalid": { required: true },
+		"aria-keyshortcuts": { required: true },
+		"aria-label": { required: true },
+		"aria-labelledby": { required: true },
+		"aria-level": { required: true },
+		"aria-live": { required: true },
+		"aria-modal": { required: true },
+		"aria-multiline": { required: true },
+		"aria-multiselectable": { required: true },
+		"aria-orientation": { required: true },
+		"aria-owns": { required: true },
+		"aria-placeholder": { required: true },
+		"aria-posinset": { required: true },
+		"aria-pressed": { required: true },
+		"aria-readonly": { required: true },
+		"aria-relevant": { required: true },
+		"aria-required": { required: true },
+		"aria-roledescription": { required: true },
+		"aria-rowcount": { required: true },
+		"aria-rowindex": { required: true },
+		"aria-rowspan": { required: true },
+		"aria-selected": { required: true },
+		"aria-setsize": { required: true },
+		"aria-sort": { required: true },
+		"aria-valuemax": { required: true },
+		"aria-valuemin": { required: true },
+		"aria-valuenow": { required: true },
+		"aria-valuetext": { required: true },
+		onCopy: { required: true },
+		onCut: { required: true },
+		onPaste: { required: true },
+		onCompositionend: { required: true },
+		onCompositionstart: { required: true },
+		onCompositionupdate: { required: true },
+		onDrag: { required: true },
+		onDragend: { required: true },
+		onDragenter: { required: true },
+		onDragexit: { required: true },
+		onDragleave: { required: true },
+		onDragover: { required: true },
+		onDragstart: { required: true },
+		onDrop: { required: true },
+		onFocus: { required: true },
+		onFocusin: { required: true },
+		onFocusout: { required: true },
+		onBlur: { required: true },
+		onChange: { required: true },
+		onBeforeinput: { required: true },
+		onInput: { required: true },
+		onReset: { required: true },
+		onSubmit: { required: true },
+		onInvalid: { required: true },
+		onLoad: { required: true },
+		onError: { required: true },
+		onKeydown: { required: true },
+		onKeypress: { required: true },
+		onKeyup: { required: true },
+		onAuxclick: { required: true },
+		onClick: { required: true },
+		onContextmenu: { required: true },
+		onDblclick: { required: true },
+		onMousedown: { required: true },
+		onMouseenter: { required: true },
+		onMouseleave: { required: true },
+		onMousemove: { required: true },
+		onMouseout: { required: true },
+		onMouseover: { required: true },
+		onMouseup: { required: true },
+		onAbort: { required: true },
+		onCanplay: { required: true },
+		onCanplaythrough: { required: true },
+		onDurationchange: { required: true },
+		onEmptied: { required: true },
+		onEncrypted: { required: true },
+		onEnded: { required: true },
+		onLoadeddata: { required: true },
+		onLoadedmetadata: { required: true },
+		onLoadstart: { required: true },
+		onPause: { required: true },
+		onPlay: { required: true },
+		onPlaying: { required: true },
+		onProgress: { required: true },
+		onRatechange: { required: true },
+		onSeeked: { required: true },
+		onSeeking: { required: true },
+		onStalled: { required: true },
+		onSuspend: { required: true },
+		onTimeupdate: { required: true },
+		onVolumechange: { required: true },
+		onWaiting: { required: true },
+		onSelect: { required: true },
+		onScroll: { required: true },
+		onScrollend: { required: true },
+		onTouchcancel: { required: true },
+		onTouchend: { required: true },
+		onTouchmove: { required: true },
+		onTouchstart: { required: true },
+		onPointerdown: { required: true },
+		onPointermove: { required: true },
+		onPointerup: { required: true },
+		onPointercancel: { required: true },
+		onPointerenter: { required: true },
+		onPointerleave: { required: true },
+		onPointerover: { required: true },
+		onPointerout: { required: true },
+		onWheel: { required: true },
+		onAnimationstart: { required: true },
+		onAnimationend: { required: true },
+		onAnimationiteration: { required: true },
+		onTransitionend: { required: true },
+		onTransitionstart: { required: true }
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = { ButtonHTMLAttributes };
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var core_8286 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -301,20 +360,31 @@ export { core_8286 as default };
 `;
 
 exports[`fixtures compiled > __fixtures__/defineProps/core#8468.vue 1`] = `
-"import { defineComponent } from 'vue';
+"// core_8468.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-\\"use strict\\";
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"core#8468\\",
-  props: {
-    type: { type: String, required: true },
-    value: { type: [String, Number], required: true }
-  },
-  setup(__props) {
-    return () => {
-    };
-  }
+	__name: "core#8468",
+	props: {
+		type: {
+			type: String,
+			required: true
+		},
+		value: {
+			type: [String, Number],
+			required: true
+		}
+	},
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var core_8468 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
@@ -324,19 +394,25 @@ export { core_8468 as default };
 `;
 
 exports[`fixtures compiled > __fixtures__/defineProps/import-from-vue.vue 1`] = `
-"import { defineComponent } from 'vue';
+"// import-from-vue.js
+import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
-\\"use strict\\";
 var _sfc_main = /* @__PURE__ */ defineComponent({
-  __name: \\"import-from-vue\\",
-  props: {
-    foo: { type: String, required: true }
-  },
-  setup(__props) {
-    return () => {
-    };
-  }
+	__name: "import-from-vue",
+	props: { foo: {
+		type: String,
+		required: true
+	} },
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const __returned__ = {};
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
 });
 
 var importFromVue = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);

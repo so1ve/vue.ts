@@ -14,28 +14,23 @@ export const transformDefineEmits: Transformer = (printer, s, id) => {
 	if (!scriptSetupBlock || !scriptSetupAst || !virtualFileAst) {
 		return;
 	}
-	const scriptSetupNode = language.findNodeByRange(
+	const scriptSetupDefineEmitsNode = language.findNodeByRange(
 		scriptSetupAst,
 		(scriptSetupRanges) => scriptSetupRanges.defineEmits?.callExp,
 	);
-	const virtualFileNode = language.findNodeByRange(
+	const virtualFileDefineEmitsTypeNode = language.findNodeByName(
 		virtualFileAst,
-		(scriptSetupRanges) => scriptSetupRanges.defineEmits?.callExp,
+		"__VLS_Emit",
 	);
-	if (!scriptSetupNode || !virtualFileNode) {
+	if (!scriptSetupDefineEmitsNode || !virtualFileDefineEmitsTypeNode) {
 		return;
 	}
 
 	const offset = scriptSetupBlock.startTagEnd;
 
-	const defineEmitsTypeArg =
-		ts.isCallExpression(virtualFileNode) && virtualFileNode.typeArguments?.[0];
-	if (!defineEmitsTypeArg) {
-		return;
-	}
-
 	const defineEmitsRuntimeArg =
-		ts.isCallExpression(virtualFileNode) && virtualFileNode.arguments[0];
+		ts.isCallExpression(scriptSetupDefineEmitsNode) &&
+		scriptSetupDefineEmitsNode.arguments[0];
 
 	if (defineEmitsRuntimeArg) {
 		throw new Error(
@@ -43,7 +38,7 @@ export const transformDefineEmits: Transformer = (printer, s, id) => {
 		);
 	}
 
-	const tokens = scriptSetupNode.getChildren(scriptSetupAst);
+	const tokens = scriptSetupDefineEmitsNode.getChildren(scriptSetupAst);
 
 	// defineEmits<     Arg   >()
 	//            ^           ^
@@ -69,7 +64,9 @@ export const transformDefineEmits: Transformer = (printer, s, id) => {
 	] as const;
 	const runtimeArgPos = offset + openParenToken.end;
 
-	const printedRuntimeArg = printer.printEventsRuntimeArg(defineEmitsTypeArg);
+	const printedRuntimeArg = printer.printEventsRuntimeArg(
+		virtualFileDefineEmitsTypeNode,
+	);
 
 	// Remove the type argument
 	s.remove(...defineEmitsTypeArgRange);
