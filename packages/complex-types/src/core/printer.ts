@@ -56,7 +56,7 @@ export class Printer {
 		return parts.join("\n");
 	}
 
-	private printByType(node: ts.Node): string {
+	private printTypeByType(node: ts.Node): string {
 		const type = this.checker.getTypeAtLocation(node);
 		const properties = type.getProperties();
 		const parts = ["{"];
@@ -83,7 +83,7 @@ export class Printer {
 		return parts.join("\n");
 	}
 
-	private printIdentifier(node: ts.Identifier): string {
+	private printIdentifier(node: ts.Identifier) {
 		const symbol = this.checker.getSymbolAtLocation(node);
 		if (!symbol) {
 			return node.getText();
@@ -94,45 +94,7 @@ export class Printer {
 			return node.getText();
 		}
 
-		// Try to resolve the type from the first declaration
-		const declaration = declarations[0];
-
-		// Handle type alias declarations
-		if (ts.isTypeAliasDeclaration(declaration) && declaration.type) {
-			return this.printType(declaration.type);
-		}
-		// Handle interface declarations
-		else if (ts.isInterfaceDeclaration(declaration)) {
-			return this.printInterfaceDeclaration(declaration);
-		}
-		// Handle variable declarations with type annotations
-		else if (ts.isVariableDeclaration(declaration) && declaration.type) {
-			return this.printType(declaration.type);
-		}
-		// Handle type parameter declarations
-		else if (ts.isTypeParameterDeclaration(declaration)) {
-			if (declaration.constraint) {
-				return this.printType(declaration.constraint);
-			} else if (declaration.default) {
-				return this.printType(declaration.default);
-			}
-
-			// Avoid keeping the original type
-			return "{}";
-		}
-		// Handle parameter declarations
-		else if (ts.isParameter(declaration) && declaration.type) {
-			return this.printType(declaration.type);
-		}
-
-		// Fallback to type string representation
-		const type = this.checker.getTypeAtLocation(node);
-
-		return this.checker.typeToString(
-			type,
-			undefined,
-			ts.TypeFormatFlags.NoTruncation,
-		);
+		return this.printType(declarations[0]);
 	}
 
 	private printInterfaceDeclaration(node: ts.InterfaceDeclaration): string {
@@ -188,7 +150,12 @@ export class Printer {
 
 		parts.push("}");
 
-		return parts.join("\n");
+		let result = parts.join("\n");
+		if (node.heritageClauses && node.heritageClauses.length > 0) {
+			result = `& ${node.heritageClauses.map((clause) => this.printType(clause)).join(" & ")}`;
+		}
+
+		return result;
 	}
 
 	private printEnumDeclaration(node: ts.EnumDeclaration): string {
@@ -355,6 +322,42 @@ export class Printer {
 		return `${objectType}[${indexType}]`;
 	}
 
+	private printHeritageClause(node: ts.HeritageClause): string {
+		if (node.token === ts.SyntaxKind.ExtendsKeyword) {
+			const parts = [];
+
+			for (const type of node.types) {
+				if (ts.isExpressionWithTypeArguments(type)) {
+					parts.push(this.printType(type.expression));
+				}
+			}
+
+			return parts.join(" & ");
+		}
+
+		return "";
+	}
+
+	private printImportSpecifier(node: ts.ImportSpecifier): string {
+		const name = node.propertyName
+			? node.propertyName.getText()
+			: node.name.getText();
+		const symbol = this.checker.getSymbolAtLocation(node.name);
+		if (!symbol) {
+			return name;
+		}
+
+		const declarations = symbol.getDeclarations();
+		if (!declarations || declarations.length === 0) {
+			return name;
+		}
+
+		console.log(declarations);
+
+		return "";
+		// return this.printType(declarations[0]);
+	}
+
 	private isKeywordTypeNode(node: ts.Node): boolean {
 		return (
 			node.kind === ts.SyntaxKind.StringKeyword ||
@@ -373,16 +376,18 @@ export class Printer {
 	}
 
 	public printType(node: ts.Node): string {
-		if (ts.isIntersectionTypeNode(node)) {
+		if (ts.isIdentifier(node)) {
+			return this.printIdentifier(node);
+		} else if (ts.isIntersectionTypeNode(node)) {
 			return this.printIntersectionTypeNode(node);
 		} else if (ts.isUnionTypeNode(node)) {
 			return this.printUnionTypeNode(node);
 		} else if (ts.isTypeLiteralNode(node)) {
 			return this.printTypeLiteralNode(node);
-		} else if (ts.isMappedTypeNode(node) || ts.isTypeReferenceNode(node)) {
-			return this.printByType(node);
-		} else if (ts.isIdentifier(node)) {
-			return this.printIdentifier(node);
+		} else if (ts.isMappedTypeNode(node)) {
+			return this.printTypeByType(node);
+		} else if (ts.isTypeReferenceNode(node)) {
+			return this.printType(node.typeName);
 		} else if (ts.isInterfaceDeclaration(node)) {
 			return this.printInterfaceDeclaration(node);
 		} else if (ts.isTypeAliasDeclaration(node)) {
@@ -406,6 +411,26 @@ export class Printer {
 		} else if (ts.isIndexedAccessTypeNode(node)) {
 			return this.printIndexedAccessTypeNode(node);
 		} else if (ts.isParenthesizedTypeNode(node)) {
+			return this.printType(node.type);
+		} else if (ts.isHeritageClause(node)) {
+			return this.printHeritageClause(node);
+		} else if (ts.isTypeAliasDeclaration(node) && node.type) {
+			return this.printType(node.type);
+		} else if (ts.isInterfaceDeclaration(node)) {
+			return this.printInterfaceDeclaration(node);
+		} else if (ts.isVariableDeclaration(node) && node.type) {
+			return this.printType(node.type);
+		} else if (ts.isImportSpecifier(node)) {
+			return this.printImportSpecifier(node);
+		} else if (ts.isTypeParameterDeclaration(node)) {
+			if (node.constraint) {
+				return this.printType(node.constraint);
+			} else if (node.default) {
+				return this.printType(node.default);
+			}
+
+			return "{}";
+		} else if (ts.isParameter(node) && node.type) {
 			return this.printType(node.type);
 		} else if (
 			ts.isLiteralTypeNode(node) ||
