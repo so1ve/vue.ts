@@ -1,4 +1,4 @@
-import type { BaseOptions } from "@vue.ts/common";
+import type { BaseOptions } from "@vue.ts/shared";
 import type MagicString from "magic-string";
 
 import type { Printer } from "./printer";

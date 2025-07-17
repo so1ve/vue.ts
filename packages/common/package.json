@@ -1,14 +1,14 @@
 {
-	"name": "@vue.ts/common",
+	"name": "@vue.ts/shared",
 	"version": "1.0.0-beta.2",
 	"author": "Ray <i@mk1.io> (https://github.com/so1ve)",
 	"type": "module",
-	"description": "Utils used by vue.ts",
+	"description": "Shared utils used by vue.ts",
 	"keywords": [
 		"utils",
 		"vue.ts"
 	],
-	"homepage": "https://github.com/so1ve/vue.ts/tree/main/packages/common#readme",
+	"homepage": "https://github.com/so1ve/vue.ts/tree/main/packages/shared#readme",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/so1ve/vue.ts.git",

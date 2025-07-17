@@ -55,7 +55,7 @@ importers:
         version: 3.5.17(typescript@5.8.3)
 
   packages/common:
-    dependencies:
+    devDependencies:
       '@rollup/pluginutils':
         specifier: ^5.2.0
         version: 5.2.0(rollup@4.44.2)
@@ -68,12 +68,12 @@ importers:
       '@nuxt/kit':
         specifier: ^3.17.6
         version: 3.17.6
-      '@vue.ts/common':
-        specifier: workspace:*
-        version: link:../common
       '@vue.ts/language':
         specifier: workspace:*
         version: link:../language
+      '@vue.ts/shared':
+        specifier: workspace:*
+        version: link:../common
       esbuild:
         specifier: '*'
         version: 0.25.6
@@ -114,7 +114,7 @@ importers:
       '@volar/typescript':
         specifier: ~2.4.18
         version: 2.4.18
-      '@vue.ts/common':
+      '@vue.ts/shared':
         specifier: workspace:*
         version: link:../common
       '@vue/language-core':
@@ -129,12 +129,12 @@ importers:
       '@nuxt/kit':
         specifier: ^3.17.6
         version: 3.17.6
-      '@vue.ts/common':
-        specifier: workspace:*
-        version: link:../common
       '@vue.ts/language':
         specifier: workspace:*
         version: link:../language
+      '@vue.ts/shared':
+        specifier: workspace:*
+        version: link:../common
       esbuild:
         specifier: '*'
         version: 0.25.6

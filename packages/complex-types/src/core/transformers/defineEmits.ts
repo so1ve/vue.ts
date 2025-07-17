@@ -1,4 +1,4 @@
-import { normalizePath } from "@vue.ts/common";
+import { normalizePath } from "@vue.ts/shared";
 import { getLanguage } from "@vue.ts/language";
 import ts from "typescript";
 

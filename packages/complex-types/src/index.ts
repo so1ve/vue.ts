@@ -1,4 +1,4 @@
-import { createFilter } from "@vue.ts/common";
+import { createFilter } from "@vue.ts/shared";
 import { ensureLanguage } from "@vue.ts/language";
 import type { UnpluginFactory } from "unplugin";
 import { createUnplugin } from "unplugin";

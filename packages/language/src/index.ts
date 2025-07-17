@@ -7,7 +7,7 @@ import {
 	resolveFileLanguageId,
 } from "@volar/typescript";
 import * as vue from "@vue/language-core";
-import { normalizePath } from "@vue.ts/common";
+import { normalizePath } from "@vue.ts/shared";
 import type ts from "typescript/lib/tsserverlibrary";
 
 import { createHelpers } from "./helpers";

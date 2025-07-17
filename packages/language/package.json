@@ -39,7 +39,7 @@
 	},
 	"dependencies": {
 		"@volar/typescript": "~2.4.18",
-		"@vue.ts/common": "workspace:*",
+		"@vue.ts/shared": "workspace:*",
 		"@vue/language-core": "3.0.1"
 	}
 }

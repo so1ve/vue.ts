@@ -16,7 +16,7 @@
 		"skipLibCheck": true,
 		"paths": {
 			"@vue.ts/language": ["./packages/language/src/index.ts"],
-			"@vue.ts/common": ["./packages/common/src/index.ts"],
+			"@vue.ts/shared": ["./packages/shared/src/index.ts"],
 			"@vue.ts/complex-types": ["./packages/complex-types/src/index.ts"],
 			"@vue.ts/tsx-auto-props": ["./packages/tsx-auto-props/src/index.ts"]
 		}
