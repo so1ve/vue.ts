@@ -1,38 +1,41 @@
+import { normalizePath } from "@vue.ts/common";
 import { getLanguage } from "@vue.ts/language";
 import ts from "typescript";
 
 import type { Transformer } from "../types";
 
 export const transformDefineEmits: Transformer = (printer, s, id) => {
+	const normalizedFilepath = normalizePath(id);
+
 	const language = getLanguage();
-	const defineEmits = language.findNodeByRange(
-		id,
-		(scriptSetupRanges) => scriptSetupRanges.emits.define,
+	const scriptSetupBlock = language.getScriptSetupBlock(normalizedFilepath);
+	const scriptSetupAst = language.getScriptSetupAst(normalizedFilepath);
+	const virtualFileAst = language.getVirtualFileOrTsAst(normalizedFilepath);
+	if (!scriptSetupBlock || !scriptSetupAst || !virtualFileAst) {
+		return;
+	}
+	const scriptSetupNode = language.findNodeByRange(
+		scriptSetupAst,
+		(scriptSetupRanges) => scriptSetupRanges.defineEmits?.callExp,
 	);
-	if (!defineEmits) {
+	const virtualFileNode = language.findNodeByRange(
+		virtualFileAst,
+		(scriptSetupRanges) => scriptSetupRanges.defineEmits?.callExp,
+	);
+	if (!scriptSetupNode || !virtualFileNode) {
 		return;
 	}
 
-	const scriptSetupAst = language.getScriptSetupAst(id);
+	const offset = scriptSetupBlock.startTagEnd;
 
-	const {
-		scriptNode: defineEmitsNode,
-		virtualFileNode: virtualFileDefineEmitsNode,
-		offset,
-	} = defineEmits;
-
-	// TODO: refactor when https://github.com/vuejs/language-tools/pull/3710 is merged
 	const defineEmitsTypeArg =
-		ts.isCallExpression(virtualFileDefineEmitsNode) &&
-		virtualFileDefineEmitsNode.typeArguments?.[0];
-
-	const defineEmitsRuntimeArg =
-		ts.isCallExpression(virtualFileDefineEmitsNode) &&
-		virtualFileDefineEmitsNode.arguments[0];
-
+		ts.isCallExpression(virtualFileNode) && virtualFileNode.typeArguments?.[0];
 	if (!defineEmitsTypeArg) {
 		return;
 	}
+
+	const defineEmitsRuntimeArg =
+		ts.isCallExpression(virtualFileNode) && virtualFileNode.arguments[0];
 
 	if (defineEmitsRuntimeArg) {
 		throw new Error(
@@ -40,7 +43,7 @@ export const transformDefineEmits: Transformer = (printer, s, id) => {
 		);
 	}
 
-	const tokens = defineEmitsNode.getChildren(scriptSetupAst);
+	const tokens = scriptSetupNode.getChildren(scriptSetupAst);
 
 	// defineEmits<     Arg   >()
 	//            ^           ^
