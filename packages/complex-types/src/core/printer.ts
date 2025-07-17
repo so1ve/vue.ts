@@ -390,7 +390,9 @@ export class Printer {
 		} else if (ts.isTypeLiteralNode(node)) {
 			return this.printTypeLiteralNode(node);
 		} else if (ts.isTypeReferenceNode(node)) {
-			return this.print(node.typeName);
+			return node.typeArguments
+				? this.printTypeByType(node)
+				: this.print(node.typeName);
 		} else if (ts.isInterfaceDeclaration(node)) {
 			return this.printInterfaceDeclaration(node);
 		} else if (ts.isTypeAliasDeclaration(node)) {

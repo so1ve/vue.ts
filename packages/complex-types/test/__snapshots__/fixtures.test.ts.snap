@@ -232,6 +232,23 @@ value: number
 "
 `;
 
+exports[`fixtures > __fixtures__/defineProps/core#9774.vue 1`] = `
+"<script setup lang="ts">
+import type { ExtractPropTypes } from "vue";
+const testProps = {
+	a: {
+		type: String,
+	},
+};
+
+type TestProps = ExtractPropTypes<typeof testProps>;
+defineProps<{
+a?: string | undefined
+}>();
+</script>
+"
+`;
+
 exports[`fixtures > __fixtures__/defineProps/import-from-vue.vue 1`] = `
 "<script setup lang="ts" generic="T extends string">
 import type { Foo } from "./import-from-vue-vue.exclude.vue";

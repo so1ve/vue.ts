@@ -491,6 +491,32 @@ export { core_8468 as default };
 "
 `;
 
+exports[`fixtures compiled > __fixtures__/defineProps/core#9774.vue 1`] = `
+"// core_9774.js
+import { defineComponent } from 'vue';
+import _export_sfc from '[NULL]/plugin-vue/export-helper';
+
+var _sfc_main = /* @__PURE__ */ defineComponent({
+	__name: "core#9774",
+	props: { a: { required: false } },
+	setup(__props, { expose: __expose }) {
+		__expose();
+		const testProps = { a: { type: String } };
+		const __returned__ = { testProps };
+		Object.defineProperty(__returned__, "__isScriptSetup", {
+			enumerable: false,
+			value: true
+		});
+		return __returned__;
+	}
+});
+
+var core_9774 = /* @__PURE__ */ _export_sfc(_sfc_main, [__FILE__]);
+
+export { core_9774 as default };
+"
+`;
+
 exports[`fixtures compiled > __fixtures__/defineProps/import-from-vue.vue 1`] = `
 "// import-from-vue.js
 import { defineComponent } from 'vue';
