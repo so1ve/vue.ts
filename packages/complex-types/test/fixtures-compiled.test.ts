@@ -2,11 +2,11 @@ import { join } from "node:path";
 
 import VueBetterDefine from "@vue-macros/better-define/rollup";
 import {
-	RollupEsbuildPlugin,
 	RollupJson,
 	RollupNodeResolve,
 	RollupVue,
 	RollupVueJsx,
+	UnpluginOxc,
 	rollupBuild,
 	testFixtures,
 } from "@vue-macros/test-utils";
@@ -26,10 +26,8 @@ describe("fixtures compiled", async () => {
 				RollupVue(),
 				RollupVueJsx(),
 				RollupJson(),
-				RollupNodeResolve() as any,
-				RollupEsbuildPlugin({
-					target: "esnext",
-				}),
+				RollupNodeResolve(),
+				UnpluginOxc.rollup(),
 			]),
 		{
 			cwd: __dirname,

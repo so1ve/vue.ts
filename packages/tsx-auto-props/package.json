@@ -2,10 +2,13 @@
 	"name": "@vue.ts/tsx-auto-props",
 	"version": "0.6.0",
 	"author": "Ray <i@mk1.io> (@so1ve)",
+	"type": "module",
 	"description": "Automatically add props definition for Vue 3 TSX.",
 	"keywords": [
 		"astro",
+		"farm",
 		"nuxt",
+		"rolldown",
 		"rollup",
 		"rspack",
 		"transform",
@@ -14,6 +17,7 @@
 		"unplugin",
 		"vite",
 		"vue",
+		"vue.ts",
 		"webpack"
 	],
 	"homepage": "https://github.com/so1ve/vue.ts/tree/main/packages/tsx-auto-props#readme",
@@ -28,46 +32,21 @@
 	"license": "MIT",
 	"sideEffects": false,
 	"exports": {
-		".": {
-			"require": "./dist/index.cjs",
-			"import": "./dist/index.mjs"
-		},
-		"./*": "./*",
-		"./astro": {
-			"require": "./dist/astro.cjs",
-			"import": "./dist/astro.mjs"
-		},
-		"./esbuild": {
-			"require": "./dist/esbuild.cjs",
-			"import": "./dist/esbuild.mjs"
-		},
-		"./nuxt": {
-			"require": "./dist/nuxt.cjs",
-			"import": "./dist/nuxt.mjs"
-		},
-		"./rollup": {
-			"require": "./dist/rollup.cjs",
-			"import": "./dist/rollup.mjs"
-		},
-		"./rspack": {
-			"require": "./dist/rspack.cjs",
-			"import": "./dist/rspack.mjs"
-		},
-		"./types": {
-			"require": "./dist/types.cjs",
-			"import": "./dist/types.mjs"
-		},
-		"./vite": {
-			"require": "./dist/vite.cjs",
-			"import": "./dist/vite.mjs"
-		},
-		"./webpack": {
-			"require": "./dist/webpack.cjs",
-			"import": "./dist/webpack.mjs"
-		}
+		".": "./dist/index.js",
+		"./astro": "./dist/astro.js",
+		"./esbuild": "./dist/esbuild.js",
+		"./farm": "./dist/farm.js",
+		"./nuxt": "./dist/nuxt.js",
+		"./rolldown": "./dist/rolldown.js",
+		"./rollup": "./dist/rollup.js",
+		"./rspack": "./dist/rspack.js",
+		"./types": "./dist/types.js",
+		"./vite": "./dist/vite.js",
+		"./webpack": "./dist/webpack.js"
 	},
-	"main": "./dist/index.cjs",
-	"module": "./dist/index.mjs",
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
+	"types": "dist/index.d.ts",
 	"typesVersions": {
 		"*": {
 			"*": [
@@ -83,9 +62,9 @@
 		"access": "public"
 	},
 	"scripts": {
-		"build": "unbuild",
+		"build": "tsdown",
 		"prepublishOnly": "nr build",
-		"stub": "unbuild --stub"
+		"watch": "tsdown --watch"
 	},
 	"dependencies": {
 		"@nuxt/kit": "^3.17.6",
@@ -96,13 +75,45 @@
 	},
 	"devDependencies": {
 		"@nuxt/schema": "^3.17.6",
+		"rolldown": "1.0.0-beta.27",
 		"rollup": "^4.44.2",
-		"unbuild": "^3.5.0",
 		"vite": "^7.0.4",
 		"webpack": "^5.100.1"
 	},
 	"peerDependencies": {
-		"typescript": "^5.2.2",
-		"vue": "^3.3.7"
+		"@farmfe/core": ">=1",
+		"@nuxt/kit": "^3 || ^4",
+		"@nuxt/schema": "^3 || ^4",
+		"esbuild": "*",
+		"rolldown": "*",
+		"rollup": "^3",
+		"vite": ">=3",
+		"webpack": "^4 || ^5"
+	},
+	"peerDependenciesMeta": {
+		"@farmfe/core": {
+			"optional": true
+		},
+		"@nuxt/kit": {
+			"optional": true
+		},
+		"@nuxt/schema": {
+			"optional": true
+		},
+		"esbuild": {
+			"optional": true
+		},
+		"rolldown": {
+			"optional": true
+		},
+		"rollup": {
+			"optional": true
+		},
+		"vite": {
+			"optional": true
+		},
+		"webpack": {
+			"optional": true
+		}
 	}
 }

@@ -1,25 +1,17 @@
 import { addVitePlugin, addWebpackPlugin, defineNuxtModule } from "@nuxt/kit";
-import type { ModuleDefinition } from "@nuxt/schema";
 
-import { name, version } from "../package.json";
-import type { Options } from "./core/types";
-import VitePlugin from "./vite";
-import WebpackPlugin from "./webpack";
+import type { Options } from "./types";
+import vite from "./vite";
+import webpack from "./webpack";
 
 export default defineNuxtModule<Options>({
 	meta: {
-		name,
-		version,
-		configKey: "complexTypes",
-		compatibility: {
-			bridge: true,
-		},
+		name: "@vue.ts/tsx-auto-props",
+		configKey: "tsxAutoProps",
 	},
-	defaults: {
-		tsconfigPath: "tsconfig.json",
+	defaults: {},
+	setup(options, _nuxt) {
+		addVitePlugin(() => vite(options));
+		addWebpackPlugin(() => webpack(options));
 	},
-	setup(options) {
-		addVitePlugin(VitePlugin(options));
-		addWebpackPlugin(WebpackPlugin(options));
-	},
-}) as ModuleDefinition<Options>;
+});

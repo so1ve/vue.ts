@@ -10,19 +10,20 @@
 		"prepublishOnly": "nr build",
 		"release": "bumpp package.json packages/*/package.json --commit --push --tag && pnpm publish -r --filter ./packages/*",
 		"test": "vitest",
-		"typecheck": "tsc --noEmit"
+		"typecheck": "tsgo --noEmit"
 	},
 	"devDependencies": {
 		"@antfu/ni": "^25.0.0",
 		"@so1ve/eslint-config": "^3.7.0",
 		"@so1ve/prettier-config": "^3.7.0",
 		"@types/node": "^24.0.13",
+		"@typescript/native-preview": "7.0.0-dev.20250711.1",
 		"@vue-macros/test-utils": "^2.0.0",
 		"bumpp": "^10.2.0",
 		"eslint": "^9.30.1",
 		"prettier": "^3.6.2",
+		"tsdown": "^0.12.9",
 		"typescript": "^5.8.3",
-		"unbuild": "^3.5.0",
 		"vite": "^7.0.4",
 		"vite-tsconfig-paths": "^5.1.4",
 		"vitest": "^3.2.4",

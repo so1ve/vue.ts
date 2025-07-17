@@ -39,6 +39,25 @@ export default defineConfig({
 <br></details>
 
 <details>
+<summary>Rolldown</summary><br>
+
+```ts
+// rolldown.config.js
+import VueComplexTypes from "@vue.ts/complex-types/rolldown";
+
+export default {
+	plugins: [
+		VueComplexTypes({
+			/* options */
+		}),
+		// other plugins
+	],
+};
+```
+
+<br></details>
+
+<details>
 <summary>Rollup</summary><br>
 
 ```ts

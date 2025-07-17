@@ -1,34 +1,34 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`fixtures > __fixtures__/defineEmits/basic.vue 1`] = `
-"<script setup lang=\\"ts\\">
-import type { Events } from \\"./basic-ts\\";
+"<script setup lang="ts">
+import type { Events } from "./basic-ts";
 
-defineEmits([\\"foo\\", \\"baz\\", \\"qux\\", \\"quote\\\\\\"\\"]);
+defineEmits(["foo", "baz", "qux", "quote\\""]);
 </script>
 "
 `;
 
 exports[`fixtures > __fixtures__/defineEmits/core#9541.vue 1`] = `
-"<script setup lang=\\"ts\\">
+"<script setup lang="ts">
 interface Base {
-	(e: \\"change\\", id: number): void;
+	(e: "change", id: number): void;
 }
 interface Emits extends Base {
-	(e: \\"unChange\\", id: number): void;
+	(e: "unChange", id: number): void;
 }
-const emit = defineEmits([\\"unChange\\", \\"change\\"]);
+const emit = defineEmits(["unChange", "change"]);
 
-emit(\\"change\\", 1);
+emit("change", 1);
 </script>
 "
 `;
 
 exports[`fixtures > __fixtures__/defineEmits/shorthand.vue 1`] = `
-"<script setup lang=\\"ts\\">
-import type { Events } from \\"./shorthand-ts\\";
+"<script setup lang="ts">
+import type { Events } from "./shorthand-ts";
 
-defineEmits([\\"foo\\", \\"bar\\", \\"quotes\\\\\\"\\"]);
+defineEmits(["foo", "bar", "quotes\\""]);
 </script>
 "
 `;
@@ -36,16 +36,16 @@ defineEmits([\\"foo\\", \\"bar\\", \\"quotes\\\\\\"\\"]);
 exports[`fixtures > __fixtures__/defineProps/basic.vue 1`] = `
 "<script
 	setup
-	lang=\\"ts\\"
-	generic=\\"T extends string, U extends (string | number)[], I\\"
+	lang="ts"
+	generic="T extends string, U extends (string | number)[], I"
 >
-import type { SomeInterface } from \\"./basic-ts\\";
+import type { SomeInterface } from "./basic-ts";
 
 defineProps<
 	{
 string: string
 optionalString?: string
-stringUnion: \\"a\\" | \\"b\\"
+stringUnion: "a" | "b"
 genericExtendsString: string
 array: string[]
 genericArray: (string | number)[]
@@ -57,11 +57,11 @@ conditionalNumber: number
 interface: Interface
 typeLiteral: TypeLiteral
 } & {
-\\"1-1\\": string
-\\"2-1\\": string
+"1-1": string
+"2-1": string
 } & {
-\\"1-1\\"?: \\"1-1OptionalMappedType\\" | undefined
-\\"2-1\\"?: \\"2-1OptionalMappedType\\" | undefined
+"1-1"?: "1-1OptionalMappedType" | undefined
+"2-1"?: "2-1OptionalMappedType" | undefined
 }
 >();
 </script>
@@ -69,8 +69,8 @@ typeLiteral: TypeLiteral
 `;
 
 exports[`fixtures > __fixtures__/defineProps/core#8286.vue 1`] = `
-"<script setup lang=\\"ts\\">
-import { ButtonHTMLAttributes } from \\"vue\\";
+"<script setup lang="ts">
+import { ButtonHTMLAttributes } from "vue";
 
 interface MyButtonProps extends ButtonHTMLAttributes {}
 
@@ -84,17 +84,17 @@ formmethod: string | undefined
 formnovalidate: Booleanish | undefined
 formtarget: string | undefined
 name: string | undefined
-type: \\"submit\\" | \\"reset\\" | \\"button\\" | undefined
+type: "submit" | "reset" | "button" | undefined
 value: string | number | readonly string[] | undefined
 innerHTML: string | undefined
 class: any
 style: StyleValue
 accesskey: string | undefined
-contenteditable: Booleanish | \\"inherit\\" | \\"plaintext-only\\" | undefined
+contenteditable: Booleanish | "inherit" | "plaintext-only" | undefined
 contextmenu: string | undefined
 dir: string | undefined
 draggable: Booleanish | undefined
-hidden: \\"\\" | Booleanish | \\"hidden\\" | \\"until-found\\" | undefined
+hidden: "" | Booleanish | "hidden" | "until-found" | undefined
 id: string | undefined
 inert: Booleanish | undefined
 lang: string | undefined
@@ -102,7 +102,7 @@ placeholder: string | undefined
 spellcheck: Booleanish | undefined
 tabindex: Numberish | undefined
 title: string | undefined
-translate: \\"yes\\" | \\"no\\" | undefined
+translate: "yes" | "no" | undefined
 radiogroup: string | undefined
 role: string | undefined
 about: string | undefined
@@ -124,45 +124,45 @@ itemid: string | undefined
 itemref: string | undefined
 results: Numberish | undefined
 security: string | undefined
-unselectable: \\"on\\" | \\"off\\" | undefined
-inputmode: \\"none\\" | \\"text\\" | \\"tel\\" | \\"url\\" | \\"email\\" | \\"numeric\\" | \\"decimal\\" | \\"search\\" | undefined
+unselectable: "on" | "off" | undefined
+inputmode: "none" | "text" | "tel" | "url" | "email" | "numeric" | "decimal" | "search" | undefined
 is: string | undefined
 'aria-activedescendant': string | undefined
 'aria-atomic': Booleanish | undefined
-'aria-autocomplete': \\"none\\" | \\"inline\\" | \\"list\\" | \\"both\\" | undefined
+'aria-autocomplete': "none" | "inline" | "list" | "both" | undefined
 'aria-busy': Booleanish | undefined
-'aria-checked': Booleanish | \\"mixed\\" | undefined
+'aria-checked': Booleanish | "mixed" | undefined
 'aria-colcount': Numberish | undefined
 'aria-colindex': Numberish | undefined
 'aria-colspan': Numberish | undefined
 'aria-controls': string | undefined
-'aria-current': Booleanish | \\"page\\" | \\"step\\" | \\"location\\" | \\"date\\" | \\"time\\" | undefined
+'aria-current': Booleanish | "page" | "step" | "location" | "date" | "time" | undefined
 'aria-describedby': string | undefined
 'aria-details': string | undefined
 'aria-disabled': Booleanish | undefined
-'aria-dropeffect': \\"none\\" | \\"copy\\" | \\"execute\\" | \\"link\\" | \\"move\\" | \\"popup\\" | undefined
+'aria-dropeffect': "none" | "copy" | "execute" | "link" | "move" | "popup" | undefined
 'aria-errormessage': string | undefined
 'aria-expanded': Booleanish | undefined
 'aria-flowto': string | undefined
 'aria-grabbed': Booleanish | undefined
-'aria-haspopup': Booleanish | \\"menu\\" | \\"listbox\\" | \\"tree\\" | \\"grid\\" | \\"dialog\\" | undefined
+'aria-haspopup': Booleanish | "menu" | "listbox" | "tree" | "grid" | "dialog" | undefined
 'aria-hidden': Booleanish | undefined
-'aria-invalid': Booleanish | \\"grammar\\" | \\"spelling\\" | undefined
+'aria-invalid': Booleanish | "grammar" | "spelling" | undefined
 'aria-keyshortcuts': string | undefined
 'aria-label': string | undefined
 'aria-labelledby': string | undefined
 'aria-level': Numberish | undefined
-'aria-live': \\"off\\" | \\"assertive\\" | \\"polite\\" | undefined
+'aria-live': "off" | "assertive" | "polite" | undefined
 'aria-modal': Booleanish | undefined
 'aria-multiline': Booleanish | undefined
 'aria-multiselectable': Booleanish | undefined
-'aria-orientation': \\"horizontal\\" | \\"vertical\\" | undefined
+'aria-orientation': "horizontal" | "vertical" | undefined
 'aria-owns': string | undefined
 'aria-placeholder': string | undefined
 'aria-posinset': Numberish | undefined
-'aria-pressed': Booleanish | \\"mixed\\" | undefined
+'aria-pressed': Booleanish | "mixed" | undefined
 'aria-readonly': Booleanish | undefined
-'aria-relevant': \\"text\\" | \\"additions\\" | \\"additions removals\\" | \\"additions text\\" | \\"all\\" | \\"removals\\" | \\"removals additions\\" | \\"removals text\\" | \\"text additions\\" | \\"text removals\\" | undefined
+'aria-relevant': "text" | "additions" | "additions removals" | "additions text" | "all" | "removals" | "removals additions" | "removals text" | "text additions" | "text removals" | undefined
 'aria-required': Booleanish | undefined
 'aria-roledescription': string | undefined
 'aria-rowcount': Numberish | undefined
@@ -170,7 +170,7 @@ is: string | undefined
 'aria-rowspan': Numberish | undefined
 'aria-selected': Booleanish | undefined
 'aria-setsize': Numberish | undefined
-'aria-sort': \\"none\\" | \\"ascending\\" | \\"descending\\" | \\"other\\" | undefined
+'aria-sort': "none" | "ascending" | "descending" | "other" | undefined
 'aria-valuemax': Numberish | undefined
 'aria-valuemin': Numberish | undefined
 'aria-valuenow': Numberish | undefined
@@ -239,6 +239,7 @@ onVolumechange: any
 onWaiting: any
 onSelect: any
 onScroll: any
+onScrollend: any
 onTouchcancel: any
 onTouchend: any
 onTouchmove: any
@@ -263,11 +264,11 @@ onTransitionstart: any
 `;
 
 exports[`fixtures > __fixtures__/defineProps/core#8468.vue 1`] = `
-"<script setup lang=\\"ts\\" generic=\\"P extends Inputs\\">
-import type { Inputs } from \\"./core#8468-props.ts\\";
+"<script setup lang="ts" generic="P extends Inputs">
+import type { Inputs } from "./core#8468-props.ts";
 
 defineProps<{
-type: \\"number\\" | \\"text\\"
+type: "number" | "text"
 value: string | number
 }>();
 </script>
@@ -275,8 +276,8 @@ value: string | number
 `;
 
 exports[`fixtures > __fixtures__/defineProps/import-from-vue.vue 1`] = `
-"<script setup lang=\\"ts\\" generic=\\"T extends string\\">
-import type { Foo } from \\"./import-from-vue-vue.exclude.vue\\";
+"<script setup lang="ts" generic="T extends string">
+import type { Foo } from "./import-from-vue-vue.exclude.vue";
 
 defineProps<{
 foo: string

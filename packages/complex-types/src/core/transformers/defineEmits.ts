@@ -1,38 +1,36 @@
+import { normalizePath } from "@vue.ts/common";
 import { getLanguage } from "@vue.ts/language";
 import ts from "typescript";
 
 import type { Transformer } from "../types";
 
 export const transformDefineEmits: Transformer = (printer, s, id) => {
+	const normalizedFilepath = normalizePath(id);
+
 	const language = getLanguage();
-	const defineEmits = language.findNodeByRange(
-		id,
-		(scriptSetupRanges) => scriptSetupRanges.emits.define,
+	const scriptSetupBlock = language.getScriptSetupBlock(normalizedFilepath);
+	const scriptSetupAst = language.getScriptSetupAst(normalizedFilepath);
+	const virtualFileAst = language.getVirtualFileOrTsAst(normalizedFilepath);
+	if (!scriptSetupBlock || !scriptSetupAst || !virtualFileAst) {
+		return;
+	}
+	const scriptSetupDefineEmitsNode = language.findNodeByRange(
+		scriptSetupAst,
+		(scriptSetupRanges) => scriptSetupRanges.defineEmits?.callExp,
 	);
-	if (!defineEmits) {
+	const virtualFileDefineEmitsTypeNode = language.findNodeByName(
+		virtualFileAst,
+		"__VLS_Emit",
+	);
+	if (!scriptSetupDefineEmitsNode || !virtualFileDefineEmitsTypeNode) {
 		return;
 	}
 
-	const scriptSetupAst = language.getScriptSetupAst(id);
-
-	const {
-		scriptNode: defineEmitsNode,
-		virtualFileNode: virtualFileDefineEmitsNode,
-		offset,
-	} = defineEmits;
-
-	// TODO: refactor when https://github.com/vuejs/language-tools/pull/3710 is merged
-	const defineEmitsTypeArg =
-		ts.isCallExpression(virtualFileDefineEmitsNode) &&
-		virtualFileDefineEmitsNode.typeArguments?.[0];
+	const offset = scriptSetupBlock.startTagEnd;
 
 	const defineEmitsRuntimeArg =
-		ts.isCallExpression(virtualFileDefineEmitsNode) &&
-		virtualFileDefineEmitsNode.arguments[0];
-
-	if (!defineEmitsTypeArg) {
-		return;
-	}
+		ts.isCallExpression(scriptSetupDefineEmitsNode) &&
+		scriptSetupDefineEmitsNode.arguments[0];
 
 	if (defineEmitsRuntimeArg) {
 		throw new Error(
@@ -40,7 +38,7 @@ export const transformDefineEmits: Transformer = (printer, s, id) => {
 		);
 	}
 
-	const tokens = defineEmitsNode.getChildren(scriptSetupAst);
+	const tokens = scriptSetupDefineEmitsNode.getChildren(scriptSetupAst);
 
 	// defineEmits<     Arg   >()
 	//            ^           ^
@@ -66,7 +64,9 @@ export const transformDefineEmits: Transformer = (printer, s, id) => {
 	] as const;
 	const runtimeArgPos = offset + openParenToken.end;
 
-	const printedRuntimeArg = printer.printEventsRuntimeArg(defineEmitsTypeArg);
+	const printedRuntimeArg = printer.printEventsRuntimeArg(
+		virtualFileDefineEmitsTypeNode,
+	);
 
 	// Remove the type argument
 	s.remove(...defineEmitsTypeArgRange);
