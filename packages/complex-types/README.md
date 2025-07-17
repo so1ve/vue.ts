@@ -14,10 +14,6 @@ $ yarn add -D @vue.ts/complex-types
 $ pnpm add -D @vue.ts/complex-types
 ```
 
-## TODOs
-
-- [ ] Add more tests
-
 ## 🚀 Usage
 
 <details>
