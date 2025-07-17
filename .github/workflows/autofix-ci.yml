@@ -33,6 +33,6 @@ jobs:
       - name: Lint and fix
         run: nr lint:fix
 
-      - uses: autofix-ci/action@ea32e3a12414e6d3183163c3424a7d7a8631ad84
+      - uses: autofix-ci/action@635ffb0c9798bd160680f18fd73371e355b85f27
         with:
           commit-message: "chore: apply automatic fixes"
