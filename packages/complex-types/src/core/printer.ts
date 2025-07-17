@@ -66,12 +66,12 @@ export class Printer {
 		const parts = ["{"];
 		const isMapped = ts.isMappedTypeNode(node);
 		for (const property of properties) {
+			const isOptional = property.flags & ts.SymbolFlags.Optional;
 			const questionToken = isMapped
 				? (node.questionToken?.getText() ?? "")
-				: property.flags & ts.SymbolFlags.Optional
+				: isOptional
 					? "?"
 					: "";
-
 			const valueType = this.checker.getTypeOfSymbol(property);
 			const stringValueType = this.typeToString(this.getBaseType(valueType));
 			parts.push(
