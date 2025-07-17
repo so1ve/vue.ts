@@ -5,18 +5,6 @@ import { escapeQuotes } from "./utils";
 export class Printer {
 	constructor(private checker: ts.TypeChecker) {}
 
-	private getBaseType(nodeOrType: ts.Node | ts.Type): ts.Type {
-		// It is a node
-		if ("kind" in nodeOrType) {
-			nodeOrType = this.checker.getTypeAtLocation(nodeOrType);
-		}
-
-		return (
-			this.checker.getBaseConstraintOfType(nodeOrType) ??
-			this.checker.getBaseTypeOfLiteralType(nodeOrType)
-		);
-	}
-
 	private typeToString(type: ts.Type): string {
 		return this.checker.typeToString(
 			type,
@@ -25,439 +13,117 @@ export class Printer {
 		);
 	}
 
-	private printIntersectionTypeNode(node: ts.IntersectionTypeNode): string {
-		return node.types.map((t) => this.print(t)).join(" & ");
+	private printOuterUnionOrIntersection(
+		type: ts.UnionOrIntersectionType,
+		separator: string,
+		inner: boolean,
+	): string {
+		return [
+			...new Set(
+				type.types.map((t) => this.printType(t, inner)).filter(Boolean),
+			),
+		].join(separator);
 	}
 
-	private printUnionTypeNode(node: ts.UnionTypeNode): string {
-		return node.types.map((t) => this.print(t)).join(" | ");
+	private isUnionUndefined(union: ts.UnionType) {
+		return union.types.some((t) => t.flags & ts.TypeFlags.Undefined);
 	}
 
-	private printTypeLiteralNode(node: ts.TypeLiteralNode): string {
-		const parts = ["{"];
-
-		for (const member of node.members) {
-			if (ts.isPropertySignature(member)) {
-				const stringBaseType = member.type
-					? this.typeToString(this.getBaseType(member.type))
-					: "any";
-
-				parts.push(
-					[
-						member.name.getText(),
-						member.questionToken?.getText(),
-						": ",
-						stringBaseType,
-					]
-						.filter(Boolean)
-						.join(""),
-				);
-			}
-		}
-
-		parts.push("}");
-
-		return parts.join("\n");
-	}
-
-	private printTypeByType(node: ts.Node): string {
-		const type = this.checker.getTypeAtLocation(node);
-		const properties = type.getProperties();
-		const parts = ["{"];
-		const isMapped = ts.isMappedTypeNode(node);
-		for (const property of properties) {
-			const isOptional = property.flags & ts.SymbolFlags.Optional;
-			const questionToken = isMapped
-				? (node.questionToken?.getText() ?? "")
-				: isOptional
-					? "?"
-					: "";
-			const valueType = this.checker.getTypeOfSymbol(property);
-			const stringValueType = this.typeToString(this.getBaseType(valueType));
-			parts.push(
-				`${this.checker.symbolToString(
-					property,
-				)}${questionToken}: ${stringValueType}`,
-			);
-		}
-		parts.push("}");
-
-		return parts.join("\n");
-	}
-
-	private printIdentifier(node: ts.Identifier) {
-		const symbol = this.checker.getSymbolAtLocation(node);
-		if (!symbol) {
-			return node.getText();
-		}
-
-		const declarations = symbol.getDeclarations();
-		if (!declarations || declarations.length === 0) {
-			return node.getText();
-		}
-
-		return this.print(declarations[0]);
-	}
-
-	private printInterfaceDeclaration(node: ts.InterfaceDeclaration): string {
-		const parts = ["{"];
-
-		for (const member of node.members) {
-			if (ts.isPropertySignature(member)) {
-				const stringBaseType = member.type ? this.print(member.type) : "any";
-
-				parts.push(
-					[
-						member.name?.getText(),
-						member.questionToken?.getText(),
-						": ",
-						stringBaseType,
-					]
-						.filter(Boolean)
-						.join(""),
-				);
-			} else if (ts.isMethodSignature(member)) {
-				const signature = this.checker.getSignatureFromDeclaration(member);
-				const returnType = signature
-					? this.typeToString(signature.getReturnType())
-					: "any";
-
-				const parameters = member.parameters
-					.map((param) => {
-						const paramType = param.type
-							? this.typeToString(this.getBaseType(param.type))
-							: "any";
-
-						return `${param.name.getText()}: ${paramType}`;
-					})
-					.join(", ");
-
-				parts.push(`${member.name?.getText()}(${parameters}): ${returnType}`);
-			}
-		}
-
-		parts.push("}");
-
-		let result = parts.join("\n");
-		if (node.heritageClauses && node.heritageClauses.length > 0) {
-			result = node.heritageClauses
-				.map((clause) => this.print(clause))
-				.join(" & ");
-		}
-
-		return result;
-	}
-
-	private printEnumDeclaration(node: ts.EnumDeclaration): string {
-		const parts = ["{"];
-
-		for (const member of node.members) {
-			const name = member.name.getText();
-			if (member.initializer) {
-				const value = member.initializer.getText();
-				parts.push(`${name}: ${value}`);
-			} else {
-				// Auto-incrementing enum member
-				parts.push(`${name}: number`);
-			}
-		}
-
-		parts.push("}");
-
-		return parts.join("\n");
-	}
-
-	private printClassDeclaration(node: ts.ClassDeclaration): string {
-		const parts = ["{"];
-
-		for (const member of node.members) {
-			if (ts.isPropertyDeclaration(member)) {
-				const name = member.name?.getText();
-				const typeAnnotation = member.type
-					? this.typeToString(this.getBaseType(member.type))
-					: "any";
-				const optional = member.questionToken ? "?" : "";
-				parts.push(`${name}${optional}: ${typeAnnotation}`);
-			} else if (ts.isMethodDeclaration(member)) {
-				const name = member.name?.getText();
-				const signature = this.checker.getSignatureFromDeclaration(member);
-				const returnType = signature
-					? this.typeToString(signature.getReturnType())
-					: "any";
-
-				const parameters = member.parameters
-					.map((param) => {
-						const paramType = param.type
-							? this.typeToString(this.getBaseType(param.type))
-							: "any";
-
-						return `${param.name.getText()}: ${paramType}`;
-					})
-					.join(", ");
-
-				parts.push(`${name}(${parameters}): ${returnType}`);
-			} else if (ts.isConstructorDeclaration(member)) {
-				const parameters = member.parameters
-					.map((param) => {
-						const paramType = param.type
-							? this.typeToString(this.getBaseType(param.type))
-							: "any";
-
-						return `${param.name.getText()}: ${paramType}`;
-					})
-					.join(", ");
-
-				parts.push(`constructor(${parameters}): void`);
-			}
-		}
-
-		parts.push("}");
-
-		return parts.join("\n");
-	}
-
-	private printFunctionTypeNode(node: ts.FunctionTypeNode): string {
-		const parameters = node.parameters
-			.map((param) => {
-				const paramType = param.type ? this.print(param.type) : "any";
-				const optional = param.questionToken ? "?" : "";
-				const rest = param.dotDotDotToken ? "..." : "";
-
-				return `${rest}${param.name.getText()}${optional}: ${paramType}`;
-			})
-			.join(", ");
-
-		const returnType = node.type ? this.print(node.type) : "any";
-
-		return `(${parameters}) => ${returnType}`;
-	}
-
-	private printConstructorTypeNode(node: ts.ConstructorTypeNode): string {
-		const parameters = node.parameters
-			.map((param) => {
-				const paramType = param.type ? this.print(param.type) : "any";
-				const optional = param.questionToken ? "?" : "";
-				const rest = param.dotDotDotToken ? "..." : "";
-
-				return `${rest}${param.name.getText()}${optional}: ${paramType}`;
-			})
-			.join(", ");
-
-		const returnType = node.type ? this.print(node.type) : "any";
-
-		return `new (${parameters}) => ${returnType}`;
-	}
-
-	private printTypeQueryNode(node: ts.TypeQueryNode): string {
-		const exprName = node.exprName.getText();
-
-		return `typeof ${exprName}`;
-	}
-
-	private printArrayTypeNode(node: ts.ArrayTypeNode): string {
-		return `${this.print(node.elementType)}[]`;
-	}
-
-	private printTupleTypeNode(node: ts.TupleTypeNode): string {
-		const elements = node.elements.map((element) => {
-			if (ts.isRestTypeNode(element)) {
-				return `...${this.print(element.type)}`;
-			}
-			if (ts.isOptionalTypeNode(element)) {
-				return `${this.print(element.type)}?`;
-			}
-			if (ts.isNamedTupleMember(element)) {
-				const type = this.print(element.type);
-				const optional = element.questionToken ? "?" : "";
-				const rest = element.dotDotDotToken ? "..." : "";
-
-				return `${rest}${element.name.getText()}${optional}: ${type}`;
-			}
-
-			return this.print(element);
-		});
-
-		return `[${elements.join(", ")}]`;
-	}
-
-	private printConditionalTypeNode(node: ts.ConditionalTypeNode): string {
-		// Try to evaluate the conditional type using the type checker
-		const conditionalType = this.checker.getTypeAtLocation(node);
-
-		if (
-			conditionalType &&
-			!(conditionalType.flags & ts.TypeFlags.Conditional)
-		) {
-			const resolvedTypeString = this.typeToString(conditionalType);
-
-			if (resolvedTypeString !== node.getText()) {
-				return resolvedTypeString;
-			}
-		}
-
-		// If we can't resolve it or it's still conditional, fall back to the original logic
-		const checkType = this.print(node.checkType);
-		const extendsType = this.print(node.extendsType);
-		const trueType = this.print(node.trueType);
-		const falseType = this.print(node.falseType);
-
-		return `${checkType} extends ${extendsType} ? ${trueType} : ${falseType}`;
-	}
-
-	private printIndexedAccessTypeNode(node: ts.IndexedAccessTypeNode): string {
-		const objectType = this.print(node.objectType);
-		const indexType = this.print(node.indexType);
-
-		return `${objectType}[${indexType}]`;
-	}
-
-	private printHeritageClause(node: ts.HeritageClause): string {
-		if (node.token === ts.SyntaxKind.ExtendsKeyword) {
-			const parts = [];
-
-			for (const type of node.types) {
-				if (ts.isExpressionWithTypeArguments(type)) {
-					if (type.expression && type.typeArguments) {
-						parts.push(this.print(type));
-					} else {
-						parts.push(this.print(type.expression));
-					}
-				}
-			}
-
-			return parts.join(" & ");
+	private printPrimitiveType(type: ts.Type): string {
+		if (type.flags & ts.TypeFlags.BooleanLiteral) {
+			return "boolean";
+		} else if (type.flags & ts.TypeFlags.String || type.isStringLiteral()) {
+			return "string";
+		} else if (type.flags & ts.TypeFlags.Number || type.isNumberLiteral()) {
+			return "number";
+		} else if (type.flags & ts.TypeFlags.BigInt) {
+			return "bigint";
+		} else if (type.flags & ts.TypeFlags.Any) {
+			return "any";
+		} else if (type.flags & ts.TypeFlags.Unknown) {
+			return "unknown";
+		} else if (type.flags & ts.TypeFlags.Null) {
+			return "null";
 		}
 
 		return "";
 	}
 
-	private printImportSpecifier(node: ts.ImportSpecifier): string {
-		const name = node.propertyName
-			? node.propertyName.getText()
-			: node.name.getText();
-		const symbol = this.checker.getSymbolAtLocation(node.name);
-		if (!symbol) {
-			return name;
+	private printType(type: ts.Type, inner = false): string {
+		if (type.isUnion()) {
+			return this.printOuterUnionOrIntersection(type, " | ", inner);
+		} else if (type.isIntersection()) {
+			return this.printOuterUnionOrIntersection(type, " & ", inner);
 		}
-
-		const aliasedSymbol = this.checker.getAliasedSymbol(symbol);
-		const targetSymbol = aliasedSymbol || symbol;
-
-		const declarations = targetSymbol.getDeclarations();
-		if (!declarations || declarations.length === 0) {
-			return name;
-		}
-
-		const declaration = declarations.find(
-			(decl) =>
-				ts.isTypeAliasDeclaration(decl) ||
-				ts.isInterfaceDeclaration(decl) ||
-				ts.isClassDeclaration(decl) ||
-				ts.isEnumDeclaration(decl) ||
-				ts.isVariableDeclaration(decl),
-		);
-		if (declaration) {
-			return this.print(declaration);
-		}
-
-		return name;
-	}
-
-	private isKeywordTypeNode(node: ts.Node): boolean {
-		return (
-			node.kind === ts.SyntaxKind.StringKeyword ||
-			node.kind === ts.SyntaxKind.NumberKeyword ||
-			node.kind === ts.SyntaxKind.BooleanKeyword ||
-			node.kind === ts.SyntaxKind.ObjectKeyword ||
-			node.kind === ts.SyntaxKind.UndefinedKeyword ||
-			node.kind === ts.SyntaxKind.NullKeyword ||
-			node.kind === ts.SyntaxKind.VoidKeyword ||
-			node.kind === ts.SyntaxKind.AnyKeyword ||
-			node.kind === ts.SyntaxKind.UnknownKeyword ||
-			node.kind === ts.SyntaxKind.NeverKeyword ||
-			node.kind === ts.SyntaxKind.SymbolKeyword ||
-			node.kind === ts.SyntaxKind.BigIntKeyword
-		);
-	}
-
-	public print(node: ts.Node): string {
-		if (ts.isIdentifier(node)) {
-			return this.printIdentifier(node);
-		} else if (ts.isIntersectionTypeNode(node)) {
-			return this.printIntersectionTypeNode(node);
-		} else if (ts.isUnionTypeNode(node)) {
-			return this.printUnionTypeNode(node);
-		} else if (ts.isTypeLiteralNode(node)) {
-			return this.printTypeLiteralNode(node);
-		} else if (ts.isTypeReferenceNode(node)) {
-			return node.typeArguments
-				? this.printTypeByType(node)
-				: this.print(node.typeName);
-		} else if (ts.isInterfaceDeclaration(node)) {
-			return this.printInterfaceDeclaration(node);
-		} else if (ts.isTypeAliasDeclaration(node)) {
-			return node.type ? this.print(node.type) : "any";
-		} else if (ts.isEnumDeclaration(node)) {
-			return this.printEnumDeclaration(node);
-		} else if (ts.isClassDeclaration(node)) {
-			return this.printClassDeclaration(node);
-		} else if (ts.isFunctionTypeNode(node)) {
-			return this.printFunctionTypeNode(node);
-		} else if (ts.isConstructorTypeNode(node)) {
-			return this.printConstructorTypeNode(node);
-		} else if (ts.isTypeQueryNode(node)) {
-			return this.printTypeQueryNode(node);
-		} else if (ts.isArrayTypeNode(node)) {
-			return this.printArrayTypeNode(node);
-		} else if (ts.isTupleTypeNode(node)) {
-			return this.printTupleTypeNode(node);
-		} else if (ts.isConditionalTypeNode(node)) {
-			return this.printConditionalTypeNode(node);
-		} else if (ts.isIndexedAccessTypeNode(node)) {
-			return this.printIndexedAccessTypeNode(node);
-		} else if (ts.isParenthesizedTypeNode(node)) {
-			return this.print(node.type);
-		} else if (ts.isHeritageClause(node)) {
-			return this.printHeritageClause(node);
-		} else if (ts.isTypeAliasDeclaration(node) && node.type) {
-			return this.print(node.type);
-		} else if (ts.isInterfaceDeclaration(node)) {
-			return this.printInterfaceDeclaration(node);
-		} else if (ts.isVariableDeclaration(node) && node.type) {
-			return this.print(node.type);
-		} else if (ts.isImportSpecifier(node)) {
-			return this.printImportSpecifier(node);
-		} else if (ts.isTypeParameterDeclaration(node)) {
-			if (node.constraint) {
-				return this.print(node.constraint);
-			} else if (node.default) {
-				return this.print(node.default);
+		// WIP
+		if (this.typeToString(type).endsWith("[]")) {
+			return this.typeToString(type);
+		} else if (type.flags & ts.TypeFlags.Object) {
+			if (inner) {
+				return "object";
+			}
+			const properties = type.getProperties();
+			const props: Record<
+				string,
+				{
+					value: string;
+					isOptional: boolean;
+				}
+			> = {};
+			for (const prop of properties) {
+				const propType = this.checker.getTypeOfSymbol(prop);
+				props[prop.getName()] = {
+					value: this.printType(this.checker.getTypeOfSymbol(prop), true),
+					isOptional: propType.isUnion()
+						? this.isUnionUndefined(propType)
+						: !!(propType.flags & ts.TypeFlags.Undefined),
+				};
 			}
 
-			return "{}";
-		} else if (ts.isParameter(node) && node.type) {
-			return this.print(node.type);
-		} else if (
-			ts.isLiteralTypeNode(node) ||
-			ts.isThisTypeNode(node) ||
-			ts.isPropertyAccessExpression(node) ||
-			this.isKeywordTypeNode(node)
-		) {
-			return node.getText();
-		} else if (
-			ts.isMappedTypeNode(node) ||
-			ts.isExpressionWithTypeArguments(node)
-		) {
-			return this.printTypeByType(node);
-		} else {
-			console.error(
-				`[@vue.ts/complex-types] \`${
-					ts.SyntaxKind[node.kind]
-				}\` is not supported.`,
-			);
+			const parts: string[] = [];
+			for (const [propName, propData] of Object.entries(props)) {
+				const questionMark = propData.isOptional ? "?" : "";
+				parts.push(`"${propName}"${questionMark}: ${propData.value},`);
+			}
 
-			return node.getText();
+			return Object.keys(props).length > 0 ? `{\n${parts.join("\n")}\n}` : "";
+		} else if (
+			type.isLiteral() ||
+			type.flags & ts.TypeFlags.BooleanLiteral ||
+			type.flags & ts.TypeFlags.String ||
+			type.flags & ts.TypeFlags.Number ||
+			type.flags & ts.TypeFlags.BigInt ||
+			type.flags & ts.TypeFlags.Any ||
+			type.flags & ts.TypeFlags.Unknown ||
+			type.flags & ts.TypeFlags.Null
+		) {
+			return this.printPrimitiveType(type);
+		} else if (type.flags & ts.TypeFlags.Undefined) {
+			return "";
+		} else if (type.flags & ts.TypeFlags.Conditional) {
+			return `${this.printType((type as any).resolvedTrueType)} | ${this.printType((type as any).resolvedFalseType)}`;
+		} else if (type.isTypeParameter()) {
+			const symbol = type.getSymbol();
+			const decl = symbol?.declarations?.[0];
+			if (!decl || !ts.isTypeParameterDeclaration(decl)) {
+				return "";
+			}
+			const ref = ts.getEffectiveConstraintOfTypeParameter(decl);
+			if (!ref) {
+				return "";
+			}
+			const refType = this.checker.getTypeAtLocation(ref);
+
+			return this.printType(refType);
 		}
+
+		return this.typeToString(type);
+	}
+
+	public printPropsTypeArg(node: ts.Node): string {
+		const type = this.checker.getTypeAtLocation(node);
+
+		return this.printType(type);
 	}
 
 	private printEventsByCallSignatures(

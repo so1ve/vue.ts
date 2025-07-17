@@ -23,7 +23,7 @@ export const transformDefineProps: Transformer = (printer, s, id) => {
 		return;
 	}
 
-	const printedType = printer.print(virtualFileDefinePropsTypeNode);
+	const printedType = printer.printPropsTypeArg(virtualFileDefinePropsTypeNode);
 	const offset = scriptSetupBlock.startTagEnd;
 
 	s.overwrite(

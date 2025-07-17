@@ -118,12 +118,23 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 			type: Array,
 			required: true
 		},
-		function: {
-			type: Function,
+		genericCondition: {
+			type: [String, Number],
 			required: true
 		},
-		error: { required: true },
-		emptyInterface: { required: true },
+		function: {
+			type: Object,
+			required: true
+		},
+		error: {
+			type: Object,
+			required: true
+		},
+		null: { required: true },
+		emptyInterface: {
+			type: Object,
+			required: true
+		},
 		conditionalNumber: {
 			type: Number,
 			required: true
@@ -136,8 +147,22 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 			type: Object,
 			required: true
 		},
-		"1-1": { required: false },
-		"2-1": { required: false }
+		"1-1": {
+			type: String,
+			required: true
+		},
+		"1-2": {
+			type: String,
+			required: true
+		},
+		"2-1": {
+			type: String,
+			required: false
+		},
+		"2-2": {
+			type: String,
+			required: false
+		}
 	},
 	setup(__props, { expose: __expose }) {
 		__expose();
@@ -164,6 +189,206 @@ import _export_sfc from '[NULL]/plugin-vue/export-helper';
 var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "core#8286",
 	props: {
+		autofocus: {
+			type: [Boolean, String],
+			required: false
+		},
+		disabled: {
+			type: [Boolean, String],
+			required: false
+		},
+		form: {
+			type: String,
+			required: false
+		},
+		formaction: {
+			type: String,
+			required: false
+		},
+		formenctype: {
+			type: String,
+			required: false
+		},
+		formmethod: {
+			type: String,
+			required: false
+		},
+		formnovalidate: {
+			type: [Boolean, String],
+			required: false
+		},
+		formtarget: {
+			type: String,
+			required: false
+		},
+		name: {
+			type: String,
+			required: false
+		},
+		type: {
+			type: String,
+			required: false
+		},
+		value: { required: false },
+		innerHTML: {
+			type: String,
+			required: false
+		},
+		class: { required: true },
+		style: {
+			type: [String, Boolean],
+			skipCheck: true,
+			required: false
+		},
+		accesskey: {
+			type: String,
+			required: false
+		},
+		contenteditable: {
+			type: [Boolean, String],
+			required: false
+		},
+		contextmenu: {
+			type: String,
+			required: false
+		},
+		dir: {
+			type: String,
+			required: false
+		},
+		draggable: {
+			type: [Boolean, String],
+			required: false
+		},
+		hidden: {
+			type: [Boolean, String],
+			required: false
+		},
+		id: {
+			type: String,
+			required: false
+		},
+		inert: {
+			type: [Boolean, String],
+			required: false
+		},
+		lang: {
+			type: String,
+			required: false
+		},
+		placeholder: {
+			type: String,
+			required: false
+		},
+		spellcheck: {
+			type: [Boolean, String],
+			required: false
+		},
+		tabindex: {
+			type: [String, Number],
+			required: false
+		},
+		title: {
+			type: String,
+			required: false
+		},
+		translate: {
+			type: String,
+			required: false
+		},
+		radiogroup: {
+			type: String,
+			required: false
+		},
+		role: {
+			type: String,
+			required: false
+		},
+		about: {
+			type: String,
+			required: false
+		},
+		datatype: {
+			type: String,
+			required: false
+		},
+		inlist: { required: true },
+		prefix: {
+			type: String,
+			required: false
+		},
+		property: {
+			type: String,
+			required: false
+		},
+		resource: {
+			type: String,
+			required: false
+		},
+		typeof: {
+			type: String,
+			required: false
+		},
+		vocab: {
+			type: String,
+			required: false
+		},
+		autocapitalize: {
+			type: String,
+			required: false
+		},
+		autocorrect: {
+			type: String,
+			required: false
+		},
+		autosave: {
+			type: String,
+			required: false
+		},
+		color: {
+			type: String,
+			required: false
+		},
+		itemprop: {
+			type: String,
+			required: false
+		},
+		itemscope: {
+			type: [Boolean, String],
+			required: false
+		},
+		itemtype: {
+			type: String,
+			required: false
+		},
+		itemid: {
+			type: String,
+			required: false
+		},
+		itemref: {
+			type: String,
+			required: false
+		},
+		results: {
+			type: [String, Number],
+			required: false
+		},
+		security: {
+			type: String,
+			required: false
+		},
+		unselectable: {
+			type: String,
+			required: false
+		},
+		inputmode: {
+			type: String,
+			required: false
+		},
+		is: {
+			type: String,
+			required: false
+		},
 		"aria-activedescendant": {
 			type: String,
 			required: false
@@ -185,15 +410,15 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 			required: false
 		},
 		"aria-colcount": {
-			type: [Number, String],
+			type: [String, Number],
 			required: false
 		},
 		"aria-colindex": {
-			type: [Number, String],
+			type: [String, Number],
 			required: false
 		},
 		"aria-colspan": {
-			type: [Number, String],
+			type: [String, Number],
 			required: false
 		},
 		"aria-controls": {
@@ -261,7 +486,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 			required: false
 		},
 		"aria-level": {
-			type: [Number, String],
+			type: [String, Number],
 			required: false
 		},
 		"aria-live": {
@@ -293,7 +518,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 			required: false
 		},
 		"aria-posinset": {
-			type: [Number, String],
+			type: [String, Number],
 			required: false
 		},
 		"aria-pressed": {
@@ -317,15 +542,15 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 			required: false
 		},
 		"aria-rowcount": {
-			type: [Number, String],
+			type: [String, Number],
 			required: false
 		},
 		"aria-rowindex": {
-			type: [Number, String],
+			type: [String, Number],
 			required: false
 		},
 		"aria-rowspan": {
-			type: [Number, String],
+			type: [String, Number],
 			required: false
 		},
 		"aria-selected": {
@@ -333,7 +558,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 			required: false
 		},
 		"aria-setsize": {
-			type: [Number, String],
+			type: [String, Number],
 			required: false
 		},
 		"aria-sort": {
@@ -341,104 +566,104 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 			required: false
 		},
 		"aria-valuemax": {
-			type: [Number, String],
+			type: [String, Number],
 			required: false
 		},
 		"aria-valuemin": {
-			type: [Number, String],
+			type: [String, Number],
 			required: false
 		},
 		"aria-valuenow": {
-			type: [Number, String],
+			type: [String, Number],
 			required: false
 		},
 		"aria-valuetext": {
 			type: String,
 			required: false
 		},
-		onCopy: { required: false },
-		onCut: { required: false },
-		onPaste: { required: false },
-		onCompositionend: { required: false },
-		onCompositionstart: { required: false },
-		onCompositionupdate: { required: false },
-		onDrag: { required: false },
-		onDragend: { required: false },
-		onDragenter: { required: false },
-		onDragexit: { required: false },
-		onDragleave: { required: false },
-		onDragover: { required: false },
-		onDragstart: { required: false },
-		onDrop: { required: false },
-		onFocus: { required: false },
-		onFocusin: { required: false },
-		onFocusout: { required: false },
-		onBlur: { required: false },
-		onChange: { required: false },
-		onBeforeinput: { required: false },
-		onInput: { required: false },
-		onReset: { required: false },
-		onSubmit: { required: false },
-		onInvalid: { required: false },
-		onLoad: { required: false },
-		onError: { required: false },
-		onKeydown: { required: false },
-		onKeypress: { required: false },
-		onKeyup: { required: false },
-		onAuxclick: { required: false },
-		onClick: { required: false },
-		onContextmenu: { required: false },
-		onDblclick: { required: false },
-		onMousedown: { required: false },
-		onMouseenter: { required: false },
-		onMouseleave: { required: false },
-		onMousemove: { required: false },
-		onMouseout: { required: false },
-		onMouseover: { required: false },
-		onMouseup: { required: false },
-		onAbort: { required: false },
-		onCanplay: { required: false },
-		onCanplaythrough: { required: false },
-		onDurationchange: { required: false },
-		onEmptied: { required: false },
-		onEncrypted: { required: false },
-		onEnded: { required: false },
-		onLoadeddata: { required: false },
-		onLoadedmetadata: { required: false },
-		onLoadstart: { required: false },
-		onPause: { required: false },
-		onPlay: { required: false },
-		onPlaying: { required: false },
-		onProgress: { required: false },
-		onRatechange: { required: false },
-		onSeeked: { required: false },
-		onSeeking: { required: false },
-		onStalled: { required: false },
-		onSuspend: { required: false },
-		onTimeupdate: { required: false },
-		onVolumechange: { required: false },
-		onWaiting: { required: false },
-		onSelect: { required: false },
-		onScroll: { required: false },
-		onScrollend: { required: false },
-		onTouchcancel: { required: false },
-		onTouchend: { required: false },
-		onTouchmove: { required: false },
-		onTouchstart: { required: false },
-		onPointerdown: { required: false },
-		onPointermove: { required: false },
-		onPointerup: { required: false },
-		onPointercancel: { required: false },
-		onPointerenter: { required: false },
-		onPointerleave: { required: false },
-		onPointerover: { required: false },
-		onPointerout: { required: false },
-		onWheel: { required: false },
-		onAnimationstart: { required: false },
-		onAnimationend: { required: false },
-		onAnimationiteration: { required: false },
-		onTransitionend: { required: false },
-		onTransitionstart: { required: false }
+		onCopy: { required: true },
+		onCut: { required: true },
+		onPaste: { required: true },
+		onCompositionend: { required: true },
+		onCompositionstart: { required: true },
+		onCompositionupdate: { required: true },
+		onDrag: { required: true },
+		onDragend: { required: true },
+		onDragenter: { required: true },
+		onDragexit: { required: true },
+		onDragleave: { required: true },
+		onDragover: { required: true },
+		onDragstart: { required: true },
+		onDrop: { required: true },
+		onFocus: { required: true },
+		onFocusin: { required: true },
+		onFocusout: { required: true },
+		onBlur: { required: true },
+		onChange: { required: true },
+		onBeforeinput: { required: true },
+		onInput: { required: true },
+		onReset: { required: true },
+		onSubmit: { required: true },
+		onInvalid: { required: true },
+		onLoad: { required: true },
+		onError: { required: true },
+		onKeydown: { required: true },
+		onKeypress: { required: true },
+		onKeyup: { required: true },
+		onAuxclick: { required: true },
+		onClick: { required: true },
+		onContextmenu: { required: true },
+		onDblclick: { required: true },
+		onMousedown: { required: true },
+		onMouseenter: { required: true },
+		onMouseleave: { required: true },
+		onMousemove: { required: true },
+		onMouseout: { required: true },
+		onMouseover: { required: true },
+		onMouseup: { required: true },
+		onAbort: { required: true },
+		onCanplay: { required: true },
+		onCanplaythrough: { required: true },
+		onDurationchange: { required: true },
+		onEmptied: { required: true },
+		onEncrypted: { required: true },
+		onEnded: { required: true },
+		onLoadeddata: { required: true },
+		onLoadedmetadata: { required: true },
+		onLoadstart: { required: true },
+		onPause: { required: true },
+		onPlay: { required: true },
+		onPlaying: { required: true },
+		onProgress: { required: true },
+		onRatechange: { required: true },
+		onSeeked: { required: true },
+		onSeeking: { required: true },
+		onStalled: { required: true },
+		onSuspend: { required: true },
+		onTimeupdate: { required: true },
+		onVolumechange: { required: true },
+		onWaiting: { required: true },
+		onSelect: { required: true },
+		onScroll: { required: true },
+		onScrollend: { required: true },
+		onTouchcancel: { required: true },
+		onTouchend: { required: true },
+		onTouchmove: { required: true },
+		onTouchstart: { required: true },
+		onPointerdown: { required: true },
+		onPointermove: { required: true },
+		onPointerup: { required: true },
+		onPointercancel: { required: true },
+		onPointerenter: { required: true },
+		onPointerleave: { required: true },
+		onPointerover: { required: true },
+		onPointerout: { required: true },
+		onWheel: { required: true },
+		onAnimationstart: { required: true },
+		onAnimationend: { required: true },
+		onAnimationiteration: { required: true },
+		onTransitionend: { required: true },
+		onTransitionstart: { required: true }
 	},
 	setup(__props, { expose: __expose }) {
 		__expose();
@@ -498,7 +723,10 @@ import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
 var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "core#9774",
-	props: { a: { required: false } },
+	props: { a: {
+		type: String,
+		required: false
+	} },
 	setup(__props, { expose: __expose }) {
 		__expose();
 		const testProps = { a: { type: String } };
