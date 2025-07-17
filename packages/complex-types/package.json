@@ -16,6 +16,7 @@
 		"unplugin",
 		"vite",
 		"vue",
+		"vue.ts",
 		"webpack"
 	],
 	"homepage": "https://github.com/so1ve/vue.ts/tree/main/packages/language#readme",

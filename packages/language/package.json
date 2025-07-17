@@ -6,7 +6,8 @@
 	"description": "Vue 3 Language Helper",
 	"keywords": [
 		"volar",
-		"vue"
+		"vue",
+		"vue.ts"
 	],
 	"homepage": "https://github.com/so1ve/vue.ts/tree/main/packages/language#readme",
 	"repository": {

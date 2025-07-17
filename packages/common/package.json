@@ -3,8 +3,11 @@
 	"version": "0.6.0",
 	"author": "Ray <i@mk1.io> (https://github.com/so1ve)",
 	"type": "module",
-	"description": "",
-	"keywords": [],
+	"description": "Utils used by vue.ts",
+	"keywords": [
+		"utils",
+		"vue.ts"
+	],
 	"homepage": "https://github.com/so1ve/vue.ts/tree/main/packages/common#readme",
 	"repository": {
 		"type": "git",
@@ -19,8 +22,8 @@
 	"exports": {
 		".": "./dist/index.js"
 	},
-	"main": "dist/index.cjs",
-	"module": "dist/index.mjs",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"files": [
 		"dist"
