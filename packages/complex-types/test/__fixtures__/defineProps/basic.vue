@@ -5,6 +5,12 @@
 >
 import type { SomeInterface } from "./basic-ts";
 
+enum SomeEnum {
+	One = "one",
+	Two = "two",
+	Three = 3,
+}
+
 defineProps<
 	{
 		string: string;
@@ -21,6 +27,7 @@ defineProps<
 		null: string | null;
 		symbol: symbol;
 		'quotes"': string;
+		enum: SomeEnum;
 	} & SomeInterface & {
 			[MappedString in "1-1" | "1-2"]: `${MappedString}MappedType`;
 		} & {

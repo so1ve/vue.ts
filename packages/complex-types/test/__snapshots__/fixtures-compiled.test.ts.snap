@@ -91,6 +91,12 @@ exports[`fixtures compiled > __fixtures__/defineProps/basic.vue 1`] = `
 import { defineComponent } from 'vue';
 import _export_sfc from '[NULL]/plugin-vue/export-helper';
 
+var SomeEnum = /* @__PURE__ */ function(SomeEnum) {
+	SomeEnum["One"] = "one";
+	SomeEnum["Two"] = "two";
+	SomeEnum[SomeEnum["Three"] = 3] = "Three";
+	return SomeEnum;
+}(SomeEnum || {});
 var _sfc_main = /* @__PURE__ */ defineComponent({
 	__name: "basic",
 	props: {
@@ -139,6 +145,10 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 			type: String,
 			required: true
 		},
+		enum: {
+			type: [String, Number],
+			required: true
+		},
 		emptyInterface: {
 			type: Object,
 			required: true
@@ -174,7 +184,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 	},
 	setup(__props, { expose: __expose }) {
 		__expose();
-		const __returned__ = {};
+		const __returned__ = { SomeEnum };
 		Object.defineProperty(__returned__, "__isScriptSetup", {
 			enumerable: false,
 			value: true

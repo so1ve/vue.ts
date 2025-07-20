@@ -41,6 +41,12 @@ exports[`fixtures > __fixtures__/defineProps/basic.vue 1`] = `
 >
 import type { SomeInterface } from "./basic-ts";
 
+enum SomeEnum {
+	One = "one",
+	Two = "two",
+	Three = 3,
+}
+
 defineProps<
 	{
 "string": string,
@@ -55,6 +61,7 @@ defineProps<
 "null": null | string,
 "symbol": symbol,
 "quotes\\"": string,
+"enum": string | number,
 } & {
 "emptyInterface": object,
 "conditionalNumber": number,
