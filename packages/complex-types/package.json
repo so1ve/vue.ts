@@ -70,6 +70,7 @@
 		"@nuxt/kit": "catalog:",
 		"@vue.ts/language": "workspace:*",
 		"@vue.ts/shared": "workspace:*",
+		"defu": "^6.1.4",
 		"magic-string": "catalog:",
 		"unplugin": "catalog:"
 	},
