@@ -89,7 +89,9 @@ export class Printer {
 			const parts: string[] = [];
 			for (const [propName, propData] of Object.entries(props)) {
 				const questionMark = propData.isOptional ? "?" : "";
-				parts.push(`"${propName}"${questionMark}: ${propData.value},`);
+				parts.push(
+					`"${escapeQuotes(propName)}"${questionMark}: ${propData.value},`,
+				);
 			}
 
 			return Object.keys(props).length > 0 ? `{\n${parts.join("\n")}\n}` : "";

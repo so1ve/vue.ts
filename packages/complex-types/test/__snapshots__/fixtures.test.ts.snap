@@ -53,6 +53,7 @@ defineProps<
 "function": Function,
 "error": object,
 "null": null | string,
+"quotes\\"": string,
 } & {
 "emptyInterface": object,
 "conditionalNumber": number,

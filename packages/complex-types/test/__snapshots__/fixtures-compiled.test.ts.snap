@@ -131,6 +131,10 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 			required: true
 		},
 		null: { required: true },
+		"quotes\\"": {
+			type: String,
+			required: true
+		},
 		emptyInterface: {
 			type: Object,
 			required: true
