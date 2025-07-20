@@ -19,6 +19,7 @@ defineProps<
 		// keepOrder2: number | string;
 		error: Error;
 		null: string | null;
+		symbol: symbol;
 		'quotes"': string;
 	} & SomeInterface & {
 			[MappedString in "1-1" | "1-2"]: `${MappedString}MappedType`;
