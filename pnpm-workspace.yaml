@@ -4,7 +4,7 @@ packages:
 catalog:
   "@nuxt/kit": ^3.17.6
   "@nuxt/schema": ^3.17.6
-  "rolldown": 1.0.0-beta.27
+  "rolldown": 1.0.0-beta.29
   "rollup": ^4.44.2
   "vite": ^7.0.4
   "webpack": ^5.100.1
