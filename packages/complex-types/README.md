@@ -2,7 +2,7 @@
 
 [![NPM version](https://img.shields.io/npm/v/@vue.ts/complex-types?color=a1b858&label=)](https://www.npmjs.com/package/@vue.ts/complex-types)
 
-Use [`@vue/language-core`](https://github.com/vuejs/language-tools/tree/master/packages/language-core) to support complex types for Vue Macros.
+Use [`@vue/language-core`](https://github.com/vuejs/language-tools/tree/master/packages/language-core) to support complex types for Vue's Macros.
 
 For example: fixes https://github.com/vuejs/core/issues/8286.
 
