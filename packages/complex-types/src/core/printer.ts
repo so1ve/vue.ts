@@ -25,8 +25,10 @@ export class Printer {
 		].join(separator);
 	}
 
-	private isUnionUndefined(union: ts.UnionType) {
-		return union.types.some((t) => t.flags & ts.TypeFlags.Undefined);
+	private containsUndefined(type: ts.Type): boolean {
+		return type.isUnion()
+			? type.types.some((t) => t.flags & ts.TypeFlags.Undefined)
+			: !!(type.flags & ts.TypeFlags.Undefined);
 	}
 
 	private printPrimitiveType(type: ts.Type): string {
@@ -80,30 +82,26 @@ export class Printer {
 				const propType = this.checker.getTypeOfSymbol(prop);
 				props[prop.getName()] = {
 					value: this.printType(this.checker.getTypeOfSymbol(prop), true),
-					isOptional: propType.isUnion()
-						? this.isUnionUndefined(propType)
-						: !!(propType.flags & ts.TypeFlags.Undefined),
+					isOptional: this.containsUndefined(propType),
 				};
 			}
 
 			const parts: string[] = [];
-			for (const [propName, propData] of Object.entries(props)) {
-				const questionMark = propData.isOptional ? "?" : "";
-				parts.push(
-					`"${escapeQuotes(propName)}"${questionMark}: ${propData.value},`,
-				);
+			for (const [propName, { isOptional, value }] of Object.entries(props)) {
+				const questionMark = isOptional ? "?" : "";
+				parts.push(`"${escapeQuotes(propName)}"${questionMark}: ${value},`);
 			}
 
 			return Object.keys(props).length > 0 ? `{\n${parts.join("\n")}\n}` : "";
 		} else if (
-			type.isLiteral() ||
-			type.flags & ts.TypeFlags.BooleanLiteral ||
-			type.flags & ts.TypeFlags.String ||
-			type.flags & ts.TypeFlags.Number ||
-			type.flags & ts.TypeFlags.BigInt ||
-			type.flags & ts.TypeFlags.Any ||
-			type.flags & ts.TypeFlags.Unknown ||
-			type.flags & ts.TypeFlags.Null
+			type.isLiteral()
+			|| type.flags & ts.TypeFlags.BooleanLiteral
+			|| type.flags & ts.TypeFlags.String
+			|| type.flags & ts.TypeFlags.Number
+			|| type.flags & ts.TypeFlags.BigInt
+			|| type.flags & ts.TypeFlags.Any
+			|| type.flags & ts.TypeFlags.Unknown
+			|| type.flags & ts.TypeFlags.Null
 		) {
 			return this.printPrimitiveType(type);
 		} else if (type.flags & ts.TypeFlags.Undefined) {
