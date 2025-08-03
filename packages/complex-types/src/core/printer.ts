@@ -31,6 +31,15 @@ export class Printer {
 			: !!(type.flags & ts.TypeFlags.Undefined);
 	}
 
+	private printConditionTypeNode(type: ts.ConditionalType) {
+		const decl = type.root.node;
+		const { trueType, falseType } = decl;
+		const trueTypeNode = this.checker.getTypeAtLocation(trueType);
+		const falseTypeNode = this.checker.getTypeAtLocation(falseType);
+
+		return `${this.printType(trueTypeNode)} | ${this.printType(falseTypeNode)}`;
+	}
+
 	private printPrimitiveType(type: ts.Type): string {
 		if (type.flags & ts.TypeFlags.BooleanLiteral) {
 			return "boolean";
@@ -57,9 +66,8 @@ export class Printer {
 		} else if (type.isIntersection()) {
 			return this.printUnionOrIntersection(type, " & ", inner);
 		}
-		// WIP
-		if (this.typeToString(type).endsWith("[]")) {
-			return this.typeToString(type);
+		if (this.checker.isArrayType(type)) {
+			return "Array";
 		} else if (type.flags & ts.TypeFlags.Object) {
 			const decl = type.getSymbol()?.declarations?.[0];
 			if (decl && ts.isFunctionTypeNode(decl)) {
@@ -81,7 +89,7 @@ export class Printer {
 			for (const prop of properties) {
 				const propType = this.checker.getTypeOfSymbol(prop);
 				props[prop.getName()] = {
-					value: this.printType(this.checker.getTypeOfSymbol(prop), true),
+					value: this.printType(propType, true),
 					isOptional: this.containsUndefined(propType),
 				};
 			}
@@ -94,20 +102,20 @@ export class Printer {
 
 			return Object.keys(props).length > 0 ? `{\n${parts.join("\n")}\n}` : "";
 		} else if (
-			type.isLiteral()
-			|| type.flags & ts.TypeFlags.BooleanLiteral
-			|| type.flags & ts.TypeFlags.String
-			|| type.flags & ts.TypeFlags.Number
-			|| type.flags & ts.TypeFlags.BigInt
-			|| type.flags & ts.TypeFlags.Any
-			|| type.flags & ts.TypeFlags.Unknown
-			|| type.flags & ts.TypeFlags.Null
+			type.isLiteral() ||
+			type.flags & ts.TypeFlags.BooleanLiteral ||
+			type.flags & ts.TypeFlags.String ||
+			type.flags & ts.TypeFlags.Number ||
+			type.flags & ts.TypeFlags.BigInt ||
+			type.flags & ts.TypeFlags.Any ||
+			type.flags & ts.TypeFlags.Unknown ||
+			type.flags & ts.TypeFlags.Null
 		) {
 			return this.printPrimitiveType(type);
 		} else if (type.flags & ts.TypeFlags.Undefined) {
 			return "";
 		} else if (type.flags & ts.TypeFlags.Conditional) {
-			return `${this.printType((type as any).resolvedTrueType)} | ${this.printType((type as any).resolvedFalseType)}`;
+			return this.printConditionTypeNode(type as ts.ConditionalType);
 		} else if (type.isTypeParameter()) {
 			const symbol = type.getSymbol();
 			const decl = symbol?.declarations?.[0];

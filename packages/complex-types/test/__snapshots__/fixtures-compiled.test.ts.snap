@@ -120,6 +120,10 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 			type: Array,
 			required: true
 		},
+		customTypeArray: {
+			type: Array,
+			required: true
+		},
 		genericArray: {
 			type: Array,
 			required: true
@@ -247,7 +251,14 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 			type: String,
 			required: false
 		},
-		value: { required: false },
+		value: {
+			type: [
+				String,
+				Number,
+				Array
+			],
+			required: false
+		},
 		innerHTML: {
 			type: String,
 			required: false

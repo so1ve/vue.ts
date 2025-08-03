@@ -18,6 +18,7 @@ defineProps<
 		stringUnion: "a" | "b";
 		genericExtendsString: T;
 		array: string[];
+		customTypeArray: SomeEnum[];
 		genericArray: U;
 		genericCondition: I extends "a" ? "a" : 1;
 		function: () => void;
