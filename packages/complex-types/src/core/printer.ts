@@ -31,13 +31,13 @@ export class Printer {
 			: !!(type.flags & ts.TypeFlags.Undefined);
 	}
 
-	private printConditionTypeNode(type: ts.ConditionalType) {
+	private printConditionType(type: ts.ConditionalType, inner: boolean): string {
 		const decl = type.root.node;
 		const { trueType, falseType } = decl;
 		const trueTypeNode = this.checker.getTypeAtLocation(trueType);
 		const falseTypeNode = this.checker.getTypeAtLocation(falseType);
 
-		return `${this.printType(trueTypeNode)} | ${this.printType(falseTypeNode)}`;
+		return `${this.printType(trueTypeNode, inner)} | ${this.printType(falseTypeNode, inner)}`;
 	}
 
 	private printPrimitiveType(type: ts.Type): string {
@@ -115,7 +115,7 @@ export class Printer {
 		} else if (type.flags & ts.TypeFlags.Undefined) {
 			return "";
 		} else if (type.flags & ts.TypeFlags.Conditional) {
-			return this.printConditionTypeNode(type as ts.ConditionalType);
+			return this.printConditionType(type as ts.ConditionalType, inner);
 		} else if (type.isTypeParameter()) {
 			const symbol = type.getSymbol();
 			const decl = symbol?.declarations?.[0];
@@ -128,7 +128,7 @@ export class Printer {
 			}
 			const refType = this.checker.getTypeAtLocation(ref);
 
-			return this.printType(refType);
+			return this.printType(refType, inner);
 		}
 
 		return this.typeToString(type);
