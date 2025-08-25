@@ -1,7 +1,7 @@
 {
 	"private": true,
 	"version": "1.0.0-beta.5",
-	"packageManager": "pnpm@10.14.0",
+	"packageManager": "pnpm@10.15.0",
 	"type": "module",
 	"scripts": {
 		"build": "pnpm -r run build",
@@ -17,7 +17,7 @@
 		"@so1ve/eslint-config": "^3.8.0",
 		"@so1ve/prettier-config": "^3.8.0",
 		"@types/node": "^24.1.0",
-		"@typescript/native-preview": "7.0.0-dev.20250711.1",
+		"@typescript/native-preview": "7.0.0-dev.20250825.1",
 		"@vue-macros/test-utils": "^2.0.0",
 		"bumpp": "^10.2.2",
 		"eslint": "^9.32.0",
