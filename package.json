@@ -22,7 +22,7 @@
 		"bumpp": "^10.2.2",
 		"eslint": "^9.32.0",
 		"prettier": "^3.6.2",
-		"tsdown": "^0.13.2",
+		"tsdown": "^0.15.0",
 		"typescript": "^5.9.2",
 		"vite": "^7.0.6",
 		"vite-tsconfig-paths": "^5.1.4",
