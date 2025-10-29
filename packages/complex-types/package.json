@@ -76,7 +76,7 @@
 	},
 	"devDependencies": {
 		"@nuxt/schema": "catalog:",
-		"@vue-macros/better-define": "^1.11.4",
+		"@vue-macros/better-define": "^3.1.1",
 		"rolldown": "catalog:",
 		"rollup": "catalog:",
 		"vite": "catalog:",

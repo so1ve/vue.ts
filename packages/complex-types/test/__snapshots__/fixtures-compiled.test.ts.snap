@@ -690,6 +690,10 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 			type: Function,
 			required: false
 		},
+		onFormdata: {
+			type: Function,
+			required: false
+		},
 		onInput: {
 			type: Function,
 			required: false
@@ -703,6 +707,14 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 			required: false
 		},
 		onInvalid: {
+			type: Function,
+			required: false
+		},
+		onFullscreenchange: {
+			type: Function,
+			required: false
+		},
+		onFullscreenerror: {
 			type: Function,
 			required: false
 		},
@@ -723,18 +735,6 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 			required: false
 		},
 		onKeyup: {
-			type: Function,
-			required: false
-		},
-		onAuxclick: {
-			type: Function,
-			required: false
-		},
-		onClick: {
-			type: Function,
-			required: false
-		},
-		onContextmenu: {
 			type: Function,
 			required: false
 		},
@@ -886,6 +886,26 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 			type: Function,
 			required: false
 		},
+		onAuxclick: {
+			type: Function,
+			required: false
+		},
+		onClick: {
+			type: Function,
+			required: false
+		},
+		onContextmenu: {
+			type: Function,
+			required: false
+		},
+		onGotpointercapture: {
+			type: Function,
+			required: false
+		},
+		onLostpointercapture: {
+			type: Function,
+			required: false
+		},
 		onPointerdown: {
 			type: Function,
 			required: false
@@ -918,7 +938,19 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 			type: Function,
 			required: false
 		},
+		onBeforetoggle: {
+			type: Function,
+			required: false
+		},
+		onToggle: {
+			type: Function,
+			required: false
+		},
 		onWheel: {
+			type: Function,
+			required: false
+		},
+		onAnimationcancel: {
 			type: Function,
 			required: false
 		},
@@ -934,7 +966,19 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 			type: Function,
 			required: false
 		},
+		onSecuritypolicyviolation: {
+			type: Function,
+			required: false
+		},
+		onTransitioncancel: {
+			type: Function,
+			required: false
+		},
 		onTransitionend: {
+			type: Function,
+			required: false
+		},
+		onTransitionrun: {
 			type: Function,
 			required: false
 		},

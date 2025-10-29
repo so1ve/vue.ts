@@ -19,18 +19,14 @@ describe("fixtures compiled", async () => {
 		["__fixtures__/**/*.vue", "!__fixtures__/**/*.exclude.vue"],
 		(_args, id) =>
 			rollupBuild(id, [
-				// @ts-expect-error
 				VueComplexTypes({
 					tsconfigPath: join(__dirname, "__fixtures__", "tsconfig.json"),
 				}),
-				// @ts-expect-error
 				VueBetterDefine({ isProduction: false }),
-				// @ts-expect-error
 				RollupVue(),
 				RollupVueJsx(),
 				RollupJson(),
 				RollupNodeResolve(),
-				// @ts-expect-error
 				UnpluginOxc.rollup(),
 			]),
 		{

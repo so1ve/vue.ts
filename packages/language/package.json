@@ -38,8 +38,8 @@
 		"watch": "tsdown --watch"
 	},
 	"dependencies": {
-		"@volar/typescript": "~2.4.22",
+		"@volar/typescript": "~2.4.23",
 		"@vue.ts/shared": "workspace:*",
-		"@vue/language-core": "3.0.1"
+		"@vue/language-core": "^3.1.2"
 	}
 }

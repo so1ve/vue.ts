@@ -37,6 +37,6 @@
 		"watch": "tsdown --watch"
 	},
 	"dependencies": {
-		"@rollup/pluginutils": "^5.2.0"
+		"@rollup/pluginutils": "^5.3.0"
 	}
 }

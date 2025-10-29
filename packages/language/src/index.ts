@@ -21,29 +21,55 @@ function createLanguage(
 	const tsconfig = normalizePath(tsconfigPath);
 
 	return createLanguageWorker(
-		() => vue.createParsedCommandLine(ts, ts.sys, tsconfigPath, true),
-		path.dirname(tsconfig),
 		ts,
+		() => {
+			const commandLine = vue.createParsedCommandLine(ts, ts.sys, tsconfig);
+			const { fileNames } = ts.parseJsonSourceFileConfigFileContent(
+				ts.readJsonConfigFile(tsconfig, ts.sys.readFile),
+				ts.sys,
+				path.dirname(tsconfig),
+				{},
+				tsconfig,
+				undefined,
+				vue.getAllExtensions(commandLine.vueOptions).map((extension) => ({
+					extension: extension.slice(1),
+					isMixedContent: true,
+					scriptKind: ts.ScriptKind.Deferred,
+				})),
+			);
+
+			return [commandLine, fileNames];
+		},
+		path.dirname(tsconfig),
 	);
 }
 
 function createLanguageWorker(
-	loadParsedCommandLine: () => vue.ParsedCommandLine,
-	rootPath: string,
 	ts: typeof import("typescript/lib/tsserverlibrary"),
+	getConfigAndFiles: () => [
+		commandLine: vue.ParsedCommandLine,
+		fileNames: string[],
+	],
+	rootPath: string,
 ) {
-	let parsedCommandLine = loadParsedCommandLine();
-	let fileNames = new Set(
-		parsedCommandLine.fileNames.map((fileName) => normalizePath(fileName)),
+	let [{ vueOptions, options, projectReferences }, fileNames] =
+		getConfigAndFiles();
+	let fileNamesSet = new Set(
+		fileNames.map((fileName) => normalizePath(fileName)),
 	);
 	let projectVersion = 0;
+
+	vueOptions.globalTypesPath = vue.createGlobalTypesWriter(
+		vueOptions,
+		ts.sys.writeFile,
+	);
 
 	const projectHost: TypeScriptProjectHost = {
 		getCurrentDirectory: () => rootPath,
 		getProjectVersion: () => projectVersion.toString(),
-		getCompilationSettings: () => parsedCommandLine.options,
-		getScriptFileNames: () => [...fileNames],
-		getProjectReferences: () => parsedCommandLine.projectReferences,
+		getCompilationSettings: () => options,
+		getScriptFileNames: () => [...fileNamesSet],
+		getProjectReferences: () => projectReferences,
 	};
 
 	const scriptSnapshots = new Map<string, ts.IScriptSnapshot | undefined>();
@@ -51,7 +77,7 @@ function createLanguageWorker(
 	const vueLanguagePlugin = vue.createVueLanguagePlugin<string>(
 		ts,
 		projectHost.getCompilationSettings(),
-		parsedCommandLine.vueOptions,
+		vueOptions,
 		(id) => id,
 	);
 
@@ -112,31 +138,29 @@ function createLanguageWorker(
 	const program = tsLs.getProgram()!;
 	const typeChecker = program.getTypeChecker();
 
-	const helpers = createHelpers(
-		language,
-		program,
-		parsedCommandLine.vueOptions,
-		ts,
-	);
+	const helpers = createHelpers(language, program, vueOptions, ts);
 
 	return {
 		...helpers,
 		updateFile(fileName: string, text: string) {
 			fileName = normalizePath(fileName);
 			scriptSnapshots.set(fileName, ts.ScriptSnapshot.fromString(text));
-			fileNames.add(fileName);
+			fileNamesSet.add(fileName);
 			projectVersion++;
 		},
 		deleteFile(fileName: string) {
 			fileName = normalizePath(fileName);
-			fileNames.delete(fileName);
+			fileNamesSet.delete(fileName);
 			projectVersion++;
 		},
 		reload() {
-			parsedCommandLine = loadParsedCommandLine();
-			fileNames = new Set(
-				parsedCommandLine.fileNames.map((fileName) => normalizePath(fileName)),
+			[{ vueOptions, options, projectReferences }, fileNames] =
+				getConfigAndFiles();
+			vueOptions.globalTypesPath = vue.createGlobalTypesWriter(
+				vueOptions,
+				ts.sys.writeFile,
 			);
+			fileNamesSet = new Set(fileNames.map(normalizePath));
 			this.clearCache();
 		},
 		clearCache() {

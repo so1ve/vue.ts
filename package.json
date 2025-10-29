@@ -1,7 +1,7 @@
 {
 	"private": true,
 	"version": "1.0.0-beta.5",
-	"packageManager": "pnpm@10.14.0",
+	"packageManager": "pnpm@10.20.0",
 	"type": "module",
 	"scripts": {
 		"build": "pnpm -r run build",
@@ -13,20 +13,20 @@
 		"typecheck": "tsgo --noEmit"
 	},
 	"devDependencies": {
-		"@antfu/ni": "^25.0.0",
-		"@so1ve/eslint-config": "^3.8.0",
-		"@so1ve/prettier-config": "^3.8.0",
-		"@types/node": "^24.1.0",
+		"@antfu/ni": "^27.0.1",
+		"@so1ve/eslint-config": "^3.11.2",
+		"@so1ve/prettier-config": "^3.11.2",
+		"@types/node": "^24.9.2",
 		"@typescript/native-preview": "7.0.0-dev.20250711.1",
-		"@vue-macros/test-utils": "^2.0.0",
-		"bumpp": "^10.2.2",
-		"eslint": "^9.32.0",
+		"@vue-macros/test-utils": "^3.1.1",
+		"bumpp": "^10.3.1",
+		"eslint": "^9.38.0",
 		"prettier": "^3.6.2",
-		"tsdown": "^0.13.2",
-		"typescript": "^5.9.2",
-		"vite": "^7.0.6",
+		"tsdown": "^0.15.11",
+		"typescript": "^5.9.3",
+		"vite": "^7.1.12",
 		"vite-tsconfig-paths": "^5.1.4",
-		"vitest": "^3.2.4",
-		"vue": "^3.5.18"
+		"vitest": "^4.0.5",
+		"vue": "^3.5.22"
 	}
 }
