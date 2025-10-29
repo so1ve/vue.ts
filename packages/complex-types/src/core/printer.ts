@@ -86,13 +86,6 @@ export class Printer {
 			> = {};
 			for (const prop of properties) {
 				const propType = this.checker.getTypeOfSymbol(prop);
-				const node = prop.declarations?.[0];
-				const hasQuestionToken = !!(
-					node &&
-					ts.isPropertySignature(node) &&
-					node.questionToken
-				);
-
 				props[prop.getName()] = {
 					value: this.printType(propType, true),
 					isOptional: this.isSymbolOptional(prop),
