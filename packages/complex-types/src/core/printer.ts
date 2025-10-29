@@ -25,10 +25,8 @@ export class Printer {
 		].join(separator);
 	}
 
-	private containsUndefined(type: ts.Type): boolean {
-		return type.isUnion()
-			? type.types.some((t) => t.flags & ts.TypeFlags.Undefined)
-			: !!(type.flags & ts.TypeFlags.Undefined);
+	private isSymbolOptional(symbol: ts.Symbol): boolean {
+		return !!(symbol.flags & ts.SymbolFlags.Optional);
 	}
 
 	private printConditionType(type: ts.ConditionalType, inner: boolean): string {
@@ -88,9 +86,16 @@ export class Printer {
 			> = {};
 			for (const prop of properties) {
 				const propType = this.checker.getTypeOfSymbol(prop);
+				const node = prop.declarations?.[0];
+				const hasQuestionToken = !!(
+					node &&
+					ts.isPropertySignature(node) &&
+					node.questionToken
+				);
+
 				props[prop.getName()] = {
 					value: this.printType(propType, true),
-					isOptional: this.containsUndefined(propType),
+					isOptional: this.isSymbolOptional(prop),
 				};
 			}
 

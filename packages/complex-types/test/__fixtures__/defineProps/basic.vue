@@ -29,6 +29,7 @@ defineProps<
 		symbol: symbol;
 		'quotes"': string;
 		enum: SomeEnum;
+		anyQuestion?: any;
 	} & SomeInterface & {
 			[MappedString in "1-1" | "1-2"]: `${MappedString}MappedType`;
 		} & {

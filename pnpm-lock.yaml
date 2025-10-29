@@ -37,12 +37,6 @@ catalogs:
     esbuild:
       specifier: '*'
       version: 0.25.6
-    typescript:
-      specifier: '>=5.9.3'
-      version: 5.9.3
-    vue:
-      specifier: '>=3.5.22'
-      version: 3.5.22
 
 importers:
 
@@ -108,6 +102,9 @@ importers:
       '@vue.ts/shared':
         specifier: workspace:*
         version: link:../shared
+      '@vue/shared':
+        specifier: ^3.5.22
+        version: 3.5.22
       defu:
         specifier: ^6.1.4
         version: 6.1.4
@@ -6850,7 +6847,7 @@ snapshots:
       '@babel/types': 7.28.2
       '@vue/babel-helper-vue-transform-on': 1.5.0
       '@vue/babel-plugin-resolve-type': 1.5.0(@babel/core@7.28.5)
-      '@vue/shared': 3.5.18
+      '@vue/shared': 3.5.22
     optionalDependencies:
       '@babel/core': 7.28.5
     transitivePeerDependencies:
