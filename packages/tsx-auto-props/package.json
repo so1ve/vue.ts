@@ -1,6 +1,6 @@
 {
 	"name": "@vue.ts/tsx-auto-props",
-	"version": "1.0.0-beta.5",
+	"version": "1.0.0-beta.6",
 	"author": "Ray <i@mk1.io> (@so1ve)",
 	"type": "module",
 	"description": "Automatically add props definition for Vue 3 TSX.",
