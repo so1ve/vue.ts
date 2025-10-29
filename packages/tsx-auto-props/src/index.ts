@@ -15,6 +15,7 @@ export const unpluginFactory: UnpluginFactory<Options | undefined> = (
 
 	return {
 		name: "@vue.ts/tsx-auto-props",
+		enforce: "pre",
 
 		buildStart() {
 			const resolvedOptions = resolveOptions(options);

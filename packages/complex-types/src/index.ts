@@ -15,6 +15,7 @@ export const unpluginFactory: UnpluginFactory<Options | undefined> = (
 
 	return {
 		name: "@vue.ts/complex-types",
+		enforce: "pre",
 
 		buildStart() {
 			const resolvedOptions = resolveOptions(options);
