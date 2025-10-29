@@ -16,11 +16,14 @@ export class Printer {
 	private printUnionOrIntersection(
 		type: ts.UnionOrIntersectionType,
 		separator: string,
+		isPropertyBlacklisted: (prop: string) => boolean,
 		inner: boolean,
 	): string {
 		return [
 			...new Set(
-				type.types.map((t) => this.printType(t, inner)).filter(Boolean),
+				type.types
+					.map((t) => this.printType(t, isPropertyBlacklisted, inner))
+					.filter(Boolean),
 			),
 		].join(separator);
 	}
@@ -29,13 +32,17 @@ export class Printer {
 		return !!(symbol.flags & ts.SymbolFlags.Optional);
 	}
 
-	private printConditionType(type: ts.ConditionalType, inner: boolean): string {
+	private printConditionType(
+		type: ts.ConditionalType,
+		isPropertyBlacklisted: (prop: string) => boolean,
+		inner: boolean,
+	): string {
 		const decl = type.root.node;
 		const { trueType, falseType } = decl;
 		const trueTypeNode = this.checker.getTypeAtLocation(trueType);
 		const falseTypeNode = this.checker.getTypeAtLocation(falseType);
 
-		return `${this.printType(trueTypeNode, inner)} | ${this.printType(falseTypeNode, inner)}`;
+		return `${this.printType(trueTypeNode, isPropertyBlacklisted, inner)} | ${this.printType(falseTypeNode, isPropertyBlacklisted, inner)}`;
 	}
 
 	private printPrimitiveType(type: ts.Type): string {
@@ -58,11 +65,25 @@ export class Printer {
 		return "";
 	}
 
-	private printType(type: ts.Type, inner = false): string {
+	private printType(
+		type: ts.Type,
+		isPropertyBlacklisted: (prop: string) => boolean,
+		inner = false,
+	): string {
 		if (type.isUnion()) {
-			return this.printUnionOrIntersection(type, " | ", inner);
+			return this.printUnionOrIntersection(
+				type,
+				" | ",
+				isPropertyBlacklisted,
+				inner,
+			);
 		} else if (type.isIntersection()) {
-			return this.printUnionOrIntersection(type, " & ", inner);
+			return this.printUnionOrIntersection(
+				type,
+				" & ",
+				isPropertyBlacklisted,
+				inner,
+			);
 		}
 		if (this.checker.isArrayType(type)) {
 			return "Array";
@@ -86,8 +107,13 @@ export class Printer {
 			> = {};
 			for (const prop of properties) {
 				const propType = this.checker.getTypeOfSymbol(prop);
-				props[prop.getName()] = {
-					value: this.printType(propType, true),
+				const name = prop.getName();
+				if (isPropertyBlacklisted(name)) {
+					continue;
+				}
+
+				props[name] = {
+					value: this.printType(propType, isPropertyBlacklisted, true),
 					isOptional: this.isSymbolOptional(prop),
 				};
 			}
@@ -113,7 +139,11 @@ export class Printer {
 		} else if (type.flags & ts.TypeFlags.Undefined) {
 			return "";
 		} else if (type.flags & ts.TypeFlags.Conditional) {
-			return this.printConditionType(type as ts.ConditionalType, inner);
+			return this.printConditionType(
+				type as ts.ConditionalType,
+				isPropertyBlacklisted,
+				inner,
+			);
 		} else if (type.isTypeParameter()) {
 			const symbol = type.getSymbol();
 			const decl = symbol?.declarations?.[0];
@@ -126,16 +156,19 @@ export class Printer {
 			}
 			const refType = this.checker.getTypeAtLocation(ref);
 
-			return this.printType(refType, inner);
+			return this.printType(refType, isPropertyBlacklisted, inner);
 		}
 
 		return this.typeToString(type);
 	}
 
-	public printPropsTypeArg(node: ts.Node): string {
+	public printPropsTypeArg(
+		node: ts.Node,
+		isPropertyBlacklisted: (prop: string) => boolean,
+	): string {
 		const type = this.checker.getTypeAtLocation(node);
 
-		return this.printType(type);
+		return this.printType(type, isPropertyBlacklisted);
 	}
 
 	private printEventsByCallSignatures(

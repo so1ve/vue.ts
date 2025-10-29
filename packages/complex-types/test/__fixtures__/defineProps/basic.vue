@@ -30,6 +30,8 @@ defineProps<
 		'quotes"': string;
 		enum: SomeEnum;
 		anyQuestion?: any;
+		// Reserved Property
+		onVnodeUpdated: 1;
 	} & SomeInterface & {
 			[MappedString in "1-1" | "1-2"]: `${MappedString}MappedType`;
 		} & {

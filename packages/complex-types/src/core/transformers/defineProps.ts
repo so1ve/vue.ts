@@ -1,3 +1,4 @@
+import { isReservedProp } from "@vue/shared";
 import { getLanguage } from "@vue.ts/language";
 import { normalizePath } from "@vue.ts/shared";
 
@@ -23,7 +24,10 @@ export const transformDefineProps: Transformer = (printer, s, id) => {
 		return;
 	}
 
-	const printedType = printer.printPropsTypeArg(virtualFileDefinePropsTypeNode);
+	const printedType = printer.printPropsTypeArg(
+		virtualFileDefinePropsTypeNode,
+		isReservedProp,
+	);
 	const offset = scriptSetupBlock.startTagEnd;
 
 	s.overwrite(

@@ -153,6 +153,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 			type: [String, Number],
 			required: true
 		},
+		anyQuestion: { required: false },
 		emptyInterface: {
 			type: Object,
 			required: true
@@ -263,7 +264,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 			type: String,
 			required: false
 		},
-		class: { required: true },
+		class: { required: false },
 		style: {
 			type: [String, Boolean],
 			skipCheck: true,
@@ -341,7 +342,7 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 			type: String,
 			required: false
 		},
-		inlist: { required: true },
+		inlist: { required: false },
 		prefix: {
 			type: String,
 			required: false
