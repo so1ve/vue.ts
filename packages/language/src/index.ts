@@ -116,7 +116,7 @@ function createLanguageWorker(
 	const { languageServiceHost } = createLanguageServiceHost(
 		ts,
 		ts.sys,
-		language as any,
+		language,
 		(s) => s,
 		projectHost,
 	);
