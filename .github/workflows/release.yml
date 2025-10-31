@@ -16,10 +16,19 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Setup PNPM
+        run: corepack enable
+
       - uses: actions/setup-node@v3
         with:
           node-version: 24.x
 
-      - run: npx changelogithub
+      - name: Setup
+        run: pnpm i -g @antfu/ni
+
+      - name: Install
+        run: nci
+
+      - run: nlx changelogithub
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
