@@ -6,11 +6,7 @@ import { Printer } from "./printer";
 import { getTransformers } from "./transformers";
 import type { TransformOptions } from "./types";
 
-export function transform(
-	code: string,
-	id: string,
-	options: TransformOptions,
-): TransformResult {
+export function transform(code: string, id: string, options: TransformOptions) {
 	const s = new MagicString(code);
 	const language = getLanguage();
 	const typeChecker = language.__internal__.typeChecker;
@@ -24,5 +20,5 @@ export function transform(
 	return {
 		code: s.toString(),
 		map: s.generateMap({ hires: true }),
-	};
+	} satisfies TransformResult;
 }
