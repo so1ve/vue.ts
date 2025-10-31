@@ -1,4 +1,4 @@
-import type { FilterPattern } from "@rollup/pluginutils";
+import type { FilterPattern } from "unplugin";
 
 export interface BaseOptions {
 	include?: FilterPattern;

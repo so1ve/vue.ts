@@ -22,10 +22,10 @@ catalogs:
       specifier: ^4.52.5
       version: 4.52.5
     unplugin:
-      specifier: ^2.3.10
+      specifier: 2.3.10
       version: 2.3.10
     vite:
-      specifier: ^7.1.12
+      specifier: 7.1.12
       version: 7.1.12
     webpack:
       specifier: ^5.102.1
@@ -126,6 +126,9 @@ importers:
       unplugin:
         specifier: 'catalog:'
         version: 2.3.10
+      unplugin-utils:
+        specifier: ^0.3.1
+        version: 0.3.1
       vue:
         specifier: catalog:peer
         version: 3.5.22(typescript@5.9.3)
@@ -162,10 +165,13 @@ importers:
         version: 3.1.2(typescript@5.9.3)
 
   packages/shared:
-    dependencies:
-      '@rollup/pluginutils':
-        specifier: ^5.3.0
-        version: 5.3.0(rollup@4.52.5)
+    devDependencies:
+      unplugin:
+        specifier: 'catalog:'
+        version: 2.3.10
+      vite:
+        specifier: 'catalog:'
+        version: 7.1.12(@types/node@24.9.2)(jiti@2.6.1)(terser@5.44.0)(yaml@2.8.1)
 
   packages/tsx-auto-props:
     dependencies:

@@ -73,7 +73,8 @@
 		"@vue/shared": "^3.5.22",
 		"defu": "^6.1.4",
 		"magic-string": "catalog:",
-		"unplugin": "catalog:"
+		"unplugin": "catalog:",
+		"unplugin-utils": "^0.3.1"
 	},
 	"devDependencies": {
 		"@nuxt/schema": "catalog:",

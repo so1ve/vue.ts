@@ -1,7 +1,7 @@
 import { ensureLanguage, getLanguage } from "@vue.ts/language";
-import { createFilter } from "@vue.ts/shared";
 import type { UnpluginFactory } from "unplugin";
 import { createUnplugin } from "unplugin";
+import { createFilter } from "unplugin-utils";
 
 import { transform } from "./core/transform";
 import type { Options } from "./core/types";
@@ -66,12 +66,14 @@ export const unpluginFactory: UnpluginFactory<Options | undefined> = (
 			ensureLanguage(resolvedOptions.tsconfigPath);
 		},
 
-		transform(code, id) {
-			if (!filter(id)) {
-				return;
-			}
-
-			return transform(code, id, resolvedOptions);
+		transform: {
+			filter: {
+				id: {
+					include: resolvedOptions.include,
+					exclude: resolvedOptions.exclude,
+				},
+			},
+			handler: (code, id) => transform(code, id, resolvedOptions),
 		},
 	};
 };
