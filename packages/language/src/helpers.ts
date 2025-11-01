@@ -3,7 +3,7 @@ import type ts from "typescript/lib/tsserverlibrary";
 
 export function createHelpers(
 	language: vue.Language<string>,
-	program: ts.Program,
+	tsLs: ts.LanguageService,
 	vueCompilerOptions: vue.VueCompilerOptions,
 	ts: typeof import("typescript/lib/tsserverlibrary"),
 ) {
@@ -37,6 +37,7 @@ export function createHelpers(
 	}
 
 	function getVirtualFileOrTsAst(normalizedFilepath: string) {
+		const program = tsLs.getProgram()!;
 		let virtualFileOrTsAst = program.getSourceFile(normalizedFilepath);
 		if (virtualFileOrTsAst) {
 			return virtualFileOrTsAst;

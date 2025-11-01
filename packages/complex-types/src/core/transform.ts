@@ -9,8 +9,8 @@ import type { TransformOptions } from "./types";
 export function transform(code: string, id: string, options: TransformOptions) {
 	const s = new MagicString(code);
 	const language = getLanguage();
-	const typeChecker = language.__internal__.typeChecker;
-	const printer = new Printer(typeChecker);
+	const checker = language.tsLs.getProgram()!.getTypeChecker();
+	const printer = new Printer(checker);
 	const transformers = getTransformers(options);
 
 	for (const [, transform] of transformers) {

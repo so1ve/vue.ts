@@ -17,7 +17,7 @@ export function transform(code: string, id: string): TransformResult {
 	const s = new MagicString(code);
 	const normalizedFilepath = normalizePath(id);
 	const language = getLanguage();
-	const typeChecker = language.__internal__.typeChecker;
+	const checker = language.tsLs.getProgram()!.getTypeChecker();
 	// This transform is supposed to be used in `.tsx` files not Vue SFCs.
 	const ast = language.getVirtualFileOrTsAst(normalizedFilepath);
 	if (!ast) {
@@ -29,7 +29,7 @@ export function transform(code: string, id: string): TransformResult {
 			return;
 		}
 		const identifier = node.expression;
-		const symbol = typeChecker.getSymbolAtLocation(identifier);
+		const symbol = checker.getSymbolAtLocation(identifier);
 		// This is a `defineComponent` call...
 		if (
 			symbol?.declarations?.some(
@@ -73,7 +73,7 @@ export function transform(code: string, id: string): TransformResult {
 			}
 			const props = setupFn?.parameters[0];
 			if (props) {
-				const propsList = typeChecker
+				const propsList = checker
 					.getTypeAtLocation(props)
 					.getProperties()
 					.map((p) => p.name);

@@ -135,13 +135,11 @@ function createLanguageWorker(
 		return getScriptKind!(fileName);
 	};
 
-	const program = tsLs.getProgram()!;
-	const typeChecker = program.getTypeChecker();
-
-	const helpers = createHelpers(language, program, vueOptions, ts);
+	const helpers = createHelpers(language, tsLs, vueOptions, ts);
 
 	return {
 		...helpers,
+		tsLs,
 		updateFile(fileName: string, text: string) {
 			fileName = normalizePath(fileName);
 			scriptSnapshots.set(fileName, ts.ScriptSnapshot.fromString(text));
@@ -166,11 +164,6 @@ function createLanguageWorker(
 		clearCache() {
 			scriptSnapshots.clear();
 			projectVersion++;
-		},
-		__internal__: {
-			tsLs,
-			program,
-			typeChecker,
 		},
 	};
 }
