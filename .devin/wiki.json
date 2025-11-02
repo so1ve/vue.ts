@@ -1,100 +1,58 @@
 {
 	"repo_notes": [
 		{
-			"content": ""
+			"content": "For every plugins, make sure to link to the 'Build Tool Integration' page for setting up bundlers and list available options for configuring them."
 		}
 	],
 	"pages": [
 		{
 			"title": "Overview",
 			"purpose": "Introduce the Vue.ts repository, explaining its purpose, goals, and the problems it solves for Vue.js TypeScript development",
-			"page_notes": [
-				{
-					"content": ""
-				}
-			]
+			"page_notes": []
 		},
 		{
 			"title": "Architecture",
 			"purpose": "Document the high-level architecture of the Vue.ts system, including the relationships between packages and their integration points",
 			"parent": "Overview",
-			"page_notes": [
-				{
-					"content": ""
-				}
-			]
+			"page_notes": []
 		},
 		{
 			"title": "Plugins",
 			"purpose": "List available plugins in this project",
-			"page_notes": [
-				{
-					"content": ""
-				}
-			]
+			"page_notes": []
 		},
 		{
 			"title": "@vue.ts/complex-types",
 			"purpose": "Document the @vue.ts/complex-types package, its purpose, usage, and internal implementation",
 			"parent": "Plugins",
-			"page_notes": [
-				{
-					"content": "List available options for configuring complex-types"
-				},
-				{
-					"content": "Link to 'Build Tool Integration' page for setting up bundlers"
-				}
-			]
+			"page_notes": []
 		},
 		{
 			"title": "@vue.ts/tsx-auto-props",
 			"purpose": "Document the @vue.ts/tsx-auto-props package, its purpose, usage, and internal implementation",
 			"parent": "Plugins",
-			"page_notes": [
-				{
-					"content": "List available options for configuring tsx-auto-props"
-				},
-				{
-					"content": "Link to 'Build Tool Integration' page for setting up bundlers"
-				}
-			]
+			"page_notes": []
 		},
 		{
 			"title": "Internal Packages",
 			"purpose": "List available internal packages in this project",
-			"page_notes": [
-				{
-					"content": ""
-				}
-			]
+			"page_notes": []
 		},
 		{
 			"title": "@vue.ts/language",
 			"purpose": "Document the @vue.ts/language package, its integration with Volar.js, TypeScript and Vue language services",
 			"parent": "Internal Packages",
-			"page_notes": [
-				{
-					"content": ""
-				}
-			]
+			"page_notes": []
 		},
 		{
 			"title": "Build Tool Integration",
 			"purpose": "Explain how Vue.ts integrates with various build tools (Vite, Webpack, Rollup, etc.)",
-			"page_notes": [
-				{
-					"content": ""
-				}
-			]
+			"page_notes": []
 		},
 		{
 			"title": "How to Contribute",
 			"purpose": "Provide guidelines for contributing to the Vue.ts project, including code style, code, tests, and submitting pull requests",
-			"page_notes": [
-				{
-					"content": ""
-				}
-			]
+			"page_notes": []
 		}
 	]
 }
