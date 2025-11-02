@@ -1,5 +1,7 @@
 # Vue.ts - Enhance your Vue.js experience with TypeScript
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/so1ve/vue.ts)
+
 This repo contains a set of [unplugin](https://github.com/unjs/unplugin) plugins for Vue.js 3, including the following:
 
 - [@vue.ts/complex-types](./packages/complex-types) - Use @vue/language-core to support complex types for Vue Macros.
