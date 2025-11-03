@@ -5,7 +5,7 @@ catalog:
   "@nuxt/kit": ^4.2.0
   "@nuxt/schema": ^4.2.0
   magic-string: ^0.30.21
-  rolldown: 1.0.0-beta.45
+  rolldown: 1.0.0-beta.46
   rollup: ^4.52.5
   unplugin: 2.3.10
   vite: 7.1.12
