@@ -6,12 +6,6 @@ settings:
 
 catalogs:
   default:
-    '@nuxt/kit':
-      specifier: ^4.2.0
-      version: 4.2.0
-    '@nuxt/schema':
-      specifier: ^4.2.0
-      version: 4.2.0
     magic-string:
       specifier: ^0.30.21
       version: 0.30.21
@@ -91,7 +85,7 @@ importers:
         version: 1.7.11(@types/node@24.10.0)
       '@nuxt/kit':
         specifier: 'catalog:'
-        version: 4.2.0
+        version: 4.2.1
       '@vue.ts/language':
         specifier: workspace:*
         version: link:../language
@@ -125,7 +119,7 @@ importers:
     devDependencies:
       '@nuxt/schema':
         specifier: 'catalog:'
-        version: 4.2.0
+        version: 4.2.1
       '@vue-macros/better-define':
         specifier: ^3.1.1
         version: 3.1.1(vue@3.5.23(typescript@5.9.3))
@@ -170,7 +164,7 @@ importers:
         version: 1.7.11(@types/node@24.10.0)
       '@nuxt/kit':
         specifier: 'catalog:'
-        version: 4.2.0
+        version: 4.2.1
       '@vue.ts/language':
         specifier: workspace:*
         version: link:../language
@@ -189,7 +183,7 @@ importers:
     devDependencies:
       '@nuxt/schema':
         specifier: 'catalog:'
-        version: 4.2.0
+        version: 4.2.1
       rolldown:
         specifier: 'catalog:'
         version: 1.0.0-beta.47
@@ -817,12 +811,12 @@ packages:
     resolution: {integrity: sha512-xhfYPXoV5Dy4UkY0D+v2KkwvnDfiA/8Mt3sWCGI/hM03NsYIH8ZaG6QzS9x7pje5vHZBZJ2v6VRFVTWACnqcmQ==}
     engines: {node: ^16.14.0 || >=18.0.0}
 
-  '@nuxt/kit@4.2.0':
-    resolution: {integrity: sha512-1yN3LL6RDN5GjkNLPUYCbNRkaYnat6hqejPyfIBBVzrWOrpiQeNMGxQM/IcVdaSuBJXAnu0sUvTKXpXkmPhljg==}
+  '@nuxt/kit@4.2.1':
+    resolution: {integrity: sha512-lLt8KLHyl7IClc3RqRpRikz15eCfTRlAWL9leVzPyg5N87FfKE/7EWgWvpiL/z4Tf3dQCIqQb88TmHE0JTIDvA==}
     engines: {node: '>=18.12.0'}
 
-  '@nuxt/schema@4.2.0':
-    resolution: {integrity: sha512-YMbgpEyPokgOYME6BvY8Okk7GAIwhEFYzrkkkoU9IVgu0tKWetYRrjUwbd0eICqPm9EWDBQl5tTTNJ8xCndVbw==}
+  '@nuxt/schema@4.2.1':
+    resolution: {integrity: sha512-kSuma7UztDVyw8eAmN3rKFoaWjNRkJE9+kqwEurpuxG7nCwFPS7sUPSGzovzaofP+xV30tl6wveBEcDRWyQvgA==}
     engines: {node: ^14.18.0 || >=16.10.0}
 
   '@oxc-minify/binding-android-arm64@0.96.0':
@@ -5806,7 +5800,7 @@ snapshots:
     dependencies:
       which: 4.0.0
 
-  '@nuxt/kit@4.2.0':
+  '@nuxt/kit@4.2.1':
     dependencies:
       c12: 3.3.1
       consola: 3.4.2
@@ -5831,7 +5825,7 @@ snapshots:
     transitivePeerDependencies:
       - magicast
 
-  '@nuxt/schema@4.2.0':
+  '@nuxt/schema@4.2.1':
     dependencies:
       '@vue/shared': 3.5.23
       defu: 6.1.4
