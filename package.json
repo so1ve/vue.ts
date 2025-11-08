@@ -17,7 +17,7 @@
 		"@so1ve/eslint-config": "^3.11.2",
 		"@so1ve/prettier-config": "^3.11.2",
 		"@types/node": "^24.9.2",
-		"@typescript/native-preview": "7.0.0-dev.20251107.1",
+		"@typescript/native-preview": "7.0.0-dev.20251108.1",
 		"@vue-macros/test-utils": "^3.1.1",
 		"bumpp": "^10.3.1",
 		"changelogithub": "^13.16.1",
