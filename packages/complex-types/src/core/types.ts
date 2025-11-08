@@ -5,10 +5,7 @@ import type { Printer } from "./printer";
 
 export type ValidTransforms = "defineEmits" | "defineProps";
 
-export type Options = {
-	tsconfigPath?: string;
-} & Partial<Record<ValidTransforms, boolean>> &
-	BaseOptions;
+export type Options = Partial<Record<ValidTransforms, boolean>> & BaseOptions;
 
 export type ResolvedOptions = Required<Options>;
 export type TransformOptions = Pick<ResolvedOptions, ValidTransforms>;

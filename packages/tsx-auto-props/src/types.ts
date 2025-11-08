@@ -1,7 +1,5 @@
 import type { BaseOptions } from "@vue.ts/shared";
 
-export interface Options extends BaseOptions {
-	tsconfigPath?: string;
-}
+export type Options = BaseOptions;
 
 export type ResolvedOptions = Required<Options>;

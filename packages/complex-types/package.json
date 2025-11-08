@@ -71,7 +71,6 @@
 		"@vue.ts/language": "workspace:*",
 		"@vue.ts/shared": "workspace:*",
 		"@vue/shared": "^3.5.22",
-		"defu": "^6.1.4",
 		"magic-string": "catalog:",
 		"unplugin": "catalog:",
 		"unplugin-utils": "^0.3.1"

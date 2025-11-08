@@ -1,19 +1,17 @@
-import { join } from "node:path";
+import { createOptionsResolver } from "@vue.ts/shared";
 
-import { defu } from "defu";
-
-import type { Options, ResolvedOptions } from "./types";
+import type { ResolvedOptions } from "./types";
 
 const defaultOptions: ResolvedOptions = {
+	root: process.cwd(),
 	include: ["**/*.vue"],
 	exclude: ["node_modules/**"],
-	tsconfigPath: join(process.cwd(), "tsconfig.json"),
+	tsconfigPath: "tsconfig.json",
 	defineEmits: true,
 	defineProps: true,
 };
 
-export const resolveOptions = (rawOptions: Options) =>
-	defu(rawOptions, defaultOptions) as ResolvedOptions;
+export const resolveOptions = createOptionsResolver(defaultOptions);
 
 const quotesReg = /"/g;
 export const escapeQuotes = (s: string) => s.replace(quotesReg, '\\"');

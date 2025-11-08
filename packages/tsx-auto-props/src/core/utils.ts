@@ -1,14 +1,16 @@
-import { join } from "node:path";
-
+import { createOptionsResolver } from "@vue.ts/shared";
 import ts from "typescript";
 
-import type { Options, ResolvedOptions } from "../types";
+import type { ResolvedOptions } from "../types";
 
-export const resolveOptions = (rawOptions: Options): ResolvedOptions => ({
-	include: rawOptions.include ?? ["**/*.vue", "**/*.tsx"],
-	exclude: rawOptions.exclude ?? ["node_modules/**"],
-	tsconfigPath: rawOptions.tsconfigPath ?? join(process.cwd(), "tsconfig.json"),
-});
+const defaultOptions: ResolvedOptions = {
+	root: process.cwd(),
+	include: ["**/*.vue", "**/*.tsx"],
+	exclude: ["node_modules/**"],
+	tsconfigPath: "tsconfig.json",
+};
+
+export const resolveOptions = createOptionsResolver(defaultOptions);
 
 export function getNodeAssignNode(node: ts.Node) {
 	let parent: ts.Node | null = null;

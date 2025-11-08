@@ -36,6 +36,9 @@
 		"prepublishOnly": "nr build",
 		"watch": "tsdown --watch"
 	},
+	"dependencies": {
+		"defu": "^6.1.4"
+	},
 	"devDependencies": {
 		"unplugin": "catalog:",
 		"vite": "catalog:"
