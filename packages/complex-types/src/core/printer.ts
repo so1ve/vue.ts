@@ -27,10 +27,6 @@ export class Printer {
 		].join(separator);
 	}
 
-	private isSymbolOptional(symbol: ts.Symbol): boolean {
-		return !!(symbol.flags & ts.SymbolFlags.Optional);
-	}
-
 	private printConditionType(type: ts.ConditionalType, inner: boolean): string {
 		const decl = type.root.node;
 		const { trueType, falseType } = decl;
@@ -95,7 +91,7 @@ export class Printer {
 
 				props[name] = {
 					value: this.printType(propType, true),
-					isOptional: this.isSymbolOptional(prop),
+					isOptional: !!(prop.flags & ts.SymbolFlags.Optional),
 				};
 			}
 
