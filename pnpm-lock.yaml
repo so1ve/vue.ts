@@ -136,15 +136,9 @@ importers:
       '@nuxt/schema':
         specifier: 'catalog:'
         version: 4.2.1
-      '@vitejs/plugin-vue':
-        specifier: ^6.0.1
-        version: 6.0.1(vite@7.2.2(@types/node@24.10.0)(jiti@2.6.1)(terser@5.44.0)(yaml@2.8.1))(vue@3.5.24(typescript@5.9.3))
       '@vue-macros/better-define':
         specifier: ^3.1.1
         version: 3.1.1(vue@3.5.24(typescript@5.9.3))
-      '@vue/tsconfig':
-        specifier: ^0.8.1
-        version: 0.8.1(typescript@5.9.3)(vue@3.5.24(typescript@5.9.3))
       rolldown:
         specifier: 'catalog:'
         version: 1.0.0-beta.47
@@ -154,9 +148,6 @@ importers:
       vite:
         specifier: 'catalog:'
         version: 7.2.2(@types/node@24.10.0)(jiti@2.6.1)(terser@5.44.0)(yaml@2.8.1)
-      vite-plugin-inspect:
-        specifier: ^11.3.3
-        version: 11.3.3(@nuxt/kit@4.2.1)(vite@7.2.2(@types/node@24.10.0)(jiti@2.6.1)(terser@5.44.0)(yaml@2.8.1))
       webpack:
         specifier: 'catalog:'
         version: 5.102.1(esbuild@0.25.12)
@@ -173,6 +164,9 @@ importers:
       '@vue.ts/complex-types':
         specifier: 1.0.0-beta.11
         version: 1.0.0-beta.11(@farmfe/core@1.7.11(@types/node@24.10.0))(@nuxt/kit@4.2.1)(@nuxt/schema@4.2.1)(esbuild@0.25.12)(rolldown@1.0.0-beta.47)(rollup@4.53.1)(typescript@5.9.3)(vite@7.2.2(@types/node@24.10.0)(jiti@2.6.1)(terser@5.44.0)(yaml@2.8.1))(vue@3.5.24(typescript@5.9.3))(webpack@5.102.1(esbuild@0.25.12))
+      '@vue/tsconfig':
+        specifier: ^0.8.1
+        version: 0.8.1(typescript@5.9.3)(vue@3.5.24(typescript@5.9.3))
       vite:
         specifier: 'catalog:'
         version: 7.2.2(@types/node@24.10.0)(jiti@2.6.1)(terser@5.44.0)(yaml@2.8.1)
