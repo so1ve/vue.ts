@@ -41,20 +41,16 @@ export const unpluginFactory: UnpluginFactory<Options | undefined> = (
 					return;
 				}
 
-				let cached: Promise<string> | undefined;
 				ctx.read = async () => {
-					cached ??= (async () => {
-						const code = await readAndUpdateLanguage();
-						const result = transform(code, file, resolvedOptions);
+					const code = await readAndUpdateLanguage();
+					const result = transform(code, file, resolvedOptions);
 
-						return result?.code ?? code;
-					})();
-
-					return cached;
+					return result?.code ?? code;
 				};
 
-				for (const mod of ctx.modules) {
-					ctx.server.moduleGraph.invalidateModule(mod);
+				const sfcModule = ctx.modules.find((mod) => mod.file === file);
+				if (sfcModule) {
+					return [sfcModule];
 				}
 
 				return ctx.modules;
