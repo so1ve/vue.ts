@@ -7,6 +7,10 @@ This repo contains a set of [unplugin](https://github.com/unjs/unplugin) plugins
 - [@vue.ts/complex-types](./packages/complex-types) - Use @vue/language-core to support complex types for Vue Macros.
 - [@vue.ts/tsx-auto-props](./packages/tsx-auto-props) - Add props for your tsx components automatically.
 
+## Notes
+
+Due to upstream limitations, vue.ts doesn't support tsconfig references. Please either point to something like `tsconfig.app.json`(vite template) or a base `tsconfig.build.json` that includes all necessary options.
+
 ## 📝 License
 
 [MIT](./LICENSE). Made with ❤️ by [Ray](https://github.com/so1ve)
