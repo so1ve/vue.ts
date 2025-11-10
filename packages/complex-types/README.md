@@ -214,12 +214,19 @@ export default defineConfig({
 
 ## 📚 Options
 
+### `root`
+
+Path to your project root.
+
+- Type: `string`
+- Default: `process.cwd()`
+
 ### `tsconfigPath`
 
 Path to your `tsconfig.json`.
 
 - Type: `string`
-- Default: `path.join(process.cwd(), "tsconfig.json")`
+- Default: `"tsconfig.json"`
 
 ### `defineEmits`
 

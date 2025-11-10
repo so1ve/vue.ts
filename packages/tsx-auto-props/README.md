@@ -220,6 +220,22 @@ export default defineConfig({
 
 <br></details>
 
+## 📚 Options
+
+### `root`
+
+Path to your project root.
+
+- Type: `string`
+- Default: `process.cwd()`
+
+### `tsconfigPath`
+
+Path to your `tsconfig.json`.
+
+- Type: `string`
+- Default: `"tsconfig.json"`
+
 ## 📝 License
 
 [MIT](./LICENSE). Made with ❤️ by [Ray](https://github.com/so1ve)
