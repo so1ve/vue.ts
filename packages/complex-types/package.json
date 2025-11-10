@@ -63,6 +63,7 @@
 	},
 	"scripts": {
 		"build": "tsdown",
+		"play": "vite playground",
 		"prepublishOnly": "nr build",
 		"watch": "tsdown --watch"
 	},
@@ -77,7 +78,9 @@
 	},
 	"devDependencies": {
 		"@nuxt/schema": "catalog:",
+		"@vitejs/plugin-vue": "^6.0.1",
 		"@vue-macros/better-define": "^3.1.1",
+		"@vue/tsconfig": "^0.8.1",
 		"rolldown": "catalog:",
 		"rollup": "catalog:",
 		"vite": "catalog:",

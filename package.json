@@ -26,6 +26,7 @@
 		"tsdown": "^0.15.11",
 		"typescript": "^5.9.3",
 		"vite": "^7.1.12",
+		"vite-plugin-inspect": "^11.3.3",
 		"vite-tsconfig-paths": "^5.1.4",
 		"vitest": "^4.0.5",
 		"vue": "^3.5.22"
