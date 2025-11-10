@@ -63,7 +63,7 @@
 	},
 	"scripts": {
 		"build": "tsdown",
-		"play": "vite playground",
+		"play": "npm -C playground run dev",
 		"prepublishOnly": "nr build",
 		"watch": "tsdown --watch"
 	},
@@ -71,16 +71,14 @@
 		"@nuxt/kit": "catalog:",
 		"@vue.ts/language": "workspace:*",
 		"@vue.ts/shared": "workspace:*",
-		"@vue/shared": "^3.5.22",
+		"@vue/shared": "^3.5.24",
 		"magic-string": "catalog:",
 		"unplugin": "catalog:",
 		"unplugin-utils": "^0.3.1"
 	},
 	"devDependencies": {
 		"@nuxt/schema": "catalog:",
-		"@vitejs/plugin-vue": "^6.0.1",
 		"@vue-macros/better-define": "^3.1.1",
-		"@vue/tsconfig": "^0.8.1",
 		"rolldown": "catalog:",
 		"rollup": "catalog:",
 		"vite": "catalog:",

@@ -15,6 +15,7 @@ export default defineConfig({
 		Vue(),
 		ComplexTypes({
 			root: __dirname,
+			tsconfigPath: "./tsconfig.app.json",
 		}),
 		Inspect(),
 	],
