@@ -1,0 +1,25 @@
+{
+	"compilerOptions": {
+		"composite": true,
+		"target": "ESNext",
+		"jsx": "preserve",
+		"jsxImportSource": "vue",
+		"lib": ["ESNext"],
+		"moduleDetection": "force",
+		"module": "ESNext",
+		"moduleResolution": "Bundler",
+		"resolveJsonModule": true,
+		"strict": true,
+		"strictNullChecks": true,
+		"noEmit": true,
+		"esModuleInterop": true,
+		"skipDefaultLibCheck": true,
+		"skipLibCheck": true,
+		"paths": {
+			"@vue.ts/complex-types": ["./packages/complex-types/src/index.ts"],
+			"@vue.ts/language": ["./packages/language/src/index.ts"],
+			"@vue.ts/shared": ["./packages/shared/src/index.ts"],
+			"@vue.ts/tsx-auto-props": ["./packages/tsx-auto-props/src/index.ts"]
+		}
+	}
+}

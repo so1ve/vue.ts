@@ -5,7 +5,7 @@ import { transformDefineProps } from "./defineProps";
 export const transformers = [
 	["defineEmits", transformDefineEmits],
 	["defineProps", transformDefineProps],
-] satisfies Transformers;
+] as Transformers;
 
 export const getTransformers = (options: TransformOptions): Transformers =>
 	transformers.filter(([key]) => !!options[key]);

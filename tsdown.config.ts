@@ -4,6 +4,9 @@ export default defineConfig({
 	workspace: {
 		include: ["packages/*"],
 	},
+	dts: {
+		oxc: true,
+	},
 	external: [
 		"@farmfe/core",
 		"@nuxt/kit",

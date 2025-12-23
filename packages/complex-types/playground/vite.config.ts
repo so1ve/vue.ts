@@ -15,7 +15,7 @@ export default defineConfig({
 		ComplexTypes({
 			root: __dirname,
 			tsconfigPath: "./tsconfig.app.json",
-		}),
+		}) as any,
 		Inspect(),
 	],
 });

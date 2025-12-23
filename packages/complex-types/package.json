@@ -67,7 +67,7 @@
 		"@nuxt/kit": "catalog:",
 		"@vue.ts/language": "workspace:",
 		"@vue.ts/shared": "workspace:",
-		"@vue/shared": "^3.5.24",
+		"@vue/shared": "^3.5.26",
 		"magic-string": "catalog:",
 		"unplugin": "catalog:",
 		"unplugin-utils": "^0.3.1"
@@ -75,46 +75,20 @@
 	"devDependencies": {
 		"@nuxt/schema": "catalog:",
 		"@vue-macros/better-define": "^3.1.1",
-		"rolldown": "catalog:",
-		"rollup": "catalog:",
-		"vite": "catalog:",
-		"webpack": "catalog:"
+		"astro": "catalog:",
+		"rollup": "catalog:"
 	},
 	"peerDependencies": {
-		"@farmfe/core": "catalog:peer",
 		"@nuxt/kit": "catalog:peer",
-		"@nuxt/schema": "catalog:peer",
-		"esbuild": "catalog:peer",
-		"rolldown": "catalog:peer",
-		"rollup": "catalog:peer",
+		"astro": "catalog:peer",
 		"typescript": "catalog:peer",
-		"vite": "catalog:peer",
-		"vue": "catalog:peer",
-		"webpack": "catalog:peer"
+		"vue": "catalog:peer"
 	},
 	"peerDependenciesMeta": {
-		"@farmfe/core": {
-			"optional": true
-		},
 		"@nuxt/kit": {
 			"optional": true
 		},
-		"@nuxt/schema": {
-			"optional": true
-		},
-		"esbuild": {
-			"optional": true
-		},
-		"rolldown": {
-			"optional": true
-		},
-		"rollup": {
-			"optional": true
-		},
-		"vite": {
-			"optional": true
-		},
-		"webpack": {
+		"astro": {
 			"optional": true
 		}
 	}

@@ -1,5 +1,5 @@
 import { ensureLanguage } from "@vue.ts/language";
-import type { UnpluginFactory } from "unplugin";
+import type { UnpluginFactory, UnpluginInstance } from "unplugin";
 import { createUnplugin } from "unplugin";
 
 import { transform } from "./core/transform";
@@ -32,6 +32,7 @@ export const unpluginFactory: UnpluginFactory<Options | undefined> = (
 	};
 };
 
-export const unplugin = /* #__PURE__ */ createUnplugin(unpluginFactory);
+export const unplugin: UnpluginInstance<Options | undefined> =
+	/* #__PURE__ */ createUnplugin(unpluginFactory);
 
 export default unplugin;

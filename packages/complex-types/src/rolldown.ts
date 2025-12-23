@@ -1,5 +1,4 @@
-import { createRolldownPlugin } from "unplugin";
+import { unplugin } from ".";
 
-import { unpluginFactory } from ".";
-
-export default createRolldownPlugin(unpluginFactory);
+// eslint-disable-next-line ts/no-unnecessary-type-assertion
+export default unplugin.rolldown as typeof unplugin.rolldown;

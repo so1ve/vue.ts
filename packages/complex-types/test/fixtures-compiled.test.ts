@@ -21,9 +21,9 @@ describe("fixtures compiled", async () => {
 			rollupBuild(id, [
 				VueComplexTypes({
 					tsconfigPath: join(__dirname, "__fixtures__", "tsconfig.json"),
-				}),
+				}) as any,
 				VueBetterDefine({ isProduction: false }),
-				RollupVue(),
+				RollupVue() as any,
 				RollupVueJsx(),
 				RollupJson(),
 				RollupNodeResolve(),

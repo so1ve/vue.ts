@@ -1,5 +1,4 @@
-import { createFarmPlugin } from "unplugin";
+import { unplugin } from ".";
 
-import { unpluginFactory } from ".";
-
-export default createFarmPlugin(unpluginFactory);
+// eslint-disable-next-line ts/no-unnecessary-type-assertion
+export default unplugin.farm as typeof unplugin.farm;

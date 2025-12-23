@@ -6,11 +6,26 @@ export function createHelpers(
 	tsLs: ts.LanguageService,
 	vueCompilerOptions: vue.VueCompilerOptions,
 	ts: typeof import("typescript/lib/tsserverlibrary"),
-) {
-	const parseScriptSetupRanges = (ast: ts.SourceFile) =>
+): {
+	parseScriptSetupRanges: (ast: ts.SourceFile) => vue.ScriptSetupRanges;
+	getScriptSetupBlock: (normalizedFilepath: string) => vue.Sfc["scriptSetup"];
+	getScriptSetupAst: (normalizedFilepath: string) => ts.SourceFile | undefined;
+	getVirtualFileOrTsAst: (
+		normalizedFilepath: string,
+	) => ts.SourceFile | undefined;
+	traverseAst: (ast: ts.SourceFile, cb: (node: ts.Node) => void) => void;
+	findNodeByRange: (
+		ast: ts.SourceFile,
+		filter: (ranges: vue.ScriptSetupRanges) => vue.TextRange | undefined,
+	) => ts.Node | undefined;
+	findNodeByName: (ast: ts.SourceFile, name: string) => ts.Node | undefined;
+} {
+	const parseScriptSetupRanges = (ast: ts.SourceFile): vue.ScriptSetupRanges =>
 		vue.parseScriptSetupRanges(ts, ast, vueCompilerOptions);
 
-	function getScriptSetupBlock(normalizedFilepath: string) {
+	function getScriptSetupBlock(
+		normalizedFilepath: string,
+	): vue.Sfc["scriptSetup"] {
 		const sourceFile =
 			language.scripts.get(normalizedFilepath)?.generated?.root;
 		if (!(sourceFile instanceof vue.VueVirtualCode)) {
@@ -27,7 +42,9 @@ export function createHelpers(
 		return sourceFile.sfc.scriptSetup;
 	}
 
-	function getScriptSetupAst(normalizedFilepath: string) {
+	function getScriptSetupAst(
+		normalizedFilepath: string,
+	): ts.SourceFile | undefined {
 		const scriptSetupBlock = getScriptSetupBlock(normalizedFilepath);
 		if (!scriptSetupBlock) {
 			return;
@@ -36,7 +53,9 @@ export function createHelpers(
 		return scriptSetupBlock.ast;
 	}
 
-	function getVirtualFileOrTsAst(normalizedFilepath: string) {
+	function getVirtualFileOrTsAst(
+		normalizedFilepath: string,
+	): ts.SourceFile | undefined {
 		const program = tsLs.getProgram()!;
 		let virtualFileOrTsAst = program.getSourceFile(normalizedFilepath);
 		if (virtualFileOrTsAst) {
@@ -52,7 +71,7 @@ export function createHelpers(
 		return virtualFileOrTsAst;
 	}
 
-	function traverseAst(ast: ts.SourceFile, cb: (node: ts.Node) => void) {
+	function traverseAst(ast: ts.SourceFile, cb: (node: ts.Node) => void): void {
 		ts.forEachChild(ast, function traverse(node: ts.Node) {
 			cb(node);
 			ts.forEachChild(node, traverse);

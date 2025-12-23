@@ -69,44 +69,20 @@
 	},
 	"devDependencies": {
 		"@nuxt/schema": "catalog:",
-		"rolldown": "catalog:",
-		"rollup": "catalog:",
-		"vite": "catalog:",
-		"webpack": "catalog:"
+		"astro": "catalog:",
+		"rollup": "catalog:"
 	},
 	"peerDependencies": {
-		"@farmfe/core": "catalog:peer",
 		"@nuxt/kit": "catalog:peer",
-		"@nuxt/schema": "catalog:peer",
-		"esbuild": "catalog:peer",
-		"rolldown": "catalog:peer",
-		"rollup": "catalog:peer",
-		"vite": "catalog:peer",
-		"webpack": "catalog:peer"
+		"astro": "catalog:peer",
+		"typescript": "catalog:peer",
+		"vue": "catalog:peer"
 	},
 	"peerDependenciesMeta": {
-		"@farmfe/core": {
-			"optional": true
-		},
 		"@nuxt/kit": {
 			"optional": true
 		},
-		"@nuxt/schema": {
-			"optional": true
-		},
-		"esbuild": {
-			"optional": true
-		},
-		"rolldown": {
-			"optional": true
-		},
-		"rollup": {
-			"optional": true
-		},
-		"vite": {
-			"optional": true
-		},
-		"webpack": {
+		"astro": {
 			"optional": true
 		}
 	}

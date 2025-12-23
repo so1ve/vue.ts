@@ -1,7 +1,7 @@
 import { createOptionsResolver } from "@vue.ts/shared";
 import ts from "typescript";
 
-import type { ResolvedOptions } from "../types";
+import type { Options, ResolvedOptions } from "./types";
 
 const defaultOptions: ResolvedOptions = {
 	root: process.cwd(),
@@ -10,9 +10,13 @@ const defaultOptions: ResolvedOptions = {
 	tsconfigPath: "tsconfig.json",
 };
 
-export const resolveOptions = createOptionsResolver(defaultOptions);
+export const resolveOptions: (options: Options) => ResolvedOptions =
+	createOptionsResolver(defaultOptions);
 
-export function getNodeAssignNode(node: ts.Node) {
+export function getNodeAssignNode(node: ts.Node): {
+	variableList: ts.VariableDeclarationList | null;
+	variable: ts.VariableDeclaration | null;
+} {
 	let parent: ts.Node | null = null;
 	let variableList: ts.VariableDeclarationList | null = null;
 	let variable: ts.VariableDeclaration | null = null;

@@ -1,6 +1,6 @@
 import { createOptionsResolver } from "@vue.ts/shared";
 
-import type { ResolvedOptions } from "./types";
+import type { Options, ResolvedOptions } from "./types";
 
 const defaultOptions: ResolvedOptions = {
 	root: process.cwd(),
@@ -11,7 +11,8 @@ const defaultOptions: ResolvedOptions = {
 	defineProps: true,
 };
 
-export const resolveOptions = createOptionsResolver(defaultOptions);
+export const resolveOptions: (options: Options) => ResolvedOptions =
+	createOptionsResolver(defaultOptions);
 
 const quotesReg = /"/g;
-export const escapeQuotes = (s: string) => s.replace(quotesReg, '\\"');
+export const escapeQuotes = (s: string): string => s.replace(quotesReg, '\\"');

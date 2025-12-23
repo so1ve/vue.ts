@@ -51,7 +51,13 @@ function createLanguageWorker(
 		fileNames: string[],
 	],
 	rootPath: string,
-) {
+): {
+	tsLs: ts.LanguageService;
+	updateFile: (fileName: string, text: string) => void;
+	deleteFile: (fileName: string) => void;
+	reload: () => void;
+	clearCache: () => void;
+} & ReturnType<typeof createHelpers> {
 	let [{ vueOptions, options, projectReferences }, fileNames] =
 		getConfigAndFiles();
 	let fileNamesSet = new Set(

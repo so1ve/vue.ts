@@ -1,16 +1,14 @@
-import { createVitePlugin } from "unplugin";
+import type { AstroIntegration } from "astro";
 
 import type { Options } from "./core/types";
-import { unpluginFactory } from ".";
+import vite from "./vite";
 
-export default (options: Options) => ({
+export default (options: Options): AstroIntegration => ({
 	name: "@vue.ts/complex-types",
 	hooks: {
-		"astro:config:setup": async (astro: any) => {
+		"astro:config:setup": async (astro) => {
 			astro.config.vite.plugins ??= [];
-			astro.config.vite.plugins.push(
-				createVitePlugin(unpluginFactory)(options),
-			);
+			astro.config.vite.plugins.push(vite(options) as any);
 		},
 	},
 });

@@ -1,5 +1,4 @@
-import { createWebpackPlugin } from "unplugin";
+import { unplugin } from ".";
 
-import { unpluginFactory } from ".";
-
-export default createWebpackPlugin(unpluginFactory);
+// eslint-disable-next-line ts/no-unnecessary-type-assertion
+export default unplugin.webpack as typeof unplugin.webpack;

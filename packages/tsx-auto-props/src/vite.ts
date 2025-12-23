@@ -1,5 +1,4 @@
-import { createVitePlugin } from "unplugin";
+import { unplugin } from ".";
 
-import { unpluginFactory } from ".";
-
-export default createVitePlugin(unpluginFactory);
+// eslint-disable-next-line ts/no-unnecessary-type-assertion
+export default unplugin.vite as typeof unplugin.vite;

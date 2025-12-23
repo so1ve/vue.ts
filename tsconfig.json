@@ -1,24 +1,8 @@
 {
-	"compilerOptions": {
-		"target": "ES2018",
-		"jsx": "preserve",
-		"jsxImportSource": "vue",
-		"lib": ["ESNext"],
-		"module": "ESNext",
-		"moduleResolution": "Bundler",
-		"resolveJsonModule": true,
-		"allowImportingTsExtensions": true,
-		"strict": true,
-		"strictNullChecks": true,
-		"noEmit": true,
-		"esModuleInterop": true,
-		"skipDefaultLibCheck": true,
-		"skipLibCheck": true,
-		"paths": {
-			"@vue.ts/language": ["./packages/language/src/index.ts"],
-			"@vue.ts/shared": ["./packages/shared/src/index.ts"],
-			"@vue.ts/complex-types": ["./packages/complex-types/src/index.ts"],
-			"@vue.ts/tsx-auto-props": ["./packages/tsx-auto-props/src/index.ts"]
-		}
-	}
+	"extends": "./tsconfig.base.json",
+	"references": [
+		{ "path": "./tsconfig.isolated.json" },
+		{ "path": "./tsconfig.non-isolated.json" }
+	],
+	"files": []
 }

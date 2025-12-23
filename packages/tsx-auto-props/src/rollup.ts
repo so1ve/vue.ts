@@ -1,5 +1,4 @@
-import { createRollupPlugin } from "unplugin";
+import { unplugin } from ".";
 
-import { unpluginFactory } from ".";
-
-export default createRollupPlugin(unpluginFactory);
+// eslint-disable-next-line ts/no-unnecessary-type-assertion
+export default unplugin.rollup as typeof unplugin.rollup;
