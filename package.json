@@ -11,7 +11,8 @@
 		"prepublishOnly": "nr build",
 		"release": "bumpp package.json packages/*/package.json --commit --push --tag && pnpm publish -r --filter ./packages/*",
 		"test": "vitest",
-		"typecheck": "vue-tsc --noEmit"
+		"typecheck": "vue-tsc --noEmit",
+		"watch": "tsdown --watch"
 	},
 	"devDependencies": {
 		"@antfu/ni": "^27.0.1",
