@@ -1,0 +1,13 @@
+name: Publish Any Commit
+
+on: [push, pull_request]
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  release-commit:
+    uses: so1ve/workflows/.github/workflows/release-commit.yml@v1
+    with:
+      compact: true
