@@ -59,11 +59,6 @@ function createLanguageWorker(
 	);
 	let projectVersion = 0;
 
-	vueOptions.globalTypesPath = vue.createGlobalTypesWriter(
-		vueOptions,
-		ts.sys.writeFile,
-	);
-
 	const projectHost: TypeScriptProjectHost = {
 		getCurrentDirectory: () => rootPath,
 		getProjectVersion: () => projectVersion.toString(),
@@ -154,10 +149,6 @@ function createLanguageWorker(
 		reload() {
 			[{ vueOptions, options, projectReferences }, fileNames] =
 				getConfigAndFiles();
-			vueOptions.globalTypesPath = vue.createGlobalTypesWriter(
-				vueOptions,
-				ts.sys.writeFile,
-			);
 			fileNamesSet = new Set(fileNames.map(normalizePath));
 			this.clearCache();
 		},
