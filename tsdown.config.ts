@@ -1,7 +1,9 @@
 import { defineConfig } from "tsdown";
 
 export default defineConfig({
-	clean: true,
+	workspace: {
+		include: ["packages/*"],
+	},
 	external: [
 		"@farmfe/core",
 		"@nuxt/kit",
@@ -14,5 +16,4 @@ export default defineConfig({
 		"vue",
 		"webpack",
 	],
-	fixedExtension: false,
 });

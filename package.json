@@ -4,7 +4,7 @@
 	"packageManager": "pnpm@10.23.0",
 	"type": "module",
 	"scripts": {
-		"build": "pnpm -r run build",
+		"build": "tsdown",
 		"lint": "eslint . && prettier . --check",
 		"lint:fix": "eslint . --fix && prettier . --write",
 		"prepublishOnly": "nr build",
