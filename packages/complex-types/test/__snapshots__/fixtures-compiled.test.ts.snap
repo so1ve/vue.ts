@@ -290,6 +290,14 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 			type: [Boolean, String],
 			required: false
 		},
+		enterkeyhint: {
+			type: String,
+			required: false
+		},
+		enterKeyHint: {
+			type: String,
+			required: false
+		},
 		hidden: {
 			type: [Boolean, String],
 			required: false
@@ -416,6 +424,14 @@ var _sfc_main = /* @__PURE__ */ defineComponent({
 			required: false
 		},
 		is: {
+			type: String,
+			required: false
+		},
+		exportparts: {
+			type: String,
+			required: false
+		},
+		part: {
 			type: String,
 			required: false
 		},
