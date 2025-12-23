@@ -7,7 +7,7 @@
 	},
 	"devDependencies": {
 		"@vitejs/plugin-vue": "^6.0.1",
-		"@vue.ts/complex-types": "1.0.0-beta.11",
+		"@vue.ts/complex-types": "workspace:",
 		"@vue/tsconfig": "^0.8.1",
 		"vite": "catalog:",
 		"vite-plugin-inspect": "^11.3.3"
