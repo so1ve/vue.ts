@@ -9,3 +9,5 @@ on:
 jobs:
   conventional-ci:
     uses: so1ve/workflows/.github/workflows/conventional-ci.yml@v1
+    with:
+      build-for-typecheck: true
