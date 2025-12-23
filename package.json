@@ -1,4 +1,5 @@
 {
+	"name": "@vue.ts/monorepo",
 	"private": true,
 	"version": "1.0.0-beta.11",
 	"packageManager": "pnpm@10.23.0",
