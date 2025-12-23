@@ -40,7 +40,6 @@
 		"./rolldown": "./dist/rolldown.mjs",
 		"./rollup": "./dist/rollup.mjs",
 		"./rspack": "./dist/rspack.mjs",
-		"./types": "./dist/types.mjs",
 		"./vite": "./dist/vite.mjs",
 		"./webpack": "./dist/webpack.mjs"
 	},
