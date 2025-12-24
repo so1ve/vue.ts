@@ -8,7 +8,7 @@
 		"lint": "eslint . && prettier . --check",
 		"lint:fix": "eslint . --fix && prettier . --write",
 		"prepublishOnly": "nr build",
-		"release": "bumpp package.json packages/*/package.json --commit --push --tag && pnpm publish -r --filter ./packages/*",
+		"release": "bumpp package.json packages/*/package.json --commit --push --tag",
 		"test": "vitest",
 		"typecheck": "nr typecheck:isolated && nr typecheck:non-isolated",
 		"typecheck:isolated": "tsgo -p tsconfig.isolated.json",
