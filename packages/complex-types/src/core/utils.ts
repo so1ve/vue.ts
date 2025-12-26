@@ -15,4 +15,5 @@ export const resolveOptions: (options: Options) => ResolvedOptions =
 	createOptionsResolver(defaultOptions);
 
 const quotesReg = /"/g;
+
 export const escapeQuotes = (s: string): string => s.replace(quotesReg, '\\"');

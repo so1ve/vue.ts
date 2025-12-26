@@ -4,13 +4,13 @@
 		"allowImportingTsExtensions": true
 	},
 	"include": [
-		"packages/*/test",
+		"changelogithub.config.ts",
+		"packages/*/playground",
 		"packages/*/src",
+		"packages/*/test",
 		"packages/*/tsdown.config.ts",
 		"tsdown.config.ts",
-		"changelogithub.config.ts",
-		"vite.config.ts",
-		"packages/*/playground"
+		"vite.config.ts"
 	],
 	"exclude": ["packages/*/test/__fixtures__"]
 }

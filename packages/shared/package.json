@@ -33,7 +33,7 @@
 		"access": "public"
 	},
 	"dependencies": {
-		"defu": "^6.1.4"
+		"defu": "catalog:utils"
 	},
 	"devDependencies": {
 		"unplugin": "catalog:",

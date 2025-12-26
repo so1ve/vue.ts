@@ -168,6 +168,7 @@ function createLanguageWorker(
 type Language = ReturnType<typeof createLanguage>;
 
 const LANGUAGE_GLOBAL_KEY = "__VUETS_LANGUAGE__";
+
 export function ensureLanguage(tsconfigPath: string): void {
 	if (!(globalThis as any)[LANGUAGE_GLOBAL_KEY]) {
 		(globalThis as any)[LANGUAGE_GLOBAL_KEY] = createLanguage(tsconfigPath);

@@ -5,6 +5,7 @@ import type { Defu } from "defu";
 import { defu } from "defu";
 
 const windowsPathReg = /\\/g;
+
 export const normalizePath = (id: string): string =>
 	id.replace(windowsPathReg, "/");
 
