@@ -8,6 +8,7 @@ export default defineConfig({
 	dts: {
 		oxc: true,
 	},
+	exports: true,
 	external: [
 		"@farmfe/core",
 		"@nuxt/kit",

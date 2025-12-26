@@ -32,11 +32,11 @@
 	"sideEffects": false,
 	"exports": {
 		".": "./dist/index.mjs",
-		"./*": "./*",
 		"./astro": "./dist/astro.mjs",
 		"./esbuild": "./dist/esbuild.mjs",
 		"./farm": "./dist/farm.mjs",
 		"./nuxt": "./dist/nuxt.mjs",
+		"./package.json": "./package.json",
 		"./rolldown": "./dist/rolldown.mjs",
 		"./rollup": "./dist/rollup.mjs",
 		"./rspack": "./dist/rspack.mjs",
@@ -45,7 +45,7 @@
 	},
 	"main": "./dist/index.mjs",
 	"module": "./dist/index.mjs",
-	"types": "dist/index.d.mts",
+	"types": "./dist/index.d.mts",
 	"files": [
 		"dist"
 	],
