@@ -27,7 +27,7 @@ catalog:
   magic-string: ^0.30.21
   prettier: "^3.7.4"
   rollup: ^4.54.0
-  tsdown: "^0.18.2"
+  tsdown: "^0.20.0"
   unplugin: 2.3.11
   unplugin-utils: ^0.3.1
   vite: 7.2.4
