@@ -69,6 +69,9 @@ catalogs:
     unplugin:
       specifier: 2.3.11
       version: 2.3.11
+    unplugin-utils:
+      specifier: ^0.3.1
+      version: 0.3.2
     vite:
       specifier: 7.2.4
       version: 7.2.4
@@ -6043,7 +6046,7 @@ snapshots:
     dependencies:
       '@types/estree': 1.0.8
       estree-walker: 2.0.2
-      picomatch: 4.0.3
+      picomatch: 4.0.4
     optionalDependencies:
       rollup: 4.54.0
 
@@ -7961,6 +7964,10 @@ snapshots:
     optionalDependencies:
       picomatch: 4.0.3
 
+  fdir@6.5.0(picomatch@4.0.4):
+    optionalDependencies:
+      picomatch: 4.0.4
+
   figures@6.1.0:
     dependencies:
       is-unicode-supported: 2.1.0
@@ -9741,8 +9748,8 @@ snapshots:
 
   tinyglobby@0.2.15:
     dependencies:
-      fdir: 6.5.0(picomatch@4.0.3)
-      picomatch: 4.0.3
+      fdir: 6.5.0(picomatch@4.0.4)
+      picomatch: 4.0.4
 
   tinyrainbow@3.0.3: {}
 
@@ -10162,8 +10169,8 @@ snapshots:
   vite@6.4.1(@types/node@25.0.3)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.2):
     dependencies:
       esbuild: 0.25.12
-      fdir: 6.5.0(picomatch@4.0.3)
-      picomatch: 4.0.3
+      fdir: 6.5.0(picomatch@4.0.4)
+      picomatch: 4.0.4
       postcss: 8.5.6
       rollup: 4.54.0
       tinyglobby: 0.2.15
@@ -10192,8 +10199,8 @@ snapshots:
   vite@7.3.0(@types/node@25.0.3)(jiti@2.6.1)(terser@5.44.1)(yaml@2.8.2):
     dependencies:
       esbuild: 0.27.2
-      fdir: 6.5.0(picomatch@4.0.3)
-      picomatch: 4.0.3
+      fdir: 6.5.0(picomatch@4.0.4)
+      picomatch: 4.0.4
       postcss: 8.5.6
       rollup: 4.54.0
       tinyglobby: 0.2.15
